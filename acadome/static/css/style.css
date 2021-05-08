@@ -1,8 +1,113 @@
-* {
-  padding: 10px;
+body {
+  font-family: Quicksand, Georgia, Times;
+  font-size: 18px;
+  font-weight: lighter;
 }
 
-body {
-  font-family: Quicksand, Garamond, Georgia;
-  font-size: 18px;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2vw;
+  height: 12vh;
+}
+
+/* TITLE */
+#acadome {
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  height: 8vh;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: normal;
+}
+
+h1 a {
+  padding: 0.5rem 1rem;
+  display: block;
+}
+
+/* NAVIGATION */
+nav {
+  font-size: 20px;
+  border-bottom: #ccc solid 1px;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+nav a {
+  padding: 0.5rem 1rem;
+}
+
+nav a:hover {
+  font-weight: bold;
+}
+
+/* MAIN */
+main {
+  line-height: 2;
+}
+
+main a {
+  font-family: Georgia;
+  font-weight: bold;
+  color: #187890;
+}
+
+main a:hover {
+  text-decoration: underline;
+}
+
+#centre-box {
+  width: 80vw;
+  margin: 20px auto;
+}
+
+#centre-box h2 {
+  text-align: center;
+}
+
+/* HOMEPAGE */
+#h-strip {
+  height: 40vh;
+  margin-top: 13vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+
+#h-logo {
+  width: 20%;
+}
+
+#misc-1 {
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* PUBLISH */
+#publish {
+  display: grid;
+  grid-template-columns: 50vw 50vw;
+  height: 88vh;
+
+}
+
+#publish-text {
+  padding: 40px;
+  color: #fff;
+  background-color: #4a4e4d;
 }
