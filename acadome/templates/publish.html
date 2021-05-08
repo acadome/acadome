@@ -1,5 +1,36 @@
 {% extends '_base.html' %}
+{% from '_form_field.html' import render_field %}
+
+{% block logo %}
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt='AcaDome logo' id='logo'>
+{% endblock logo %}
 
 {% block content %}
-  <span>Publish</span>
+      <div id='publish'>
+        <section id='publish-text'>
+          <h2>Publish with AcaDome</h2>
+          <p>Depending on the file size, submission can take upto a minute. Please be patient.</p>
+        </section>
+
+        <form action='' method='POST' autocomplete='off' enctype='multipart/form-data' name='publish-form'>
+          <fieldset>
+            <legend><h2>Send us your manuscript</h2></legend>
+            {{ form.csrf_token }}
+
+            {{ render_field(form.name) }}
+            {{ render_field(form.email) }}
+            {{ render_field(form.inst) }}
+
+            <div id='file-bar'>
+              <input type='text' name='file-name' id='file-name' disabled>
+              <div>
+                {{ form.file.label(for='file', class='btn') }}
+                {{ form.file(id='file') }}
+              </div>
+            </div><br>
+
+            <input type='submit' value='Submit' class='btn'>
+          </fieldset>
+        </form>
+      </div>
 {% endblock content %}
