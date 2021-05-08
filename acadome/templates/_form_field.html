@@ -1,11 +1,10 @@
-{% macro render_field(field, class_='') %}
-  <div class='form-element {{class_}}'>
+{% macro render_field(field) %}
+  <div class='form-element'>
     {{ field.label }}<br>
-    {{ field }}<br>
     {% if field.errors %}
-      {% for error in field.errors %}
-        <span class='form-error'>{{ error }}</span>
-      {% endfor %}
-    {% endif %}<br>
+      {{ field(class='form-error') }}
+    {% else %}
+      {{ field }}
+    {% endif %}<br><br>
   </div>
 {% endmacro %}
