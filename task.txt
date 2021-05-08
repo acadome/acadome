@@ -1,0 +1,21 @@
+homepage:
+  search form [x]
+
+about:
+  writeup
+  design
+
+publish:
+  form regex [x]
+
+contact:
+  design
+
+search:
+  query database
+
+profile:
+  query database
+
+errors:
+  templates
