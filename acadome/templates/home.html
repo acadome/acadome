@@ -1,5 +1,14 @@
 {% extends '_base.html' %}
 
 {% block content %}
-  <span>Home</span>
+    <section id='h-strip'>
+      <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt='AcaDome logo' id='h-logo'>
+
+      <form action='' method='GET' autocomplete='off' name='search-form' id='search-form'>
+        <input type='search' name='search' id='search' placeholder='Search research database' autofocus>
+        <input type='submit' name='submit' value='Search' class='btn'>
+      </form>
+
+      <span>Or browse through the <a href="{{ url_for('fields') }}">fields of research</a>.</span>
+    </section>
 {% endblock content %}
