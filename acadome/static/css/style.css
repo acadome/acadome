@@ -67,15 +67,6 @@ main a:hover {
   text-decoration: underline;
 }
 
-#centre-box {
-  width: 80vw;
-  margin: 20px auto;
-}
-
-#centre-box h2 {
-  text-align: center;
-}
-
 /* HOMEPAGE */
 #h-strip {
   height: 40vh;
@@ -89,13 +80,6 @@ main a:hover {
 
 #h-logo {
   width: 20%;
-}
-
-#misc-1 {
-  height: 30vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
 }
 
 /* PUBLISH */
