@@ -7,10 +7,10 @@ from .forms import PublishForm
 
 @app.route('/')
 def home():
-    text = request.args.get('search')
-    if text:
-        # handle searching, pagination
-        return render_template('search.html', title=text, text=text)
+    query = request.args.get('search')
+    if query:
+        # query database, pagination
+        return render_template('search.html', title=query, query=query)
     return render_template('home.html')
 
 @app.route('/about')
@@ -25,7 +25,7 @@ def publish():
         if not file.filename:
             return redirect(url_for('publish'))
 
-        msg1 = Message(f'{form.fname.data} {form.lname.data}', sender='editor.acadome@gmail.com', recipients=['editor.acadome@gmail.com'])
+        msg1 = Message(form.name.data.strip(), sender='editor.acadome@gmail.com', recipients=['editor.acadome@gmail.com'])
         if form.inst.data:
             msg1.body = f'''Email: {form.email.data}
 Research institute: {form.inst.data}'''
