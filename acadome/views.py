@@ -2,15 +2,17 @@ import os
 from flask import render_template, redirect, request, url_for
 from werkzeug.utils import secure_filename
 from flask_mail import Message
-from . import app, db, mail
-from .forms import PublishForm
+from acadome import app, db, mail
+from acadome.models import Article, Author
+from acadome.forms import PublishForm
 
 @app.route('/')
 def home():
+    page = request.args.get('page', 1, type=int)
     query = request.args.get('search')
     if query:
-        # query database, pagination
-        return render_template('search.html', title=query, query=query)
+        articles = Article.objects.search_text(query).order_by('$text_score', '-year', 'title').paginate(page=page, per_page=20)
+        return render_template('search.html', title=query, query=query, articles=articles)
     return render_template('home.html')
 
 @app.route('/about')
@@ -35,7 +37,7 @@ Research institute: {form.inst.data}'''
         file.save(os.path.join(app.root_path + '/temp', filename))
         with app.open_resource('temp/' + filename, 'rb') as raw:
             msg1.attach('temp/' + filename, file.mimetype, raw.read())
-        mail.send(msg1)
+        # mail.send(msg1)
         os.remove(os.path.join(app.root_path + '/temp', filename))
 
         msg2 = Message('Research manuscript received', sender='editor.acadome@gmail.com', recipients=[form.email.data])
@@ -45,7 +47,7 @@ Thank you for choosing to publish with AcaDome.
 
 Yours sincerely,
 The Editorial Team'''
-        mail.send(msg2)
+        # mail.send(msg2)
 
         return redirect(url_for('home'))
     return render_template('publish.html', title='Publish', form=form)
@@ -54,10 +56,16 @@ The Editorial Team'''
 def contact():
     return render_template('contact.html', title='Contact')
 
-@app.route('/fields')
+@app.route('/fields-of-research')
 def fields():
     # sort fields
     return render_template('fields.html', title='Fields of research')
+
+@app.route('/fields-of-research/<string:field>')
+def subfields(field):
+    # sort fields
+    field = field[:1].upper() + field[1:]
+    return render_template('subfield.html', title=field)
 
 @app.route('/profile/<string:author>')
 def profile(author):
@@ -65,5 +73,7 @@ def profile(author):
     for x in range(len(arr)):
         arr[x] = f'{arr[x][0].upper()}{arr[x][1:]}'
     name = ' '.join(arr)
-    # find all articles published by author (similar to search)
-    return render_template('profile.html', title=name, author=name)
+    page = request.args.get('page', 1, type=int)
+    prof = Author.objects(name=name).first()
+    articles = Article.objects(authors__contains=name).paginate(page=page, per_page=20)
+    return render_template('profile.html', title=name, author=prof, articles=articles)
