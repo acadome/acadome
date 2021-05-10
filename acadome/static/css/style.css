@@ -1,6 +1,9 @@
-body {
-  font-family: Quicksand, Georgia, Times;
+html {
   font-size: 18px;
+}
+
+body {
+  font-family: Quicksand, Garamond, Georgia, Times;
   font-weight: lighter;
 }
 
@@ -24,7 +27,7 @@ header {
 
 h1 {
   font-size: 30px;
-  font-weight: normal;
+  font-weight: lighter;
 }
 
 h1 a {
@@ -34,8 +37,7 @@ h1 a {
 
 /* NAVIGATION */
 nav {
-  font-size: 20px;
-  border-bottom: #ccc solid 1px;
+  font-size: 21px;
 }
 
 nav ul {
@@ -46,10 +48,11 @@ nav ul {
 
 nav a {
   padding: 0.5rem 1rem;
+  border-bottom: #ccc solid 1px;
 }
 
 nav a:hover {
-  font-weight: bold;
+  border-bottom: #000 solid 2px;
 }
 
 /* MAIN */
@@ -57,14 +60,14 @@ main {
   line-height: 2;
 }
 
-main a {
-  font-family: Georgia;
-  font-weight: bold;
-  color: #187890;
+h2 {
+  font-weight: normal;
+  font-size: 27px;
 }
 
-main a:hover {
-  text-decoration: underline;
+h3 {
+  font-weight: normal;
+  font-size: 18px;
 }
 
 /* HOMEPAGE */
@@ -82,6 +85,14 @@ main a:hover {
   width: 20%;
 }
 
+#h-strip a {
+  font-weight: bold;
+  color: #187890;
+}
+
+/* ABOUT */
+
+
 /* PUBLISH */
 #publish {
   display: grid;
@@ -95,3 +106,68 @@ main a:hover {
   color: #fff;
   background-color: #4a4e4d;
 }
+
+/* CONTACT */
+
+
+/* ARTICLES */
+#results {
+  padding: 40px 0;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; */
+  width: 90vw;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+article {
+  /* width: 50vw; */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-size: 15px;
+}
+
+article h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+article > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-style: italic;
+}
+
+article a:hover {
+  color: #187890;
+}
+
+#pagin {
+  width: 90vw;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#pagin a:hover {
+  font-weight: normal;
+}
+
+/* PROFILES */
+#author {
+  width: 50vw;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+/* FIELDS OF RESEARCH */
