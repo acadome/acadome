@@ -35,15 +35,15 @@
       {% if articles.total > articles.per_page %}
         <ul id='pagin'>
           {% if articles.has_prev %}
-        		<li><a href="{{ url_for('profile', author=profile.name.lower().replace(' ', '_'), page=articles.page-1) }}">Prev</a></li>
+            <li><a href="{{ url_for('profile', author=profile.name.lower().replace(' ', '_'), page=articles.page-1) }}">Prev</a></li>
           {% else %}
             <li></li>
-        	{% endif %}
-        	{% if articles.has_next %}
-        		<li><a href="{{ url_for('profile', author=profile.name.lower().replace(' ', '_'), page=articles.page+1) }}">Next</a></li>
+          {% endif %}
+          {% if articles.has_next %}
+            <li><a href="{{ url_for('profile', author=profile.name.lower().replace(' ', '_'), page=articles.page+1) }}">Next</a></li>
           {% else %}
             <li></li>
-        	{% endif %}
+          {% endif %}
         </ul>
       {% endif %}
 {% endblock content %}
