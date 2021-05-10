@@ -1,5 +1,49 @@
 {% extends '_base.html' %}
 
+{% block logo %}
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt='AcaDome logo' id='logo'>
+{% endblock logo %}
+
 {% block content %}
-  <span>{{ author }}</span>
+      <section id='author'>
+        <h2>{{ profile.name }}</h2>
+        <span>{{ profile.email }}</span><br>
+        <span>{{ profile.affil }}</span>
+      </section>
+
+      <section id='results'>
+        {% for article in articles.items %}
+          <article>
+            <div>
+              <div class='authors'>
+                {% for author in article.authors %}
+                  {% if author == article.authors[-1] %}
+                    <span><a href='/profile/{{ author.lower().replace(' ', '_') }}'>{{ author }}</span>
+                  {% else %}
+                    <span><a href='/profile/{{ author.lower().replace(' ', '_') }}'>{{ author }}, </span>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <span>{{ article.year }}</span>
+            </div>
+            <h3><a href=''>{{ article.title }}</a></h3>
+            <p class='abstract'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit, erat ut aliquam aliquet, risus urna vulputate tortor, ac lacinia ligula magna eu elit. Sed vitae cursus magna, eu consectetur massa. Fusce consequat molestie sagittis. Aliquam tincidunt egestas risus vel semper. Sed nisl risus, faucibus eu orci vitae, pharetra aliquet arcu.</p>
+          </article>
+        {% endfor %}
+      </section>
+
+      {% if articles.total > articles.per_page %}
+        <ul id='pagin'>
+          {% if articles.has_prev %}
+        		<li><a href="{{ url_for('profile', author=profile.name.lower().replace(' ', '_'), page=articles.page-1) }}">Prev</a></li>
+          {% else %}
+            <li></li>
+        	{% endif %}
+        	{% if articles.has_next %}
+        		<li><a href="{{ url_for('profile', author=profile.name.lower().replace(' ', '_'), page=articles.page+1) }}">Next</a></li>
+          {% else %}
+            <li></li>
+        	{% endif %}
+        </ul>
+      {% endif %}
 {% endblock content %}
