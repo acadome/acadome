@@ -7,15 +7,29 @@ about:
 
 publish:
   form regex [x]
+  writeup
 
 contact:
+  writeup
   design
 
 search:
-  query database
+  query database [x]
+  add links
+  pagination style
+  implement javascript
+  advanced search
+
+fields of research:
+  layout
+  icons
 
 profile:
-  query database
+  query database [x]
+  pagination style
 
 errors:
   templates
+
+payment?
+DOI?
