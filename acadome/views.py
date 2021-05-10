@@ -71,9 +71,9 @@ def subfields(field):
 def profile(author):
     arr = author.split('_')
     for x in range(len(arr)):
-        arr[x] = f'{arr[x][0].upper()}{arr[x][1:]}'
+        arr[x] = arr[x][0].upper() + arr[x][1:]
     name = ' '.join(arr)
     page = request.args.get('page', 1, type=int)
-    prof = Author.objects(name=name).first()
+    author = Author.objects(name=name).first()
     articles = Article.objects(authors__contains=name).paginate(page=page, per_page=20)
-    return render_template('profile.html', title=name, author=prof, articles=articles)
+    return render_template('profile.html', title=name, profile=author, articles=articles)
