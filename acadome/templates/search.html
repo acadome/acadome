@@ -10,39 +10,43 @@
         <input type='submit' value='Search' class='btn'>
       </form>
 
-      <section id='results'>
+      <section id='search-results'>
         {% for article in articles.items %}
-          <article>
+        <article>
+          <div class='article-main'>
             <div>
-              <div class='authors'>
-                {% for author in article.authors %}
-                  {% if author == article.authors[-1] %}
-                    <span><a href='/profile/{{ author.lower().replace(' ', '_') }}'>{{ author }}</span>
-                  {% else %}
-                    <span><a href='/profile/{{ author.lower().replace(' ', '_') }}'>{{ author }}, </span>
-                  {% endif %}
-                {% endfor %}
-              </div>
-              <span>{{ article.year }}</span>
+              {% for author in article.authors %}
+                {% if author == article.authors[-1] %}
+                  <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}">{{ author }}</a></span>
+                {% else %}
+                  <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}">{{ author }}</a>, </span>
+                {% endif %}
+              {% endfor %}
             </div>
-            <h3><a href=''>{{ article.title }}</a></h3>
-            <p class='abstract'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit, erat ut aliquam aliquet, risus urna vulputate tortor, ac lacinia ligula magna eu elit. Sed vitae cursus magna, eu consectetur massa. Fusce consequat molestie sagittis. Aliquam tincidunt egestas risus vel semper. Sed nisl risus, faucibus eu orci vitae, pharetra aliquet arcu.</p>
-          </article>
+            <span>{{ article.year }}</span>
+          </div>
+          <h3><a href="{{ url_for('static', filename='repos/'+article.title.lower()+'.pdf') }}">{{ article.title }}</a></h3>
+          <div class='article-extra'>
+            <p>Abstract: {{ article.abstract }}</p>
+            <span>DOI: <a href=''></a></span>
+          </div>
+        </article>
         {% endfor %}
       </section>
 
       {% if articles.total > articles.per_page %}
-        <ul id='pagin'>
+        <ul class='pagin' id='articles-pagin'>
           {% if articles.has_prev %}
             <li><a href="{{ url_for('home', search=query, page=articles.page-1) }}">Prev</a></li>
           {% else %}
             <li></li>
           {% endif %}
           {% if articles.has_next %}
-          <li><a href="{{ url_for('home', search=query, page=articles.page+1) }}">Next</a></li>
+            <li><a href="{{ url_for('home', search=query, page=articles.page+1) }}">Next</a></li>
           {% else %}
             <li></li>
           {% endif %}
         </ul>
       {% endif %}
+
 {% endblock content %}
