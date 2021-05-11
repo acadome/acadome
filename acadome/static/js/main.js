@@ -1,3 +1,4 @@
+// SEARCH
 const search = document.forms['search-form'];
 var flag = 0;
 if (search) {
@@ -9,6 +10,33 @@ if (search) {
   });
 }
 
+// ARTICLES AND PROFILES
+const articles = document.querySelectorAll('article');
+var t = [];
+if (articles) {
+  articles.forEach((article, i) => {
+    t.push(false);
+    article.addEventListener('click', event => {
+      if (event.target.nodeName != 'A') {
+        if (t[i]) {
+          event.currentTarget.querySelector('.article-extra').style.display = 'none';
+          event.currentTarget.className = '';
+          event.currentTarget.style.color = '#000';
+          event.currentTarget.style.backgroundColor = '#fff';
+          t[i] = false;
+        } else {
+          event.currentTarget.querySelector('.article-extra').style.display = 'block';
+          event.currentTarget.className = 'active';
+          event.currentTarget.style.color = '#fff';
+          event.currentTarget.style.backgroundColor = '#187890';
+          t[i] = true;
+        }
+      }
+    });
+  });
+}
+
+// PUBLISH
 const publish = document.forms['publish-form'];
 const file = document.getElementById('file-name');
 var flag1 = 0;
@@ -26,7 +54,8 @@ function length(field, max) {
 
 if (publish) {
   const field_val = [['name', 64, /^[a-zA-Z \-\']+$/],
-  ['email', 64, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/], ['inst', 128, /^[a-zA-Z0-9 \-\']+$/]];
+  ['email', 64, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
+  ['inst', 128, /^[a-zA-Z0-9 \-\']+$/]];
   field_val.forEach(field => {
     var _field = publish[field[0]];
     _field.addEventListener('change', () => {
