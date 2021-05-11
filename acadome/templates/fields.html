@@ -5,8 +5,21 @@
 {% endblock logo %}
 
 {% block content %}
-      <section id='text-box'>
-        <h2>Fields of research</h2>
-        <p></p>
+      <section>
+        <h2 id='fields-h2'>Fields of research</h2>
+        <div id='fields'>
+          {% for field in fields %}
+            <div class='field'>
+              <h3>{{ field.name }}</h3>
+              {% for sub in field.subs %}
+                {% if sub == field.subs[-1] %}
+                  <span><a href="{{ url_for('home', search=sub.lower()) }}">{{ sub }}</a></span>
+                {% else %}
+                  <span><a href="{{ url_for('home', search=sub.lower()) }}">{{ sub }}</a> | </span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
       </section>
 {% endblock content %}
