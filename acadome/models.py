@@ -4,10 +4,10 @@ class Article(db.Document):
     title = db.StringField()
     authors = db.ListField(db.StringField())
     year = db.IntField()
-    field = db.StringField()
-    subfields = db.ListField(db.StringField())
     abstract = db.StringField()
     keywords = db.ListField(db.StringField())
+    field = db.StringField()
+    subfields = db.ListField(db.StringField())
     citations = db.IntField()
 
     meta = {
@@ -39,4 +39,12 @@ class Author(db.Document):
 
     meta = {
         'collection': 'authors'
+    }
+
+class Field(db.Document):
+    name = db.StringField()
+    subs = db.ListField(db.StringField())
+
+    meta = {
+        'collection': 'fields'
     }
