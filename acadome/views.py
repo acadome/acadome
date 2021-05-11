@@ -69,5 +69,5 @@ def profile(author):
     author = Author.objects(name=name).first()
     if not author:
         abort(404)
-    articles = Article.objects(authors__contains=name).paginate(page=page, per_page=2)
+    articles = Article.objects(authors__contains=name).paginate(page=page, per_page=20)
     return render_template('profile.html', title=name, author_=author, articles=articles)
