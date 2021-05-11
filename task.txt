@@ -1,6 +1,14 @@
 homepage:
   search form [x]
 
+search:
+  query database [x]
+  single column layout [x]
+  advanced search bar [x]
+  keywords, field, subfields, DOI [x]
+  add links [x]
+  pagination style [x]
+
 about:
   writeup
   design
@@ -13,23 +21,14 @@ contact:
   writeup
   design
 
-search:
-  query database [x]
-  add links
-  pagination style
-  implement javascript
-  advanced search
-
 fields of research:
-  layout
-  icons
+  layout [x]
+  icons?
 
 profile:
   query database [x]
-  pagination style
+  pagination style [x]
 
-errors:
-  templates
-
-payment?
-DOI?
+soft errors
+payment
+citations
