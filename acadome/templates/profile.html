@@ -26,7 +26,7 @@
               </div>
               <span>{{ article.year }}</span>
             </div>
-            <h3><a href="{{ url_for('static', filename='repos/'+article.title.lower()+'.pdf') }}">{{ article.title }}</a></h3>
+            <h3><a href="{{ url_for('static', filename='repos/'+article.title.lower()+'.pdf') }}" target='_blank'>{{ article.title }}</a></h3>
             <div class='article-extra'>
               <p>Abstract: {{ article.abstract }}</p>
               <span>DOI: <a href=''></a></span>
