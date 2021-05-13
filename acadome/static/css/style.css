@@ -161,7 +161,8 @@ h3 {
   grid-gap: 20px;
   width: 90vw;
   margin: 0 auto;
-  padding: 40px 0 20px 0;
+  padding-top: 40px;
+  padding-bottom: 20px;
 }
 
 article {
@@ -171,6 +172,7 @@ article {
   margin-bottom: 20px;
   padding: 10px 20px;
   font-size: 16px;
+  border: #ccc solid 1px;
 }
 
 article:hover {
@@ -188,9 +190,22 @@ article .expand {
   display: none;
 }
 
+.active a {
+  color: #fff;
+}
+
+.active a:hover {
+  border-bottom: #fff solid 1px;
+}
+
 .field {
   padding: 0 20px;
   font-size: 16px;
+}
+
+#no-results {
+  display: flex;
+  justify-content: center;
 }
 
 #pagin {
@@ -200,5 +215,6 @@ article .expand {
   align-items: center;
   width: 80vw;
   margin: 0 auto;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
+  /* border: black solid 1px; */
 }

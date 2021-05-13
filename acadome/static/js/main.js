@@ -19,14 +19,12 @@ if (articles) {
     article.addEventListener('click', event => {
       if (event.target.nodeName != 'A') {
         if (t[i]) {
-          event.currentTarget.querySelector('.collapse').style.display = 'block';
           event.currentTarget.querySelector('.expand').style.display = 'none';
           event.currentTarget.className = '';
           event.currentTarget.style.color = '#000';
           event.currentTarget.style.backgroundColor = '#fff';
           t[i] = false;
         } else {
-          event.currentTarget.querySelector('.collapse').style.display = 'none';
           event.currentTarget.querySelector('.expand').style.display = 'block';
           event.currentTarget.className = 'active';
           event.currentTarget.style.color = '#fff';
