@@ -21,29 +21,21 @@ legend {
   text-align: center;
 }
 
-input {
-  padding: 0.5rem 1rem;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: lighter;
-  border: #ccc solid 1px;
-}
-
-input:focus {
-  outline: none;
-}
-
-input[type='text'] {
-  width: 100%;
-}
-
-.btn {
+input, textarea, .btn {
   padding: 0.5rem 1rem;
   font-family: inherit;
   font-size: inherit;
   font-weight: lighter;
   border: #ccc solid 1px;
   background-color: #fff;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+}
+
+input[type='text'] {
+  width: 100%;
 }
 
 .btn:hover {
@@ -66,7 +58,7 @@ input[type='text'] {
 }
 
 /* PUBLISH */
-#publish fieldset {
+#grid-1 fieldset {
   width: 70%;
 }
 
@@ -84,4 +76,12 @@ input[type='text'] {
 
 #file {
   display: none;
+}
+
+/* CONTACT */
+#query {
+  width: 100%;
+  height: 6.5rem;
+  resize: none;
+  line-height: 1.5;
 }
