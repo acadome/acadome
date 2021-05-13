@@ -10,39 +10,95 @@
         <input type='submit' value='Search' class='btn'>
       </form>
 
-      <section id='search-results'>
-        {% for article in articles.items %}
-        <article>
-          <div class='article-main'>
-            <div>
-              {% for author in article.authors %}
-                {% if author == article.authors[-1] %}
-                  <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}">{{ author }}</a></span>
-                {% else %}
-                  <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}">{{ author }}</a>, </span>
-                {% endif %}
-              {% endfor %}
+      <div id='grid-2'>
+        <section>
+          {% for article in column1 %}
+          <article>
+            <div class='collapse'>
+              <div class='meta'>
+                <div>
+                  {% for author in article.authors %}
+                    {% if author == article.authors[-1] %}
+                      <span>{{ author }}</span>
+                    {% else %}
+                      <span>{{ author }}, </span>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <span>{{ article.year }}</span>
+              </div>
+              <h3>{{ article.title }}</h3>
             </div>
-            <span>{{ article.year }}</span>
-          </div>
-          <h3><a href="{{ url_for('static', filename='repos/'+article.title.lower()+'.pdf') }}" target='_blank'>{{ article.title }}</a></h3>
-          <div class='article-extra'>
-            <p>Abstract: {{ article.abstract }}</p>
-            <span>DOI: <a href=''></a></span>
-          </div>
-        </article>
-        {% endfor %}
-      </section>
+            <div class='expand'>
+              <div class='meta'>
+                <div>
+                  {% for author in article.authors %}
+                    {% if author == article.authors[-1] %}
+                      <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-4'>{{ author }}</a></span>
+                    {% else %}
+                      <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-4'>{{ author }}</a>, </span>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <span>{{ article.year }}</span>
+              </div>
+              <h3><a href="{{ url_for('static', filename='pdfs/articles/' + article.title + '.pdf') }}" class='anchor-4' target='_blank'>{{ article.title }}</a></h3>
+              <p>Abstract: {{ article.abstract }}</p>
+              <span>DOI: <a href=''></a></span>
+            </div>
+          </article>
+          {% endfor %}
+        </section>
+
+        <section>
+          {% for article in column2 %}
+          <article>
+            <div class='collapse'>
+              <div class='meta'>
+                <div>
+                  {% for author in article.authors %}
+                    {% if author == article.authors[-1] %}
+                      <span>{{ author }}</span>
+                    {% else %}
+                      <span>{{ author }}, </span>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <span>{{ article.year }}</span>
+              </div>
+              <h3>{{ article.title }}</h3>
+            </div>
+            <div class='expand'>
+              <div class='meta'>
+                <div>
+                  {% for author in article.authors %}
+                    {% if author == article.authors[-1] %}
+                      <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-4'>{{ author }}</a></span>
+                    {% else %}
+                      <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-4'>{{ author }}</a>, </span>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <span>{{ article.year }}</span>
+              </div>
+              <h3><a href="{{ url_for('static', filename='pdfs/articles/' + article.title + '.pdf') }}" class='anchor-4' target='_blank'>{{ article.title }}</a></h3>
+              <p>Abstract: {{ article.abstract }}</p>
+              <span>DOI: <a href=''></a></span>
+            </div>
+          </article>
+          {% endfor %}
+        </section>
+      </div>
 
       {% if articles.total > articles.per_page %}
-        <ul class='pagin' id='articles-pagin'>
+        <ul id='pagin'>
           {% if articles.has_prev %}
-            <li><a href="{{ url_for('home', search=query, page=articles.page-1) }}">Prev</a></li>
+            <li><a href="{{ url_for('home', search=query, page=articles.page-1) }}" class='anchor-3'>Prev</a></li>
           {% else %}
             <li></li>
           {% endif %}
           {% if articles.has_next %}
-            <li><a href="{{ url_for('home', search=query, page=articles.page+1) }}">Next</a></li>
+            <li><a href="{{ url_for('home', search=query, page=articles.page+1) }}" class='anchor-3'>Next</a></li>
           {% else %}
             <li></li>
           {% endif %}
