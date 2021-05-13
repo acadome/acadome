@@ -19,17 +19,16 @@ publish:
   server side regex and file format [x]
   writeup [x]
   design [x]
-  upload multiple files?
-  confirmation after form submit
+  confirmation after form submit [x]
 
 contact:
   writeup [x]
   design [x]
-  confirmation after form submit
+  confirmation after form submit [x]
 
 fields of research:
   layout [x]
-  icons?
+  icons [x]
 
 profile:
   query database [x]
@@ -39,6 +38,7 @@ style:
   mobile
   tablet
 
-soft errors
-payment
-citations
+upload multiple files?
+illustrator?
+payment?
+citations?
