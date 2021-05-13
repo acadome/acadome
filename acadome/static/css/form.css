@@ -34,7 +34,7 @@ input:focus, textarea:focus {
   outline: none;
 }
 
-input[type='text'] {
+input[type='text'], textarea {
   width: 100%;
 }
 
@@ -79,8 +79,7 @@ input[type='text'] {
 }
 
 /* CONTACT */
-#query {
-  width: 100%;
+textarea {
   height: 6.5rem;
   resize: none;
   line-height: 1.5;
