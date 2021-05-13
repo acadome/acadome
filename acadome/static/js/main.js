@@ -19,13 +19,15 @@ if (articles) {
     article.addEventListener('click', event => {
       if (event.target.nodeName != 'A') {
         if (t[i]) {
-          event.currentTarget.querySelector('.article-extra').style.display = 'none';
+          event.currentTarget.querySelector('.collapse').style.display = 'block';
+          event.currentTarget.querySelector('.expand').style.display = 'none';
           event.currentTarget.className = '';
           event.currentTarget.style.color = '#000';
           event.currentTarget.style.backgroundColor = '#fff';
           t[i] = false;
         } else {
-          event.currentTarget.querySelector('.article-extra').style.display = 'block';
+          event.currentTarget.querySelector('.collapse').style.display = 'none';
+          event.currentTarget.querySelector('.expand').style.display = 'block';
           event.currentTarget.className = 'active';
           event.currentTarget.style.color = '#fff';
           event.currentTarget.style.backgroundColor = '#187890';
@@ -55,12 +57,12 @@ function length(field, max) {
 if (publish) {
   const field_val = [['name', 64, /^[a-zA-Z \-\']+$/],
   ['email', 64, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
-  ['inst', 128, /^[a-zA-Z0-9 \-\']+$/]];
-  field_val.forEach(field => {
-    var _field = publish[field[0]];
+  ['inst', 128, /^[a-zA-Z0-9 \,\-\']*$/]];
+  field_val.forEach(fv => {
+    var _field = publish[fv[0]];
     _field.addEventListener('change', () => {
-      var subflag1 = length(_field, field[1]);
-      var subflag2 = field[2].test(_field.value)
+      var subflag1 = length(_field, fv[1]);
+      var subflag2 = fv[2].test(_field.value)
       if (subflag1 && subflag2) {
         _field.style.border = '#0f0 solid 1px';
       } else {
@@ -100,5 +102,42 @@ if (publish) {
       event.preventDefault();
     }
     flag1 = 0;
+  });
+}
+
+// CONTACT
+const contact = document.forms['contact-form'];
+var flag3 = 0;
+
+if (contact) {
+  const field_val = [['name', 64, /^[a-zA-Z \-\']+$/],
+  ['email', 64, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
+  ['query', 512, /^[a-zA-Z0-9 \,\.\-\']+$/]];
+  field_val.forEach(fv => {
+    var _field = contact[fv[0]];
+    _field.addEventListener('change', () => {
+      var subflag1 = length(_field, fv[1]);
+      var subflag2 = fv[2].test(_field.value)
+      if (subflag1 && subflag2) {
+        _field.style.border = '#0f0 solid 1px';
+      } else {
+        _field.style.border = '#f00 solid 1px';
+        flag3++;
+      }
+    });
+  });
+
+  contact.addEventListener('submit', event => {
+    field_val.forEach(fv => {
+      var _field = contact[fv[0]];
+      if (!_field.value.trim().length) {
+        _field.style.border = '#f00 solid 1px';
+        flag3++;
+      }
+    });
+    if (flag3) {
+      event.preventDefault();
+    }
+    flag3 = 0;
   });
 }
