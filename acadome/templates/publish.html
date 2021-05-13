@@ -6,10 +6,22 @@
 {% endblock logo %}
 
 {% block content %}
-      <div id='publish'>
-        <section id='publish-text'>
-          <h2>Publish with AcaDome</h2>
-          <p>Depending on the file size, submission can take upto a minute. Please be patient.</p>
+      <div id='grid-1' class='info'>
+        <section class='color-box'>
+          <h2>Workflow to publishing with AcaDome</h2>
+          <ol class='list'>
+            <li>
+              Submit your manuscript via the adjacent form. (Day 0)
+              <ul class='list'>
+                <li>Please note that the submission can take upto 20 seconds. You will receive an email of confirmation.</li>
+              </ul>
+            </li>
+            <li>Following a preliminary check, our editor will get back to you. (Day 3)</li>
+            <li>Your manuscript will pass through two double-blind peer reviews. (Day 17)</li>
+            <li>The editor will format and upload your manuscript as a published research article. (Day 20)</li>
+          </ol>
+          <p>By clicking 'Submit', you agree to our <a href="{{ url_for('static', filename='pdfs/Terms and conditions.pdf') }}" class='anchor-2'>terms and conditions</a>.<br>
+          </p>
         </section>
 
         <form action='' method='POST' autocomplete='off' enctype='multipart/form-data' name='publish-form'>
@@ -19,7 +31,7 @@
 
             {{ render_field(form.name) }}
             {{ render_field(form.email) }}
-            {{ render_field(form.inst) }}
+            {{ render_field(form.affil) }}
 
             <div id='file-bar'>
               <input type='text' name='file-name' id='file-name' disabled>
