@@ -2,4 +2,4 @@
 config.py
 logo.jpg
 hex.json
-*.pdf
+articles/
