@@ -4,6 +4,7 @@ homepage:
 search:
   query database [x]
   single column layout [x]
+  double column layout [x]
   advanced search bar [x]
   keywords, field, subfields, DOI [x]
   add links [x]
@@ -11,15 +12,20 @@ search:
 
 about:
   writeup
-  design
+  design [x]
 
 publish:
   form regex [x]
-  writeup
+  server side regex and file format [x]
+  writeup [x]
+  design [x]
+  upload multiple files?
+  confirmation after form submit
 
 contact:
-  writeup
-  design
+  writeup [x]
+  design [x]
+  confirmation after form submit
 
 fields of research:
   layout [x]
@@ -28,6 +34,10 @@ fields of research:
 profile:
   query database [x]
   pagination style [x]
+
+style:
+  mobile
+  tablet
 
 soft errors
 payment
