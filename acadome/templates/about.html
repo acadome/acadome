@@ -5,7 +5,69 @@
 {% endblock logo %}
 
 {% block content %}
-      <section>
-        <h2>About AcaDome</h2>
-      </section>
+      <div id='about' class='info'>
+        <section class='color-box'>
+          <h2>About AcaDome</h2>
+          <p>We are a digital publisher of open access research articles.</p>
+        </section>
+
+        <section>
+          <h2>Our principles</h2>
+          <ul class='list'>
+            <li>
+              Maintain absolute open access.
+              <ul class='list'>
+                <li>No paywalls, no registration; no barriers whatsoever.</li>
+              </ul>
+            </li>
+            <li>
+              Centralise the <a href="{{ url_for('fields') }}" class='anchor-1'>fields of research</a> in a single database.
+              <ul class='list'>
+                <li>In light of the irrelevance of multiple journals for similar fields.</li>
+              </ul>
+            </li>
+            <li>
+              Streamline the <a href="{{ url_for('publish') }}" class='anchor-1'>editorial workflow</a>.
+              <ul class='list'>
+                <li>From drafted manuscript to published article in 20 days.</li>
+              </ul>
+            </li>
+            <li>
+              Maintain a transparent <a href="{{ url_for('static', filename='pdfs/Financial model.pdf') }}" class='anchor-1'>financial model</a>.
+              <ul class='list'>
+                <li>The article publishing fee is &#128; 100.</li>
+              </ul>
+            </li>
+            <li>
+              Give back to the researchers.
+              <ul class='list'>
+                <li>Peer reviewers are paid &#128; 10 per article.</li>
+              </ul>
+            </li>
+            <li>
+              Promote collaboration with academia.
+              <ul class='list'>
+                <li>Propose partnerships with institutes, universities, and consortiums.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section class='color-box'>
+          <h2>Terms and conditions</h2>
+          <ul class='list'>
+            <li>
+              The author
+              <ul class='list'>
+                <li>no plagiarism</li>
+                <li>retain copyright</li>
+                <li>publishing exclusivity</li>
+              </ul>
+            </li>
+            <li>CC BY-SA license</li>
+            <li></li>
+            <li>The above points summarise the <a href="{{ url_for('static', filename='pdfs/Terms and conditions.pdf') }}" class='anchor-2'>terms and conditions</a>.</li>
+          </ul>
+        </section>
+      </div>
 {% endblock content %}
