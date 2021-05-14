@@ -11,6 +11,39 @@
         <span>{{ author_.affil }}</span>
       </section>
 
+      <div id='resp-3'>
+        <section>
+          {% for article in articles.items %}
+            <article>
+              <div class='meta'>
+                <div>
+                  {% for author in article.authors %}
+                    {% if author == article.authors[-1] %}
+                      {% if author == author_.name %}
+                        <span>{{ author }}</span>
+                      {% else %}
+                        <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
+                      {% endif %}
+                    {% else %}
+                      {% if author == author_.name %}
+                        <span>{{ author }}, </span>
+                      {% else %}
+                        <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <span>{{ article.year }}</span>
+              </div>
+              <h3><a href="{{ url_for('static', filename='pdfs/articles/'+article.title.lower()+'.pdf') }}" class='anchor-3' target='_blank'>{{ article.title }}</a></h3>
+              <div class='expand'>
+                <p>Abstract: {{ article.abstract }}</p>
+                <span>DOI: <a href=''></a></span>
+              </div>
+            </article>
+          {% endfor %}
+        </section>
+
       <div id='grid-2'>
         <section>
           {% for article in column1 %}
