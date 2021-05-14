@@ -5,8 +5,10 @@
       <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt='AcaDome logo' id='h-logo'>
 
       <form action='' method='GET' autocomplete='off' name='search-form' id='search-form'>
-        <input type='search' name='search' id='search' placeholder='Search research database' autofocus>
-        <input type='submit' value='Search' class='btn'>
+        <input type='search' name='search' id='search' placeholder='Search database' autofocus>
+        <button type='submit' class='btn'>
+          <img src="{{ url_for('static', filename='images/search.png') }}" id='search-icon'>
+        </button>
       </form>
 
       <span>Or browse through the <a href="{{ url_for('fields') }}" class='anchor-1'>fields of research</a>.</span>
