@@ -35,10 +35,9 @@ profile:
   pagination style [x]
 
 style:
-  mobile
+  mobile [x]
   tablet
 
 upload multiple files?
-illustrator?
 payment?
 citations?
