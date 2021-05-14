@@ -164,7 +164,6 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
 }
 
 #about section {
@@ -172,12 +171,12 @@ h3 {
   padding: 40px 30px;
 }
 
-#grid-1 {
-  margin-top: 10px;
-}
-
 #grid-1 section {
   padding: 40px 30px;
+}
+
+#resp-2 {
+  display: none;
 }
 
 #about h2, #grid-1 h2 {
@@ -199,10 +198,6 @@ h3 {
 }
 
 @media screen and (min-width: 1024px) {
-  #about {
-    margin-top: 0;
-  }
-
   #about section {
     width: 50vw;
     padding: 40px;
@@ -212,12 +207,19 @@ h3 {
     display: grid;
     grid-template-columns: 50% 50%;
     height: 88vh;
-    margin-top: 0;
   }
 
   #grid-1 section {
     padding: 40px;
     padding-left: 60px;
+  }
+
+  #resp-1 {
+    display: none;
+  }
+
+  #resp-2 {
+    display: block;
   }
 }
 
