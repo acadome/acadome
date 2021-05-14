@@ -5,10 +5,36 @@
 {% endblock logo %}
 
 {% block content %}
-      <form action='' method='GET' autocomplete='off' name='search-form'>
+      <form action='' method='GET' autocomplete='off' name='search-form' id='search-form'>
         <input type='search' name='search' id='search' value='{{ query }}'>
-        <input type='submit' value='Search' class='btn'>
+        <button type='submit' class='btn'>
+          <img src="{{ url_for('static', filename='images/search.png') }}" id='search-icon'>
+        </button>
       </form>
+
+      <section id='resp-3'>
+        {% for article in articles.items %}
+        <article>
+          <div class='meta'>
+            <div>
+              {% for author in article.authors %}
+              {% if author == article.authors[-1] %}
+              <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
+              {% else %}
+              <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <span>{{ article.year }}</span>
+          </div>
+          <h3><a href="{{ url_for('static', filename='pdfs/articles/' + article.title + '.pdf') }}" class='anchor-3' target='_blank'>{{ article.title }}</a></h3>
+          <div class='expand'>
+            <p>Abstract: {{ article.abstract }}</p>
+            <span>DOI: <a href=''></a></span>
+          </div>
+        </article>
+        {% endfor %}
+      </section>
 
       <div id='grid-2'>
         <section>
