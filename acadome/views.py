@@ -15,10 +15,10 @@ def home():
         fields = Field.objects.order_by('name')
         column1, column2 = [], []
         for i in range(len(articles.items)):
-            if i%2 == 0:
-                column1.append(articles.items[i])
-            else:
+            if i%2:
                 column2.append(articles.items[i])
+            else:
+                column1.append(articles.items[i])
         return render_template(
             'search.html',
             title=query,
@@ -116,10 +116,10 @@ def profile(author):
     articles = Article.objects(authors__contains=name).paginate(page=page, per_page=20)
     column1, column2 = [], []
     for i in range(len(articles.items)):
-        if i%2 == 0:
-            column1.append(articles.items[i])
-        else:
+        if i%2:
             column2.append(articles.items[i])
+        else:
+            column1.append(articles.items[i])
     return render_template(
         'profile.html',
         title=name,
