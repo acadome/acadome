@@ -269,10 +269,6 @@ article .expand {
   padding: 0 40px;
 }
 
-.field .icon {
-  display: none;
-}
-
 #no-results {
   width: 80%;
   margin: 0 auto;
@@ -318,7 +314,6 @@ article .expand {
   }
 
   .field .icon {
-    display: block;
     width: 64px;
     height: 64px;
     margin: 0 20px;

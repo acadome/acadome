@@ -9,6 +9,21 @@
         <h2>Fields of research</h2>
       </section>
 
+      <section id='resp-3'>
+        {% for field in fields %}
+          <div class='field'>
+            <h3>{{ field.name }}</h3>
+            {% for sub in field.subs %}
+              {% if sub == field.subs[-1] %}
+                <span><a href="{{ url_for('home', search=sub.lower()) }}" class='anchor-3'>{{ sub }}</a></span>
+              {% else %}
+                <span><a href="{{ url_for('home', search=sub.lower()) }}" class='anchor-3'>{{ sub }}</a> | </span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </section>
+
       <section id='grid-2'>
         {% for field in fields %}
           <div class='field'>
