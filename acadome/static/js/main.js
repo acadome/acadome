@@ -38,7 +38,6 @@ if (articles) {
 
 // PUBLISH
 const publish = document.forms['publish-form'];
-const file = document.getElementById('file-name');
 var flag1 = 0;
 var flag2 = false;
 
@@ -55,7 +54,7 @@ function length(field, max) {
 if (publish) {
   const field_val = [['name', 64, /^[a-zA-Z \-\']+$/],
   ['email', 64, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
-  ['inst', 128, /^[a-zA-Z0-9 \,\-\']*$/]];
+  ['affil', 128, /^[a-zA-Z0-9 \,\-\']*$/]];
   field_val.forEach(fv => {
     var _field = publish[fv[0]];
     _field.addEventListener('change', () => {
@@ -70,6 +69,7 @@ if (publish) {
     });
   });
 
+  const file = publish['file-name'];
   document.getElementById('file').addEventListener('change', event => {
     if (event.target.files[0]) {
       var filename = event.target.files[0].name;
@@ -92,7 +92,7 @@ if (publish) {
         flag1++;
       }
     });
-    publish['inst'].style.border = '#0f0 solid 1px';
+    publish['affil'].style.border = '#0f0 solid 1px';
     if (!flag2) {
       file.style.border = '#f00 solid 1px';
     }
