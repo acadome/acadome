@@ -12,11 +12,13 @@ fieldset {
   align-items: center;
   border: none;
   padding-bottom: 50px;
+  width: 90%;
+  margin-top: 40px;
 }
 
 legend {
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: normal;
   text-align: center;
 }
@@ -38,6 +40,12 @@ input[type='text'], textarea {
   width: 100%;
 }
 
+textarea {
+  height: 6.5rem;
+  resize: none;
+  line-height: 1.5;
+}
+
 .btn:hover {
   cursor: pointer;
   color: #187890;
@@ -52,16 +60,39 @@ input[type='text'], textarea {
   border: #f00 solid 1px;
 }
 
-/* SEARCH */
-#search {
-  width: 40vw;
+@media screen and (min-width: 1024px) {
+  fieldset {
+    width: 70%;
+    margin-top: 0;
+  }
+
+  legend {
+    font-size: 24px;
+  }
+}
+
+/* HOME */
+#search-form {
+  margin: 10px 0 20px 0;
+}
+
+#search-icon {
+  width: 16px;
+  height: 16px;
+}
+
+@media screen and (min-width: 1024px) {
+  #search-form {
+    margin: 0;
+  }
+
+  #search {
+    width: 40vw;
+    margin-bottom: 0;
+  }
 }
 
 /* PUBLISH */
-#grid-1 fieldset {
-  width: 70%;
-}
-
 #file-bar {
   width: 90%;
   display: flex;
@@ -78,9 +109,16 @@ input[type='text'], textarea {
   display: none;
 }
 
-/* CONTACT */
-textarea {
-  height: 6.5rem;
-  resize: none;
-  line-height: 1.5;
+#resp-2 {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  #resp-1 {
+    display: none;
+  }
+
+  #resp-2 {
+    display: block;
+  }
 }
