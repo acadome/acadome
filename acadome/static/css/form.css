@@ -108,17 +108,3 @@ textarea {
 #file {
   display: none;
 }
-
-#resp-2 {
-  display: none;
-}
-
-@media screen and (min-width: 1024px) {
-  #resp-1 {
-    display: none;
-  }
-
-  #resp-2 {
-    display: block;
-  }
-}
