@@ -1,5 +1,2 @@
+.env
 *.pyc
-config.py
-logo.jpg
-hex.json
-articles/
