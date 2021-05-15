@@ -17,13 +17,13 @@
             <li>
               Maintain absolute open access.
               <ul class='list'>
-                <li>No paywalls, no registration; no barriers whatsoever.</li>
+                <li>No paywalls, no registration required; no barriers whatsoever.</li>
               </ul>
             </li>
             <li>
-              Centralise the <a href="{{ url_for('fields') }}" class='anchor-1'>fields of research</a> in a single database.
+              Centralise the <a href="{{ url_for('fields') }}" class='anchor-1'>fields of research</a> in a database without journals.
               <ul class='list'>
-                <li>In light of the irrelevance of multiple journals for similar fields.</li>
+                <li>In light of the irrelevance of multiple journals for a single subfield.</li>
               </ul>
             </li>
             <li>
@@ -47,7 +47,7 @@
             <li>
               Promote collaboration with academia.
               <ul class='list'>
-                <li>Propose partnerships with institutes, universities, and consortiums.</li>
+                <li>Partner with institutes, universities, and consortiums.</li>
               </ul>
             </li>
           </ul>
@@ -55,19 +55,7 @@
 
         <section class='color-box'>
           <h2>Terms and conditions</h2>
-          <ul class='list'>
-            <li>
-              The author
-              <ul class='list'>
-                <li>no plagiarism</li>
-                <li>retain copyright</li>
-                <li>publishing exclusivity</li>
-              </ul>
-            </li>
-            <li>CC BY-SA license</li>
-            <li></li>
-            <li>The above points summarise the <a href="{{ url_for('static', filename='pdfs/Terms and conditions.pdf') }}" class='anchor-2' target='_blank'>terms and conditions</a>.</li>
-          </ul>
+          <p>The article is published under a Creative Commons license (CC BY-SA). When you send us your manuscript, you agree with our <a href="{{ url_for('static', filename='pdfs/Terms and conditions.pdf') }}" class='anchor-2' target='_blank'>terms and conditions</a>.</p>
         </section>
       </div>
 {% endblock content %}
