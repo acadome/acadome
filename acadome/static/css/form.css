@@ -32,10 +32,6 @@ input, textarea, .btn {
   background-color: #fff;
 }
 
-input:focus, textarea:focus {
-  outline: none;
-}
-
 input[type='text'], textarea {
   width: 100%;
 }
@@ -44,6 +40,10 @@ textarea {
   height: 6.5rem;
   resize: none;
   line-height: 1.5;
+}
+
+input:focus, textarea:focus {
+  outline: none;
 }
 
 .btn:hover {
@@ -60,14 +60,20 @@ textarea {
   border: #f00 solid 1px;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   fieldset {
-    width: 70%;
-    margin-top: 0;
+    width: 60%;
   }
 
   legend {
     font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  fieldset {
+    width: 70%;
+    margin-top: 0;
   }
 }
 
@@ -81,14 +87,20 @@ textarea {
   height: 16px;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   #search-form {
     margin: 0;
   }
 
   #search {
-    width: 40vw;
+    width: 64vw;
     margin-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  #search {
+    width: 40vw;
   }
 }
 
