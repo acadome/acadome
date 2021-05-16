@@ -8,4 +8,4 @@ app.config.from_object(Config)
 db = MongoEngine(app)
 mail = Mail(app)
 
-from . import views
+from acadome import views
