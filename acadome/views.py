@@ -12,13 +12,18 @@ def home():
     query = request.args.get('search')
     if query:
         articles = Article.objects.search_text(query).order_by('$text_score', '-year', 'title').paginate(page=page, per_page=20)
-        fields = Field.objects.order_by('name')
+        for src in articles.items:
+            src.count = 0
+            for article in articles.items:
+                if src.ref in article.citations:
+                    src.count += 1
         column1, column2 = [], []
         for i in range(len(articles.items)):
             if i%2:
                 column2.append(articles.items[i])
             else:
                 column1.append(articles.items[i])
+        fields = Field.objects.order_by('name')
         return render_template(
             'search.html',
             title=query,
@@ -48,7 +53,7 @@ def publish():
         if form.affil.data:
             msg1.body = f'''Email: {form.email.data}
 
-Research institute: {form.affil.data}'''
+Affiliation: {form.affil.data}'''
         else:
             msg1.body = f'Email: {form.email.data}'
         filename = secure_filename(file.filename)
@@ -114,6 +119,11 @@ def profile(author):
     if not author:
         abort(404)
     articles = Article.objects(authors__contains=name).paginate(page=page, per_page=20)
+    for src in articles.items:
+        src.count = 0
+        for article in Article.objects:
+            if src.ref in article.citations:
+                src.count += 1
     column1, column2 = [], []
     for i in range(len(articles.items)):
         if i%2:
@@ -128,3 +138,7 @@ def profile(author):
         column1=column1,
         column2=column2
     )
+
+@app.route('/mongodb')
+def mongodb():
+    abort(404)
