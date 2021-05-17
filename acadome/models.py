@@ -2,13 +2,15 @@ from acadome import db
 
 class Article(db.Document):
     title = db.StringField()
+    ref = db.StringField()
     authors = db.ListField(db.StringField())
     year = db.IntField()
     abstract = db.StringField()
     keywords = db.ListField(db.StringField())
     field = db.StringField()
     subfields = db.ListField(db.StringField())
-    citations = db.IntField()
+    citations = db.ListField(db.StringField())
+    doi = db.StringField()
 
     meta = {
         'collection': 'articles',
@@ -17,17 +19,21 @@ class Article(db.Document):
                 'fields': [
                     '$title',
                     '$authors',
+                    '$abstract',
                     '$keywords',
-                    '$field'
+                    '$field',
+                    '$subfields'
                 ],
                 'default_language': 'english',
                 'weights': {
-                    'title': 4,
-                    'authors': 8,
-                    'keywords': 2,
-                    'field': 1
+                    'title': 8,
+                    'authors': 6,
+                    'abstract': 1,
+                    'keywords': 10,
+                    'field': 3,
+                    'subfields': 5
                 },
-                'name': 'demo'
+                'name': 'search'
             }
         ]
     }
