@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 
 {% block logo %}
-        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt='AcaDome logo' id='logo'>
+        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
 {% endblock logo %}
 
 {% block content %}
@@ -18,11 +18,11 @@
           <div class='meta'>
             <div>
               {% for author in article.authors %}
-              {% if author == article.authors[-1] %}
-              <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
-              {% else %}
-              <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
-              {% endif %}
+                {% if author == article.authors[-1] %}
+                  <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
+                {% else %}
+                  <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
+                {% endif %}
               {% endfor %}
             </div>
             <span>{{ article.year }}</span>
@@ -30,7 +30,18 @@
           <h3><a href="{{ url_for('static', filename='pdfs/articles/' + article.title + '.pdf') }}" class='anchor-3' target='_blank'>{{ article.title }}</a></h3>
           <div class='expand'>
             <p>Abstract: {{ article.abstract }}</p>
-            <span>DOI: <a href=''></a></span>
+            <span>Keywords: </span>
+            {% for kw in article.keywords %}
+              {% if kw == article.keywords[-1] %}
+                <span>{{ kw }}</span>
+              {% else %}
+                <span>{{ kw }}, </span>
+              {% endif %}
+            {% endfor %}<br>
+            <span>DOI: <a href=''></a></span><br>
+            {% if article.count %}
+              <span>Cited by: {{ article.count }}</span>
+            {% endif %}
           </div>
         </article>
         {% endfor %}
@@ -55,7 +66,18 @@
               <h3><a href="{{ url_for('static', filename='pdfs/articles/' + article.title + '.pdf') }}" class='anchor-3' target='_blank'>{{ article.title }}</a></h3>
               <div class='expand'>
                 <p>Abstract: {{ article.abstract }}</p>
-                <span>DOI: <a href=''></a></span>
+                <span>Keywords: </span>
+                {% for kw in article.keywords %}
+                  {% if kw == article.keywords[-1] %}
+                    <span>{{ kw }}</span>
+                  {% else %}
+                    <span>{{ kw }}, </span>
+                  {% endif %}
+                {% endfor %}<br>
+                <span>DOI: <a href=''></a></span><br>
+                {% if article.count %}
+                  <span>Cited by: {{ article.count }}</span>
+                {% endif %}
               </div>
             </article>
           {% endfor %}
@@ -79,7 +101,18 @@
               <h3><a href="{{ url_for('static', filename='pdfs/articles/' + article.title + '.pdf') }}" class='anchor-3' target='_blank'>{{ article.title }}</a></h3>
               <div class='expand'>
                 <p>Abstract: {{ article.abstract }}</p>
-                <span>DOI: <a href=''></a></span>
+                <span>Keywords: </span>
+                {% for kw in article.keywords %}
+                  {% if kw == article.keywords[-1] %}
+                    <span>{{ kw }}</span>
+                  {% else %}
+                    <span>{{ kw }}, </span>
+                  {% endif %}
+                {% endfor %}<br>
+                <span>DOI: <a href=''></a></span><br>
+                {% if article.count %}
+                  <span>Cited by: {{ article.count }}</span>
+                {% endif %}
               </div>
             </article>
           {% endfor %}
