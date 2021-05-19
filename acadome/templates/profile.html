@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% from '_articles.html' import render_articles %}
 
 {% block logo %}
         <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
@@ -12,145 +13,28 @@
       </section>
 
       <section id='resp-3'>
-        {% for article in articles.items %}
-          <article>
-            <div class='meta'>
-              <div>
-                {% for author in article.authors %}
-                  {% if author == article.authors[-1] %}
-                    {% if author == author_.name %}
-                      <span>{{ author }}</span>
-                    {% else %}
-                      <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
-                    {% endif %}
-                  {% else %}
-                    {% if author == author_.name %}
-                      <span>{{ author }}, </span>
-                    {% else %}
-                      <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-              </div>
-              <span>{{ article.year }}</span>
-            </div>
-            <h3><a href="{{ url_for('static', filename='pdfs/articles/'+article.title.lower()+'.pdf') }}" class='anchor-3' target='_blank'>{{ article.title }}</a></h3>
-            <div class='expand'>
-              <p>Abstract: {{ article.abstract }}</p>
-              <span>Keywords: </span>
-              {% for kw in article.keywords %}
-                {% if kw == article.keywords[-1] %}
-                  <span>{{ kw }}</span>
-                {% else %}
-                  <span>{{ kw }}, </span>
-                {% endif %}
-              {% endfor %}<br>
-              <span>DOI: <a href=''></a></span><br>
-              {% if article.count %}
-                <span>Cited by: {{ article.count }}</span>
-              {% endif %}
-            </div>
-          </article>
-        {% endfor %}
+        {{ render_articles(articles.items, author_.name) }}
       </section>
 
       <div id='grid-2'>
         <section>
-          {% for article in column1 %}
-            <article>
-              <div class='meta'>
-                <div>
-                  {% for author in article.authors %}
-                    {% if author == article.authors[-1] %}
-                      {% if author == author_.name %}
-                        <span>{{ author }}</span>
-                      {% else %}
-                        <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
-                      {% endif %}
-                    {% else %}
-                      {% if author == author_.name %}
-                        <span>{{ author }}, </span>
-                      {% else %}
-                        <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
-                </div>
-                <span>{{ article.year }}</span>
-              </div>
-              <h3><a href="{{ url_for('static', filename='pdfs/articles/'+article.title.lower()+'.pdf') }}" class='anchor-3' target='_blank'>{{ article.title }}</a></h3>
-              <div class='expand'>
-                <p>Abstract: {{ article.abstract }}</p>
-                <span>Keywords: </span>
-                {% for kw in article.keywords %}
-                  {% if kw == article.keywords[-1] %}
-                    <span>{{ kw }}</span>
-                  {% else %}
-                    <span>{{ kw }}, </span>
-                  {% endif %}
-                {% endfor %}<br>
-                <span>DOI: <a href=''></a></span><br>
-                {% if article.count %}
-                  <span>Cited by: {{ article.count }}</span>
-                {% endif %}
-              </div>
-            </article>
-          {% endfor %}
+          {{ render_articles(column1, author_.name) }}
         </section>
 
         <section>
-          {% for article in column2 %}
-            <article>
-              <div class='meta'>
-                <div>
-                  {% for author in article.authors %}
-                    {% if author == article.authors[-1] %}
-                      {% if author == author_.name %}
-                        <span>{{ author }}</span>
-                      {% else %}
-                        <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
-                      {% endif %}
-                    {% else %}
-                      {% if author == author_.name %}
-                        <span>{{ author }}, </span>
-                      {% else %}
-                        <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
-                </div>
-                <span>{{ article.year }}</span>
-              </div>
-              <h3><a href="{{ url_for('static', filename='pdfs/articles/'+article.title.lower()+'.pdf') }}" class='anchor-3' target='_blank'>{{ article.title }}</a></h3>
-              <div class='expand'>
-                <p>Abstract: {{ article.abstract }}</p>
-                <span>Keywords: </span>
-                {% for kw in article.keywords %}
-                  {% if kw == article.keywords[-1] %}
-                    <span>{{ kw }}</span>
-                  {% else %}
-                    <span>{{ kw }}, </span>
-                  {% endif %}
-                {% endfor %}<br>
-                <span>DOI: <a href=''></a></span><br>
-                {% if article.count %}
-                  <span>Cited by: {{ article.count }}</span>
-                {% endif %}
-              </div>
-            </article>
-          {% endfor %}
+          {{ render_articles(column2, author_.name) }}
         </section>
       </div>
 
       {% if articles.total > articles.per_page %}
         <ul id='pagin'>
           {% if articles.has_prev %}
-            <li><a href="{{ url_for('profile', author=author_.name.lower().replace(' ', '_'), page=articles.page-1) }}">Prev</a></li>
+            <li><a href="{{ url_for('profile', author=author_.name.lower().replace(' ', '_'), page=articles.page-1) }}">Previous page</a></li>
           {% else %}
             <li></li>
           {% endif %}
           {% if articles.has_next %}
-            <li><a href="{{ url_for('profile', author=author_.name.lower().replace(' ', '_'), page=articles.page+1) }}">Next</a></li>
+            <li><a href="{{ url_for('profile', author=author_.name.lower().replace(' ', '_'), page=articles.page+1) }}">Next page</a></li>
           {% else %}
             <li></li>
           {% endif %}
