@@ -15,9 +15,9 @@
             <h3>{{ field.name }}</h3>
             {% for sub in field.subs %}
               {% if sub == field.subs[-1] %}
-                <span><a href="{{ url_for('home', search=sub.lower()) }}" class='anchor-3'>{{ sub }}</a></span>
+                <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a></span>
               {% else %}
-                <span><a href="{{ url_for('home', search=sub.lower()) }}" class='anchor-3'>{{ sub }}</a> | </span>
+                <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a> | </span>
               {% endif %}
             {% endfor %}
           </div>
@@ -34,9 +34,9 @@
               <h3>{{ field.name }}</h3>
               {% for sub in field.subs %}
                 {% if sub == field.subs[-1] %}
-                  <span><a href="{{ url_for('home', search=sub.lower()) }}" class='anchor-3'>{{ sub }}</a></span>
+                  <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a></span>
                 {% else %}
-                  <span><a href="{{ url_for('home', search=sub.lower()) }}" class='anchor-3'>{{ sub }}</a> | </span>
+                  <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a> | </span>
                 {% endif %}
               {% endfor %}
             </div>
