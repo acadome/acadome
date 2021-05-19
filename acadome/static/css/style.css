@@ -302,18 +302,7 @@ article .expand {
   }
 
   .field {
-    display: grid;
-    grid-template-columns: 84px auto;
-    min-height: 120px;
-    margin-bottom: 0;
-    padding: 0;
     font-size: 16px;
-  }
-
-  .field .icon {
-    width: 64px;
-    height: 64px;
-    background-color: #eee;
   }
 }
 
@@ -342,11 +331,18 @@ article .expand {
   }
 
   .field {
+    display: grid;
     grid-template-columns: 104px auto;
+    min-height: 120px;
+    margin-bottom: 0;
+    padding: 0;
   }
 
   .field .icon {
+    width: 64px;
+    height: 64px;
     margin: 0 20px;
+    background-color: #eee;
   }
 
   #pagin {
