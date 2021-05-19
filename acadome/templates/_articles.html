@@ -27,9 +27,18 @@
               <span>Keywords: </span>
               {% for kw in article.keywords %}
                 {% if kw == article.keywords[-1] %}
-                  <span>{{ kw }}</span>
+                  <span><a href="{{ url_for('home', search=kw.lower().replace(' ', '_')) }}">{{ kw }}</a></span>
                 {% else %}
-                  <span>{{ kw }}, </span>
+                  <span><a href="{{ url_for('home', search=kw.lower().replace(' ','_')) }}">{{ kw }}</a>, </span>
+                {% endif %}
+              {% endfor %}<br>
+              <span>Field: <a href="{{ url_for('home', search=article.field.lower()) }}">{{ article.field }}</a></span><br>
+              <span>Subfields: </span>
+              {% for sub in article.subfields %}
+                {% if sub == article.subfields[-1] %}
+                  <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_'))}}">{{ sub }}</a></span>
+                {% else %}
+                  <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}">{{ sub }}</a>, </span>
                 {% endif %}
               {% endfor %}<br>
               <span>DOI: <a href=''></a></span><br>
