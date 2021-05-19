@@ -84,10 +84,6 @@ h3 {
   font-weight: normal;
 }
 
-#sub-header {
-  padding: 20px 40px;
-}
-
 .anchor-1 {
   border-bottom: #000 solid 1px;
 }
@@ -107,19 +103,6 @@ h3 {
 
   h3 {
     font-size: 18px;
-  }
-
-  #sub-header {
-    width: 60vw;
-    margin: 0 auto;
-    padding: 20px;
-  }
-}
-
-@media screen and (min-width: 1366px) {
-  #sub-header {
-    width: 50vw;
-    padding: 40px 20px 20px 20px;
   }
 }
 
@@ -241,13 +224,17 @@ h3 {
   }
 }
 
-/* ARTICLES, PROFILES, AND FIELDS OF RESEARCH */
+/* ARTICLES, PROFILES, FIELDS AND SUBFIELDS OF RESEARCH */
 #resp-3 {
   padding-bottom: 20px;
 }
 
 #grid-2 {
   display: none;
+}
+
+#sub-header {
+  padding: 20px 40px;
 }
 
 article {
@@ -301,21 +288,17 @@ article .expand {
 
 @media screen and (min-width: 768px) {
   #resp-3 {
-    display: none;
+    padding: 20px 60px;
   }
 
-  #grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-    width: 90vw;
+  #sub-header {
+    width: 60vw;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 20px;
   }
 
   article {
-    min-height: 20vh;
-    border: #ccc solid 1px;
+    min-height: 10vh;
   }
 
   .field {
@@ -335,12 +318,27 @@ article .expand {
 }
 
 @media screen and (min-width: 1366px) {
+  #resp-3 {
+    display: none;
+  }
+
   #grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    width: 90vw;
+    margin: 0 auto;
     padding: 40px 0 20px 0;
+  }
+
+  #sub-header {
+    width: 50vw;
+    padding: 40px 20px 20px 20px;
   }
 
   article {
     min-height: 18vh;
+    border: #ccc solid 1px;
   }
 
   .field {
