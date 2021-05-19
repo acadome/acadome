@@ -6,32 +6,42 @@ from acadome.models import Article, Author, Field
 from acadome.forms import PublishForm, ContactForm
 import os
 
+def count_citations(set):
+    for src in set:
+        src.count = 0
+        for article in Article.objects:
+            if src.ref in article.citations:
+                src.count += 1
+
+def split_columns(set):
+    col1, col2 = [], []
+    for i in range(len(set)):
+        if i%2:
+            col2.append(set[i])
+        else:
+            col1.append(set[i])
+    return col1, col2
+
 @app.route('/')
 def home():
     page = request.args.get('page', 1, type=int)
     query = request.args.get('search')
     if query:
+        fields = Field.objects
+        norm = query[0].upper() + query[1:]
+        for field in fields:
+            if norm in field.subs:
+                return redirect(url_for('subfields', subfield=norm.lower().replace(' ', '_')))
         articles = Article.objects.search_text(query).order_by('$text_score', '-year', 'title').paginate(page=page, per_page=20)
-        for src in articles.items:
-            src.count = 0
-            for article in articles.items:
-                if src.ref in article.citations:
-                    src.count += 1
-        column1, column2 = [], []
-        for i in range(len(articles.items)):
-            if i%2:
-                column2.append(articles.items[i])
-            else:
-                column1.append(articles.items[i])
-        fields = Field.objects.order_by('name')
+        count_citations(articles.items)
+        col1, col2 = split_columns(articles.items)
         return render_template(
             'search.html',
             title=query,
             query=query,
             articles=articles,
-            column1=column1,
-            column2=column2,
-            fields=fields
+            column1=col1,
+            column2=col2
         )
     return render_template('home.html')
 
@@ -108,35 +118,47 @@ def fields():
         fields=fields_
     )
 
+@app.route('/subfield/<string:subfield>')
+def subfields(subfield):
+    subfield = subfield[0].upper() + subfield[1:].replace('_', ' ')
+    if not Field.objects(subs__contains=subfield).first():
+        abort(404)
+    query = request.args.get('search')
+    if query:
+        return redirect(url_for('home', search=query))
+    page = request.args.get('page', 1, type=int)
+    articles = Article.objects(subfields__contains=subfield).order_by('-year', 'title').paginate(page=page, per_page=20)
+    count_citations(articles.items)
+    col1, col2 = split_columns(articles.items)
+    return render_template(
+        'search.html',
+        title=subfield,
+        query=subfield.lower(),
+        articles=articles,
+        column1=col1,
+        column2=col2
+    )
+
 @app.route('/profile/<string:author>')
 def profile(author):
     arr = author.split('_')
     for a in range(len(arr)):
         arr[a] = arr[a][0].upper() + arr[a][1:]
     name = ' '.join(arr)
-    page = request.args.get('page', 1, type=int)
     author = Author.objects(name=name).first()
     if not author:
         abort(404)
+    page = request.args.get('page', 1, type=int)
     articles = Article.objects(authors__contains=name).paginate(page=page, per_page=20)
-    for src in articles.items:
-        src.count = 0
-        for article in Article.objects:
-            if src.ref in article.citations:
-                src.count += 1
-    column1, column2 = [], []
-    for i in range(len(articles.items)):
-        if i%2:
-            column2.append(articles.items[i])
-        else:
-            column1.append(articles.items[i])
+    count_citations(articles.items)
+    col1, col2 = split_columns(articles.items)
     return render_template(
         'profile.html',
         title=name,
         author_=author,
         articles=articles,
-        column1=column1,
-        column2=column2
+        column1=col1,
+        column2=col2
     )
 
 @app.route('/mongodb')
