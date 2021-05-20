@@ -25,22 +25,44 @@
       </section>
 
       <section id='grid-2'>
-        {% for field in fields %}
-          <div class='field'>
-            <div class='icon'>
+        <div>
+          {% for field in column1 %}
+            <div class='field'>
+              <div class='icon'>
 
+              </div>
+              <div>
+                <h3>{{ field.name }}</h3>
+                {% for sub in field.subs %}
+                  {% if sub == field.subs[-1] %}
+                    <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a></span>
+                  {% else %}
+                    <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a> | </span>
+                  {% endif %}
+                {% endfor %}
+              </div>
             </div>
-            <div>
-              <h3>{{ field.name }}</h3>
-              {% for sub in field.subs %}
-                {% if sub == field.subs[-1] %}
-                  <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a></span>
-                {% else %}
-                  <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a> | </span>
-                {% endif %}
-              {% endfor %}
+          {% endfor %}
+        </div>
+
+        <div>
+          {% for field in column2 %}
+            <div class='field'>
+              <div class='icon'>
+
+              </div>
+              <div>
+                <h3>{{ field.name }}</h3>
+                {% for sub in field.subs %}
+                  {% if sub == field.subs[-1] %}
+                    <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a></span>
+                  {% else %}
+                    <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a> | </span>
+                  {% endif %}
+                {% endfor %}
+              </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </section>
 {% endblock content %}
