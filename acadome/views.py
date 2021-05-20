@@ -144,7 +144,7 @@ def subfields(subfield):
                 return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_'), search=adv[1], sbf=True))
             for field in Field.objects:
                 if adv[0] in field.subs:
-                    return redirect(url_for('subfields.html', subfield=adv[0].lower()))
+                    return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_')))
         articles = Article.objects(subfields__contains=subfield).search_text(adv[0]).order_by('$text_score', '-year', 'title').paginate(page=page, per_page=20)
         count_citations(articles.items)
         col1, col2 = split_columns(articles.items)
