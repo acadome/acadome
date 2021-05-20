@@ -16,28 +16,30 @@
         {{ render_articles(articles.items, author_.name) }}
       </section>
 
-      <div id='grid-2'>
-        <section>
+      <section id='grid-2'>
+        <div>
           {{ render_articles(column1, author_.name) }}
-        </section>
+        </div>
 
-        <section>
+        <div>
           {{ render_articles(column2, author_.name) }}
-        </section>
-      </div>
+        </div>
+      </section>
 
       {% if articles.total > articles.per_page %}
-        <ul id='pagin'>
-          {% if articles.has_prev %}
-            <li><a href="{{ url_for('profile', author=author_.name.lower().replace(' ', '_'), page=articles.page-1) }}">Previous page</a></li>
-          {% else %}
-            <li></li>
-          {% endif %}
-          {% if articles.has_next %}
-            <li><a href="{{ url_for('profile', author=author_.name.lower().replace(' ', '_'), page=articles.page+1) }}">Next page</a></li>
-          {% else %}
-            <li></li>
-          {% endif %}
-        </ul>
+        <section>
+          <ul id='pagin'>
+            {% if articles.has_prev %}
+              <li><a href="{{ url_for('profile', author=author_.name.lower().replace(' ', '_'), page=articles.page-1) }}">Previous</a></li>
+            {% else %}
+              <li></li>
+            {% endif %}
+            {% if articles.has_next %}
+              <li><a href="{{ url_for('profile', author=author_.name.lower().replace(' ', '_'), page=articles.page+1) }}">Next</a></li>
+            {% else %}
+              <li></li>
+            {% endif %}
+          </ul>
+        </section>
       {% endif %}
 {% endblock content %}
