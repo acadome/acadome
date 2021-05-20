@@ -27,11 +27,14 @@ def home():
     page = request.args.get('page', 1, type=int)
     query = request.args.get('search')
     if query:
-        fields = Field.objects
-        norm = query[0].upper() + query[1:]
-        for field in fields:
-            if norm in field.subs:
-                return redirect(url_for('subfields', subfield=norm.lower().replace(' ', '_')))
+        adv = [a.strip() for a in query.split(':')]
+        adv[0] = adv[0][0].upper() + adv[0][1:]
+        for field in Field.objects:
+            if adv[0] in field.subs:
+                if len(adv) == 1 or not adv[1]:
+                    return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_')))
+                else:
+                    return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_'), search=adv[1], sbf=True))
         articles = Article.objects.search_text(query).order_by('$text_score', '-year', 'title').paginate(page=page, per_page=20)
         count_citations(articles.items)
         col1, col2 = split_columns(articles.items)
@@ -109,31 +112,57 @@ Team AcaDome'''
         form=form
     )
 
-@app.route('/fields-of-research')
+@app.route('/fields_of_research')
 def fields():
     fields_ = Field.objects().order_by('name')
+    col1, col2 = split_columns(fields_)
     return render_template(
         'fields.html',
         title='Fields of research',
-        fields=fields_
+        fields=fields_,
+        column1=col1,
+        column2=col2
     )
 
 @app.route('/subfield/<string:subfield>')
 def subfields(subfield):
     subfield = subfield[0].upper() + subfield[1:].replace('_', ' ')
-    if not Field.objects(subs__contains=subfield).first():
-        abort(404)
+    Field.objects.get_or_404(subs__contains=subfield)
+    page = request.args.get('page', 1, type=int)
     query = request.args.get('search')
     if query:
-        return redirect(url_for('home', search=query))
-    page = request.args.get('page', 1, type=int)
+        adv = [a.strip() for a in query.split(':')]
+        adv[0] = adv[0][0].upper() + adv[0][1:]
+        if len(adv) == 1:
+            if not request.args.get('sbf'):
+                return redirect(url_for('home', search=adv[0].lower()))
+            for field in Field.objects:
+                if adv[0] in field.subs:
+                    return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_')))
+        else:
+            if adv[1]:
+                return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_'), search=adv[1], sbf=True))
+            for field in Field.objects:
+                if adv[0] in field.subs:
+                    return redirect(url_for('subfields.html', subfield=adv[0].lower()))
+        articles = Article.objects(subfields__contains=subfield).search_text(adv[0]).order_by('$text_score', '-year', 'title').paginate(page=page, per_page=20)
+        count_citations(articles.items)
+        col1, col2 = split_columns(articles.items)
+        return render_template(
+            'search.html',
+            title=f'{adv[0].lower()} | {subfield}',
+            query=f'{subfield.lower()}: {adv[0].lower()}',
+            articles=articles,
+            column1=col1,
+            column2=col2
+        )
     articles = Article.objects(subfields__contains=subfield).order_by('-year', 'title').paginate(page=page, per_page=20)
     count_citations(articles.items)
     col1, col2 = split_columns(articles.items)
     return render_template(
         'search.html',
         title=subfield,
-        query=subfield.lower(),
+        query=f'{subfield.lower()}: ',
         articles=articles,
         column1=col1,
         column2=col2
@@ -145,9 +174,7 @@ def profile(author):
     for a in range(len(arr)):
         arr[a] = arr[a][0].upper() + arr[a][1:]
     name = ' '.join(arr)
-    author = Author.objects(name=name).first()
-    if not author:
-        abort(404)
+    author = Author.objects.get_or_404(name=name)
     page = request.args.get('page', 1, type=int)
     articles = Article.objects(authors__contains=name).paginate(page=page, per_page=20)
     count_citations(articles.items)
