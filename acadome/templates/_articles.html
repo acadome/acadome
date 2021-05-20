@@ -27,9 +27,9 @@
               <span>Keywords: </span>
               {% for kw in article.keywords %}
                 {% if kw == article.keywords[-1] %}
-                  <span><a href="{{ url_for('home', search=kw.lower().replace(' ', '_')) }}">{{ kw }}</a></span>
+                  <span><a href="{{ url_for('home', search=kw.lower()) }}">{{ kw }}</a></span>
                 {% else %}
-                  <span><a href="{{ url_for('home', search=kw.lower().replace(' ','_')) }}">{{ kw }}</a>, </span>
+                  <span><a href="{{ url_for('home', search=kw.lower()) }}">{{ kw }}</a>, </span>
                 {% endif %}
               {% endfor %}<br>
               <span>Field: <a href="{{ url_for('home', search=article.field.lower()) }}">{{ article.field }}</a></span><br>
