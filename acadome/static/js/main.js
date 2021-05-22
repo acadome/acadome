@@ -36,34 +36,48 @@ if (articles) {
   });
 }
 
-// PUBLISH
-const publish = document.forms['publish-form'];
-var flag1 = 0;
-var flag2 = false;
+
+// FORMS
+var red = '#f00 solid 1px';
+var green = '#0f0 solid 1px';
 
 function length(field, max) {
   if (field.value.length > max) {
     return false
-  } else if (field.value.trim() != field.value) {
-    return false;
   } else {
     return true;
   }
 }
 
+// PUBLISH
+const publish = document.forms['publish-form'];
+var flag1 = 0;
+var flag2 = false;
+
 if (publish) {
   const field_val = [['name', 64, /^[a-zA-Z \-\']+$/],
-  ['email', 64, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
-  ['affil', 128, /^[a-zA-Z0-9 \,\-\']*$/]];
+  ['email', 254, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
+  ['affiliation', 256, /^[a-zA-Z0-9 \,\.\-\']*$/]];
   field_val.forEach(fv => {
     var _field = publish[fv[0]];
     _field.addEventListener('change', () => {
       var subflag1 = length(_field, fv[1]);
-      var subflag2 = fv[2].test(_field.value)
+      var subflag2 = fv[2].test(_field.value);
       if (subflag1 && subflag2) {
-        _field.style.border = '#0f0 solid 1px';
+        _field.style.border = green;
+        document.getElementById(`${_field.name}-error`).innerText = '';
+      } else if (_field.value) {
+        _field.style.border = red;
+        document.getElementById(`${_field.name}-error`).innerText = `Invalid characters in ${_field.name}.`;
+        if (_field.name == 'email') {
+          document.getElementById(`${_field.name}-error`).innerText = `Invalid ${_field.name}.`;
+        }
+        if (subflag2) {
+          document.getElementById(`${_field.name}-error`).innerText = `Cannot exceed ${fv[1]} characters.`;
+        }
+        flag1++;
       } else {
-        _field.style.border = '#f00 solid 1px';
+        _field.style.border = red;
         flag1++;
       }
     });
@@ -75,10 +89,12 @@ if (publish) {
       var filename = event.target.files[0].name;
       file.value = filename;
       if (filename.slice(-4).toLowerCase() == '.pdf') {
-        file.style.border = '#0f0 solid 1px';
+        file.style.border = green;
+        document.getElementById('file-error').innerText = '';
         flag2 = true;
       } else {
-        file.style.border = '#f00 solid 1px';
+        file.style.border = red;
+        document.getElementById('file-error').innerText = 'Invalid file type. Please upload a PDF.';
         flag2 = false;
       }
     }
@@ -88,16 +104,20 @@ if (publish) {
     ['name', 'email'].forEach(field => {
       var _field = publish[field];
       if (!_field.value.trim().length) {
-        _field.style.border = '#f00 solid 1px';
+        _field.style.border = red;
         flag1++;
       }
     });
-    publish['affil'].style.border = '#0f0 solid 1px';
     if (!flag2) {
-      file.style.border = '#f00 solid 1px';
+      file.style.border = red;
     }
-    if (!(!flag1 && flag2)) {
+    if (!(publish['agreement'].checked)) {
+      flag1++;
+    }
+    if (flag1 || !flag2) {
       event.preventDefault();
+    } else {
+      document.getElementById('loader').style.visibility = 'visible';
     }
     flag1 = 0;
   });
@@ -109,18 +129,29 @@ var flag3 = 0;
 
 if (contact) {
   const field_val = [['name', 64, /^[a-zA-Z \-\']+$/],
-  ['email', 64, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
-  ['query', 512, /^[a-zA-Z0-9 \,\.\-\']+$/]];
+  ['email', 254, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
+  ['query', 1024, /^[a-zA-Z0-9 \,\.\-\'\r\n]+$/]];
   field_val.forEach(fv => {
     var _field = contact[fv[0]];
     _field.addEventListener('change', () => {
       var subflag1 = length(_field, fv[1]);
       var subflag2 = fv[2].test(_field.value)
       if (subflag1 && subflag2) {
-        _field.style.border = '#0f0 solid 1px';
-      } else {
-        _field.style.border = '#f00 solid 1px';
+        _field.style.border = green;
+        document.getElementById(`${_field.name}-error`).innerText = '';
+      } else if (_field.value) {
+        _field.style.border = red;
+        document.getElementById(`${_field.name}-error`).innerText = `Invalid characters in ${_field.name}.`;
+        if (_field.name == 'email') {
+          document.getElementById(`${_field.name}-error`).innerText = `Invalid ${_field.name}.`;
+        }
+        if (subflag2) {
+          document.getElementById(`${_field.name}-error`).innerText = `Cannot exceed ${fv[1]} characters.`;
+        }
         flag3++;
+      } else {
+        _field.style.border = red;
+        flag1++;
       }
     });
   });
@@ -129,12 +160,14 @@ if (contact) {
     field_val.forEach(fv => {
       var _field = contact[fv[0]];
       if (!_field.value.trim().length) {
-        _field.style.border = '#f00 solid 1px';
+        _field.style.border = red;
         flag3++;
       }
     });
     if (flag3) {
       event.preventDefault();
+    } else {
+      document.getElementById('loader').style.visibility = 'visible';
     }
     flag3 = 0;
   });
