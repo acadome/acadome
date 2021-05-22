@@ -11,7 +11,6 @@ fieldset {
   justify-content: center;
   align-items: center;
   border: none;
-  padding-bottom: 50px;
   width: 90%;
   margin-top: 40px;
 }
@@ -37,13 +36,14 @@ input[type='text'], textarea {
 }
 
 textarea {
-  height: 6.5rem;
+  height: 6rem;
   resize: none;
   line-height: 1.5;
 }
 
 input:focus, textarea:focus {
   outline: none;
+  border: #187890 solid 1px;
 }
 
 .btn:hover {
@@ -58,6 +58,12 @@ input:focus, textarea:focus {
 
 .form-error {
   border: #f00 solid 1px;
+}
+
+.field-error {
+  font-size: 16px;
+  color: #f00;
+  text-align: center;
 }
 
 @media screen and (min-width: 768px) {
@@ -77,7 +83,7 @@ input:focus, textarea:focus {
   }
 }
 
-/* HOME */
+/* SEARCH */
 #search-form {
   margin: 10px 0 20px 0;
 }
@@ -104,9 +110,8 @@ input:focus, textarea:focus {
   }
 }
 
-/* PUBLISH */
-#file-bar {
-  width: 90%;
+/* PUBLISH, CONTACT */
+.field-flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -119,4 +124,8 @@ input:focus, textarea:focus {
 
 #file {
   display: none;
+}
+
+#loader {
+  visibility: hidden;
 }
