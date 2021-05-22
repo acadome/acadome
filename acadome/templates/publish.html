@@ -54,13 +54,9 @@
 
             {% with message = get_flashed_messages() %}
               {% if message %}
-                <div id='confirm'>
-                  <span>{{ message[0] }}</span>
-                </div>
+                <span>{{ message[0] }}</span>
               {% else %}
-                <div id='loader'>
-                  <img src="{{ url_for('static', filename='gifs/loader.gif') }}" width='32px' height='32px'>
-                </div>
+                <img src="{{ url_for('static', filename='gifs/loader.gif') }}" width='32px' height='32px' id='loader'>
               {% endif %}
             {% endwith %}
           </fieldset>
