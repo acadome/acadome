@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request, url_for, abort
+from flask import render_template, redirect, request, url_for, abort, flash
 from werkzeug.utils import secure_filename
 from flask_mail import Message
 from acadome import app, db, mail
@@ -27,14 +27,7 @@ def home():
     page = request.args.get('page', 1, type=int)
     query = request.args.get('search')
     if query:
-        adv = [a.strip() for a in query.split(':')]
-        adv[0] = adv[0][0].upper() + adv[0][1:]
-        for field in Field.objects:
-            if adv[0] in field.subs:
-                if len(adv) == 1 or not adv[1]:
-                    return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_')))
-                else:
-                    return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_'), search=adv[1], sbf=True))
+        query = query.strip()
         articles = Article.objects.search_text(query).order_by('$text_score', '-year', 'title').paginate(page=page, per_page=20)
         count_citations(articles.items)
         col1, col2 = split_columns(articles.items)
@@ -63,10 +56,10 @@ def publish():
         if file.filename[-4:] != '.pdf':
             return redirect(url_for('publish'))
         msg1 = Message(form.name.data.strip(), sender='team.acadome@gmail.com', recipients=['team.acadome@gmail.com'])
-        if form.affil.data:
+        if form.affiliation.data:
             msg1.body = f'''Email: {form.email.data}
 
-Affiliation: {form.affil.data}'''
+Affiliation: {form.affiliation.data}'''
         else:
             msg1.body = f'Email: {form.email.data}'
         filename = secure_filename(file.filename)
@@ -81,9 +74,10 @@ Affiliation: {form.affil.data}'''
 Thank you for choosing to publish with AcaDome.
 
 Yours sincerely,
-Team AcaDome'''
+Team AcaDome.'''
         mail.send(msg2)
-        return redirect(url_for('home'))
+        flash('Submission successful.')
+        return redirect(url_for('publish'))
     return render_template(
         'publish.html',
         title='Publish',
@@ -103,9 +97,10 @@ Query: {form.query.data}'''
         msg2.body = '''This is to confirm that we have received your query and will get back to you within three working days.
 
 Yours sincerely,
-Team AcaDome'''
+Team AcaDome.'''
         mail.send(msg2)
-        return redirect(url_for('home'))
+        flash('Submission successful.')
+        return redirect(url_for('contact'))
     return render_template(
         'contact.html',
         title='Contact',
@@ -129,40 +124,13 @@ def subfields(subfield):
     subfield = subfield[0].upper() + subfield[1:].replace('_', ' ')
     Field.objects.get_or_404(subs__contains=subfield)
     page = request.args.get('page', 1, type=int)
-    query = request.args.get('search')
-    if query:
-        adv = [a.strip() for a in query.split(':')]
-        adv[0] = adv[0][0].upper() + adv[0][1:]
-        if len(adv) == 1:
-            if not request.args.get('sbf'):
-                return redirect(url_for('home', search=adv[0].lower()))
-            for field in Field.objects:
-                if adv[0] in field.subs:
-                    return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_')))
-        else:
-            if adv[1]:
-                return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_'), search=adv[1], sbf=True))
-            for field in Field.objects:
-                if adv[0] in field.subs:
-                    return redirect(url_for('subfields', subfield=adv[0].lower().replace(' ', '_')))
-        articles = Article.objects(subfields__contains=subfield).search_text(adv[0]).order_by('$text_score', '-year', 'title').paginate(page=page, per_page=20)
-        count_citations(articles.items)
-        col1, col2 = split_columns(articles.items)
-        return render_template(
-            'search.html',
-            title=f'{adv[0].lower()} | {subfield}',
-            query=f'{subfield.lower()}: {adv[0].lower()}',
-            articles=articles,
-            column1=col1,
-            column2=col2
-        )
     articles = Article.objects(subfields__contains=subfield).order_by('-year', 'title').paginate(page=page, per_page=20)
     count_citations(articles.items)
     col1, col2 = split_columns(articles.items)
     return render_template(
         'search.html',
         title=subfield,
-        query=f'{subfield.lower()}: ',
+        query=subfield,
         articles=articles,
         column1=col1,
         column2=col2
