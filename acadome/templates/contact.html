@@ -7,7 +7,7 @@
 
 {% block content %}
       <div id='grid-1'>
-        <section class='color-box' id='resp-1'>
+        <section class='color-box'>
           <h2>Get in touch with AcaDome</h2>
           <ul class='list'>
             <li>
@@ -16,10 +16,8 @@
                 <li>Please note that the submission can take upto 20 seconds. You will receive an email of confirmation.</li>
               </ul>
             </li>
-            <li>For more comprehensive queries, please contact us at<br>
+            <li>For collaboration or comprehensive queries, please contact us at<br>
               team.acadome@gmail.com</li>
-            <li>For collaborations, please contact us at<br>
-              team.acadome@gmail.com.</li>
           </ul>
         </section>
 
@@ -32,24 +30,16 @@
             {{ render_field(form.email) }}
             {{ render_field(form.query) }}
 
-            <input type='submit' value='Submit' class='btn'>
+            <input type='submit' value='Submit' class='btn'><br>
+
+            {% with message = get_flashed_messages() %}
+              {% if message %}
+                <span>{{ message[0] }}</span>
+              {% else %}
+                <img src="{{ url_for('static', filename='gifs/loader.gif') }}" width='32px' height='32px' id='loader'>
+              {% endif %}
+            {% endwith %}
           </fieldset>
         </form>
-
-        <section class='color-box' id='resp-2'>
-          <h2>Get in touch with AcaDome</h2>
-          <ul class='list'>
-            <li>
-              Submit your query via the adjacent form.
-              <ul class='list'>
-                <li>Please note that the submission can take upto 20 seconds. You will receive an email of confirmation.</li>
-              </ul>
-            </li>
-            <li>For more comprehensive queries, please contact us at<br>
-              team.acadome@gmail.com</li>
-            <li>For collaborations, please contact us at<br>
-              team.acadome@gmail.com.</li>
-          </ul>
-        </section>
       </div>
 {% endblock content %}

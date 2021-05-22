@@ -21,8 +21,6 @@
             <li>Your manuscript will pass through two peer reviews. (Day 17)</li>
             <li>The editor will format and upload your manuscript as a published research article. (Day 20)</li>
           </ol>
-          <p>When you send us your manuscript, you accept our <a href="{{ url_for('static', filename='pdfs/Terms and conditions.pdf') }}" class='anchor-2' target='_blank'>publishing agreement</a>.<br>
-          </p>
         </section>
 
         <form action='' method='POST' autocomplete='off' enctype='multipart/form-data' name='publish-form'>
@@ -32,17 +30,39 @@
 
             {{ render_field(form.name) }}
             {{ render_field(form.email) }}
-            {{ render_field(form.affil) }}
+            {{ render_field(form.affiliation) }}
 
-            <div id='file-bar'>
-              <input type='text' name='file-name' id='file-name' disabled>
+            <div class='form-element field-flex'>
               <div>
                 {{ form.file.label(for='file', class='btn') }}
                 {{ form.file(id='file') }}
               </div>
+              <input type='text' name='file-name' id='file-name' disabled>
+            </div>
+            <div class='field-error'>
+              <span id='file-error'></span><br>
+            </div>
+
+            <div class='form-element field-flex'>
+              <div>
+                <input type='checkbox' name='agreement'>
+                <label for='agreement' id='agreement'>
+                  I accept the <a href="" class='anchor-1'>publishing agreement</a>.</label>
+              </div>
+              <input type='submit' value='Submit' class='btn'>
             </div><br>
 
-            <input type='submit' value='Submit' class='btn'>
+            {% with message = get_flashed_messages() %}
+              {% if message %}
+                <div id='confirm'>
+                  <span>{{ message[0] }}</span>
+                </div>
+              {% else %}
+                <div id='loader'>
+                  <img src="{{ url_for('static', filename='gifs/loader.gif') }}" width='32px' height='32px'>
+                </div>
+              {% endif %}
+            {% endwith %}
           </fieldset>
         </form>
       </div>
