@@ -5,6 +5,9 @@
       {{ field(class='form-error') }}
     {% else %}
       {{ field }}
-    {% endif %}<br><br>
+    {% endif %}<br>
+    <div class='field-error'>
+      <span id='{{ field.name }}-error'></span><br>
+    </div>
   </div>
 {% endmacro %}
