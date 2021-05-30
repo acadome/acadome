@@ -175,7 +175,6 @@ if (contact) {
         _field.style.border = red;
         flags[i] = false;
       }
-      console.log(flags);
     });
   });
 
@@ -199,8 +198,6 @@ if (contact) {
 const fields = document.querySelectorAll('.box');
 if (fields) {
   fields.forEach(field => {
-    field.addEventListener('click', event => {
-      location.href = event.currentTarget.querySelector('a').href
-    });
+    field.addEventListener('click', event => location.href = event.currentTarget.querySelector('a').href);
   });
 }
