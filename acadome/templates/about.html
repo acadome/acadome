@@ -5,78 +5,24 @@
 {% endblock logo %}
 
 {% block content %}
-      <div id='about'>
+      <div id='flex-main'>
         <section class='color-box'>
-          <h2>About AcaDome</h2>
-          <p>We are a digital publisher of open access research articles.</p>
+          <div class='section'>
+            <h2>About AcaDome</h2>
+            <p>We are an open access platform that publishes research articles.</p>
+          </div>
         </section>
 
         <section>
-          <h2>Our principles</h2>
-          <ul class='list'>
-            <li>
-              Maintain absolute <a href='https://www.openaccess.nl/en/what-is-open-access' class='anchor-1' target='_blank'>open access</a>.
-              <ul class='list'>
-                <li>No paywalls. No registration.</li>
-              </ul>
-            </li>
-            <li>
-              Centralise the fields of research in a <a href='#database' class='anchor-1'>database without journals</a>.
-              <ul class='list'>
-                <li>In light of the irrelevance of multiple journals for a single subfield.</li>
-              </ul>
-            </li>
-            <li>
-              Streamline the <a href="{{ url_for('publish') }}" class='anchor-1'>editorial workflow</a>.
-              <ul class='list'>
-                <li>From drafted manuscript to published article in 20 days.</li>
-              </ul>
-            </li>
-            <li>
-              Maintain a transparent <a href="" class='anchor-1' target='_blank'>financial model</a>.
-              <ul class='list'>
-                <li>The article processing charge (APC) is &#128; 100.</li>
-              </ul>
-            </li>
-            <li>
-              Give back to the <a href='#researchers' class='anchor-1'>researchers</a>.
-              <ul class='list'>
-                <li>Peer reviewers are paid &#128; 10 per article.</li>
-              </ul>
-            </li>
-            <li>
-              Promote collaboration with academia (<a href='#arc' class='anchor-1'>ARC</a>).
-              <ul class='list'>
-                <li>Partner with institutes, universities, and consortiums.</li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-
-        <section class='color-box' id='database'>
-          <h2>On why we do not use journals</h2>
-          <ul class='list'>
-            <li>In an open access model, subscriptions become redundant.</li>
-            <li>There is an unnecessary overlap of journals for a single subfield.</li>
-            <li>Outreach of an article depends on the journal in which it is published.</li>
-            <li>Journals restrict the standardisation of publishing methodologies.</li>
-          </ul>
-        </section>
-
-        <section id='researchers'>
-          <h2>For researchers</h2>
-          <ul class='list'>
-            <li>Affiliation with an institute is not necessary.</li>
-            <li>You will retain copyright of your article.</li>
-            <li>Your article will be published under the <a href='https://creativecommons.org/licenses/by/4.0/' class='anchor-1' target='_blank'>CC BY license</a>.</li>
-            <li>Retraction of your article is subject to the editor's discretion.</li>
-          </ul>
-          <p>The above points summarise the <a href="" class='anchor-1' target='_blank'>publishing agreement</a> between the author(s) of a manuscript and AcaDome. If you have any queries, please <a href="{{ url_for('contact') }}" class='anchor-1'>contact us</a>.</p>
-        </section>
-
-        <section class='color-box'>
-          <h2 id='arc'>AcaDome Research Council (ARC)</h2>
-          <p>ARC establishes a bridge between the academic and publishing industries. Each partner institute will elect a researcher as their representative in the council, alongside our founding directors. This provides a direct correspondence between researchers and the management of AcaDome.</p>
+          <div class='section'>
+            <h2>Our principles</h2>
+            <ul class='list'>
+              <li>No paywalls. No registration. Absolute <a href='https://www.openaccess.nl/en/what-is-open-access' class='anchor-1' target='_blank'>open access</a>.</li>
+              <li>Streamline the <a href="{{ url_for('publish') }}" class='anchor-1'>editorial workflow</a>.</li>
+              <li>Maintain a transparent <a href="{{ url_for('finances') }}" class='anchor-1'>financial model</a>; the article processing charge (APC) is &#128; 200.</li>
+              <li>Collaborate with academia through <a href="{{ url_for('arc') }}" class='anchor-1'>ARC</a>.</li>
+            </ul>
+          </div>
         </section>
       </div>
 {% endblock content %}
