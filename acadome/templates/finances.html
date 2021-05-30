@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block logo %}
+        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
+{% endblock logo %}
+
+{% block content %}
+      <div id='flex-main'>
+        <section class='color-box'>
+          <div class='section'>
+            <h2>Financial Model</h2>
+            <p>The article processing charge (APC) is &#128; 200.</p>
+          </div>
+        </section>
+      </div>
+{% endblock content %}

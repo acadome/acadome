@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block logo %}
+        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
+{% endblock logo %}
+
+{% block content %}
+      <div id='flex-main'>
+        <section class='color-box'>
+          <div class='section'>
+            <h2>AcaDome Research Council (ARC)</h2>
+            <p>ARC establishes a bridge between the academic and publishing industries. Each partner institute will elect a researcher as their representative in the council, alongside our founding directors. This provides a direct correspondence between researchers and the management of AcaDome.</p>
+          </div>
+        </section>
+      </div>
+{% endblock content %}
