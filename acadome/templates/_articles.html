@@ -12,9 +12,9 @@
                     {% endif %}
                   {% else %}
                     {% if author == article.authors[-1] %}
-                      <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
+                      <span><a href="{{ url_for('author_search', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
                     {% else %}
-                      <span><a href="{{ url_for('profile', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
+                      <span><a href="{{ url_for('author_search', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
                     {% endif %}
                   {% endif %}
                 {% endfor %}
@@ -32,13 +32,13 @@
                   <span><a href="{{ url_for('home', search=kw.lower()) }}">{{ kw }}</a>, </span>
                 {% endif %}
               {% endfor %}<br>
-              <span>Field: <a href="{{ url_for('home', search=article.field.lower()) }}">{{ article.field }}</a></span><br>
+              <span>Field: <a href="{{ url_for('subfields', field=article.field.lower().replace(' ', '_')) }}">{{ article.field }}</a></span><br>
               <span>Subfields: </span>
               {% for sub in article.subfields %}
                 {% if sub == article.subfields[-1] %}
-                  <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_'))}}">{{ sub }}</a></span>
+                  <span><a href="{{ url_for('subfield_search', subfield=sub.lower().replace(' ', '_'))}}">{{ sub }}</a></span>
                 {% else %}
-                  <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}">{{ sub }}</a>, </span>
+                  <span><a href="{{ url_for('subfield_search', subfield=sub.lower().replace(' ', '_')) }}">{{ sub }}</a>, </span>
                 {% endif %}
               {% endfor %}<br>
               <span>DOI: <a href=''></a></span><br>
