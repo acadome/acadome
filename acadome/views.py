@@ -53,7 +53,8 @@ def publish():
     form = PublishForm(request.form)
     if request.method == 'POST' and form.validate():
         file = request.files['file']
-        if file.filename[-4:] != '.pdf':
+        _, ext = os.path.splitext(file.filename)
+        if ext.lower() != '.pdf':
             return redirect(url_for('publish'))
         msg1 = Message(form.name.data.strip(), sender='team.acadome@gmail.com', recipients=['team.acadome@gmail.com'])
         if form.affiliation.data:
@@ -76,7 +77,7 @@ Thank you for choosing to publish with AcaDome.
 Yours sincerely,
 Team AcaDome.'''
         mail.send(msg2)
-        flash('Submission successful.')
+        flash('Submitted successfully.')
         return redirect(url_for('publish'))
     return render_template(
         'publish.html',
@@ -99,7 +100,7 @@ Query: {form.query.data}'''
 Yours sincerely,
 Team AcaDome.'''
         mail.send(msg2)
-        flash('Submission successful.')
+        flash('Submitted successfully.')
         return redirect(url_for('contact'))
     return render_template(
         'contact.html',
@@ -107,53 +108,79 @@ Team AcaDome.'''
         form=form
     )
 
-@app.route('/fields_of_research')
-def fields():
-    fields_ = Field.objects().order_by('name')
-    col1, col2 = split_columns(fields_)
-    return render_template(
-        'fields.html',
-        title='Fields of research',
-        fields=fields_,
-        column1=col1,
-        column2=col2
-    )
-
-@app.route('/subfield/<string:subfield>')
-def subfields(subfield):
-    subfield = subfield[0].upper() + subfield[1:].replace('_', ' ')
-    Field.objects.get_or_404(subs__contains=subfield)
+@app.route('/author/<string:author>')
+def author_search(author):
+    arr = [a[0].upper() + a[1:].lower() for a in author.split('_')]
+    author_ = ' '.join(arr)
+    Author.objects.get_or_404(name=author_)
     page = request.args.get('page', 1, type=int)
-    articles = Article.objects(subfields__contains=subfield).order_by('-year', 'title').paginate(page=page, per_page=20)
+    articles = Article.objects(authors__contains=author_).paginate(page=page, per_page=20)
     count_citations(articles.items)
     col1, col2 = split_columns(articles.items)
     return render_template(
         'search.html',
-        title=subfield,
-        query=subfield,
+        title=author_,
+        query=author_,
         articles=articles,
         column1=col1,
         column2=col2
     )
 
-@app.route('/profile/<string:author>')
-def profile(author):
-    arr = author.split('_')
-    for a in range(len(arr)):
-        arr[a] = arr[a][0].upper() + arr[a][1:]
-    name = ' '.join(arr)
-    author = Author.objects.get_or_404(name=name)
+@app.route('/fields_of_research')
+def fields():
+    fields_ = Field.objects().order_by('name')
+    return render_template(
+        'fields.html',
+        title='Fields of research',
+        fields=fields_
+    )
+
+@app.route('/field/<string:field>')
+def subfields(field):
+    field = field[0].upper() + field.replace('_', ' ')[1:]
+    field_ = Field.objects.get_or_404(name=field)
+    return render_template(
+        'fields.html',
+        title=field,
+        field=field_
+    )
+
+@app.route('/subfield/<string:subfield>')
+def subfield_search(subfield):
+    subfield_ = subfield[0].upper() + subfield[1:].lower().replace('_', ' ')
+    Field.objects.get_or_404(subs__contains=subfield_)
     page = request.args.get('page', 1, type=int)
-    articles = Article.objects(authors__contains=name).paginate(page=page, per_page=20)
+    articles = Article.objects(subfields__contains=subfield_).order_by('-year', 'title').paginate(page=page, per_page=20)
     count_citations(articles.items)
     col1, col2 = split_columns(articles.items)
     return render_template(
-        'profile.html',
-        title=name,
-        author_=author,
+        'search.html',
+        title=subfield_,
+        query=subfield_,
         articles=articles,
         column1=col1,
         column2=col2
+    )
+
+@app.route('/publishing_agreement')
+def agreement():
+    return render_template(
+        'agreement.html',
+        title='Publishing agreement'
+    )
+
+@app.route('/financial_model')
+def finances():
+    return render_template(
+        'finances.html',
+        title='Financial model'
+    )
+
+@app.route('/arc')
+def arc():
+    return render_template(
+        'arc.html',
+        title='AcaDome Reseach Council'
     )
 
 @app.route('/mongodb')
