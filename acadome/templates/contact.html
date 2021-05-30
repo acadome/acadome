@@ -17,7 +17,7 @@
               </ul>
             </li>
             <li>For collaboration or comprehensive queries, please contact us at<br>
-              team.acadome@gmail.com</li>
+              <a href='mailto:team.acadome@gmail.com' class='anchor-2'>team.acadome@gmail.com</a></li>
           </ul>
         </section>
 
@@ -33,11 +33,11 @@
             <input type='submit' value='Submit' class='btn'><br>
 
             {% with message = get_flashed_messages() %}
-              {% if message %}
-                <span>{{ message[0] }}</span>
-              {% else %}
-                <img src="{{ url_for('static', filename='gifs/loader.gif') }}" width='32px' height='32px' id='loader'>
-              {% endif %}
+            {% if message %}
+            <span>{{ message[0] }}</span>
+            {% else %}
+            <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='32px' height='32px' id='spinner'>
+            {% endif %}
             {% endwith %}
           </fieldset>
         </form>
