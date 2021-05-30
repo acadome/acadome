@@ -5,64 +5,25 @@
 {% endblock logo %}
 
 {% block content %}
-      <section id='sub-header'>
-        <h2>Fields of research</h2>
-      </section>
+      <div id='slide'>
+        <section id='sub-header' class='nice'>
+          {% if field %}
+          <h2>{{ field.name }}</h2>
+          {% else %}
+          <h2>Fields of research</h2>
+          {% endif %}
+        </section>
 
-      <section id='resp-3'>
-        {% for field in fields %}
-          <div class='field'>
-            <h3>{{ field.name }}</h3>
-            {% for sub in field.subs %}
-              {% if sub == field.subs[-1] %}
-                <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a></span>
-              {% else %}
-                <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a> | </span>
-              {% endif %}
-            {% endfor %}
-          </div>
-        {% endfor %}
-      </section>
-
-      <section id='grid-2'>
-        <div>
-          {% for field in column1 %}
-            <div class='field'>
-              <div class='icon'>
-
-              </div>
-              <div>
-                <h3>{{ field.name }}</h3>
-                {% for sub in field.subs %}
-                  {% if sub == field.subs[-1] %}
-                    <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a></span>
-                  {% else %}
-                    <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a> | </span>
-                  {% endif %}
-                {% endfor %}
-              </div>
-            </div>
+        <section id='grid-3'>
+          {% if field %}
+          {% for subfield in field.subs %}
+          <span class='box'><a href="{{ url_for('subfield_search', subfield=subfield.lower().replace(' ', '_')) }}">{{ subfield }}</a></span>
           {% endfor %}
-        </div>
-
-        <div>
-          {% for field in column2 %}
-            <div class='field'>
-              <div class='icon'>
-
-              </div>
-              <div>
-                <h3>{{ field.name }}</h3>
-                {% for sub in field.subs %}
-                  {% if sub == field.subs[-1] %}
-                    <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a></span>
-                  {% else %}
-                    <span><a href="{{ url_for('subfields', subfield=sub.lower().replace(' ', '_')) }}" class='anchor-3'>{{ sub }}</a> | </span>
-                  {% endif %}
-                {% endfor %}
-              </div>
-            </div>
+          {% else %}
+          {% for field in fields %}
+          <span class='box'><a href="{{ url_for('subfields', field=field.name.lower().replace(' ', '_')) }}">{{ field.name }}</a></span>
           {% endfor %}
-        </div>
-      </section>
+          {% endif %}
+        </section>
+      </div>
 {% endblock content %}
