@@ -1,6 +1,14 @@
+const nav = document.querySelectorAll('nav a');
+nav.forEach(li => {
+  if (location.href == li.href) {
+    li.style.borderBottom = '#000 solid 2px';
+    li.style.pointerEvents = 'none';
+    li.style.cursor = 'default';
+  }
+});
+
 // SEARCH
 const search = document.forms['search-form'];
-var flag = 0;
 if (search) {
   search.addEventListener('submit', event => {
     _search = search['search'];
@@ -10,7 +18,7 @@ if (search) {
   });
 }
 
-// ARTICLES AND PROFILES
+// ARTICLES
 const articles = document.querySelectorAll('article');
 var t = [];
 if (articles) {
@@ -36,7 +44,6 @@ if (articles) {
   });
 }
 
-
 // FORMS
 var red = '#f00 solid 1px';
 var green = '#0f0 solid 1px';
@@ -51,14 +58,13 @@ function length(field, max) {
 
 // PUBLISH
 const publish = document.forms['publish-form'];
-var flag1 = 0;
-var flag2 = false;
+var flags = [false, false, true, false, false];
 
 if (publish) {
   const field_val = [['name', 64, /^[a-zA-Z \-\']+$/],
   ['email', 254, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
   ['affiliation', 256, /^[a-zA-Z0-9 \,\.\-\']*$/]];
-  field_val.forEach(fv => {
+  field_val.forEach((fv, i) => {
     var _field = publish[fv[0]];
     _field.addEventListener('change', () => {
       var subflag1 = length(_field, fv[1]);
@@ -66,6 +72,7 @@ if (publish) {
       if (subflag1 && subflag2) {
         _field.style.border = green;
         document.getElementById(`${_field.name}-error`).innerText = '';
+        flags[i] = true;
       } else if (_field.value) {
         _field.style.border = red;
         document.getElementById(`${_field.name}-error`).innerText = `Invalid characters in ${_field.name}.`;
@@ -75,10 +82,10 @@ if (publish) {
         if (subflag2) {
           document.getElementById(`${_field.name}-error`).innerText = `Cannot exceed ${fv[1]} characters.`;
         }
-        flag1++;
+        flags[i] = false;
       } else {
         _field.style.border = red;
-        flag1++;
+        flags[i] = false;
       }
     });
   });
@@ -86,52 +93,66 @@ if (publish) {
   const file = publish['file-name'];
   document.getElementById('file').addEventListener('change', event => {
     if (event.target.files[0]) {
-      var filename = event.target.files[0].name;
-      file.value = filename;
-      if (filename.slice(-4).toLowerCase() == '.pdf') {
-        file.style.border = green;
-        document.getElementById('file-error').innerText = '';
-        flag2 = true;
-      } else {
+      var upload = event.target.files[0];
+      file.value = upload.name;
+      if (upload.name.slice(-4).toLowerCase() != '.pdf') {
         file.style.border = red;
         document.getElementById('file-error').innerText = 'Invalid file type. Please upload a PDF.';
-        flag2 = false;
+        flags[3] = false;
+      } else if (upload.size > 20971520) {
+        file.style.border = red;
+        document.getElementById('file-error').innerText = 'File size exceeds 20MB.';
+        flags[3] = false;
+      } else {
+        file.style.border = green;
+        document.getElementById('file-error').innerText = '';
+        flags[3] = true;
       }
     }
   });
 
+  publish['agreement'].addEventListener('change', event => {
+    if (event.target.checked) {
+      document.getElementById('checkbox').style.border = '#fff solid 1px';
+      flags[4] = true;
+    } else {
+      document.getElementById('checkbox').style.border = red;
+      flags[4] = false;
+    }
+  });
+
   publish.addEventListener('submit', event => {
-    ['name', 'email'].forEach(field => {
+    ['name', 'email'].forEach((field, i) => {
       var _field = publish[field];
       if (!_field.value.trim().length) {
         _field.style.border = red;
-        flag1++;
+        flags[i] = false;
       }
     });
-    if (!flag2) {
+    if (!flags[3]) {
       file.style.border = red;
     }
     if (!(publish['agreement'].checked)) {
-      flag1++;
+      document.getElementById('checkbox').style.border = red;
+      flags[4] = false;
     }
-    if (flag1 || !flag2) {
+    if (flags.includes(false)) {
       event.preventDefault();
     } else {
-      document.getElementById('loader').style.visibility = 'visible';
+      document.getElementById('spinner').style.visibility = 'visible';
     }
-    flag1 = 0;
   });
 }
 
 // CONTACT
 const contact = document.forms['contact-form'];
-var flag3 = 0;
+var flags = [false, false, false];
 
 if (contact) {
   const field_val = [['name', 64, /^[a-zA-Z \-\']+$/],
   ['email', 254, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
   ['query', 1024, /^[a-zA-Z0-9 \,\.\-\'\r\n]+$/]];
-  field_val.forEach(fv => {
+  field_val.forEach((fv, i) => {
     var _field = contact[fv[0]];
     _field.addEventListener('change', () => {
       var subflag1 = length(_field, fv[1]);
@@ -139,6 +160,7 @@ if (contact) {
       if (subflag1 && subflag2) {
         _field.style.border = green;
         document.getElementById(`${_field.name}-error`).innerText = '';
+        flags[i] = true;
       } else if (_field.value) {
         _field.style.border = red;
         document.getElementById(`${_field.name}-error`).innerText = `Invalid characters in ${_field.name}.`;
@@ -148,27 +170,37 @@ if (contact) {
         if (subflag2) {
           document.getElementById(`${_field.name}-error`).innerText = `Cannot exceed ${fv[1]} characters.`;
         }
-        flag3++;
+        flags[i] = false;
       } else {
         _field.style.border = red;
-        flag1++;
+        flags[i] = false;
       }
+      console.log(flags);
     });
   });
 
   contact.addEventListener('submit', event => {
-    field_val.forEach(fv => {
+    field_val.forEach((fv, i) => {
       var _field = contact[fv[0]];
       if (!_field.value.trim().length) {
         _field.style.border = red;
-        flag3++;
+        flags[i] = false;
       }
     });
-    if (flag3) {
+    if (flags.includes(false)) {
       event.preventDefault();
     } else {
-      document.getElementById('loader').style.visibility = 'visible';
+      document.getElementById('spinner').style.visibility = 'visible';
     }
-    flag3 = 0;
+  });
+}
+
+// FIELDS AND SUBFIELDS OF RESEARCH
+const fields = document.querySelectorAll('.box');
+if (fields) {
+  fields.forEach(field => {
+    field.addEventListener('click', event => {
+      location.href = event.currentTarget.querySelector('a').href
+    });
   });
 }
