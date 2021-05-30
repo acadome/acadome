@@ -11,15 +11,14 @@
           <h2>Workflow to publishing with AcaDome</h2>
           <ol class='list'>
             <li>
-              Submit your manuscript via the adjacent form. (Day 0)
+              Submit your manuscript via the adjacent form.
               <ul class='list'>
-                <li>Please include all figures in the manuscript itself.</li>
-                <li>The submission can take upto 20 seconds. You will receive an email of confirmation.</li>
+                <li>Please note that the submission can take upto 20 seconds. You will receive an email of confirmation.</li>
               </ul>
             </li>
-            <li>Following a preliminary check, our editor will get back to you. (Day 3)</li>
-            <li>Your manuscript will pass through two peer reviews. (Day 17)</li>
-            <li>The editor will format and upload your manuscript as a published research article. (Day 20)</li>
+            <li>Following a preliminary check, our editor will get back to you.</li>
+            <li>Your manuscript will pass through two peer reviews.</li>
+            <li>The editor will format and upload your manuscript as a published research article.</li>
           </ol>
         </section>
 
@@ -45,19 +44,18 @@
 
             <div class='form-element field-flex'>
               <div>
-                <input type='checkbox' name='agreement'>
-                <label for='agreement' id='agreement'>
-                  I accept the <a href="" class='anchor-1'>publishing agreement</a>.</label>
+                <span id='checkbox'>{{ form.agreement }}</span>
+                <label for='agreement' id='agreement'>I accept the <a href="{{ url_for('agreement') }}" class='anchor-1' target='_blank'>publishing agreement</a>.</label>
               </div>
               <input type='submit' value='Submit' class='btn'>
             </div><br>
 
             {% with message = get_flashed_messages() %}
-              {% if message %}
-                <span>{{ message[0] }}</span>
-              {% else %}
-                <img src="{{ url_for('static', filename='gifs/loader.gif') }}" width='32px' height='32px' id='loader'>
-              {% endif %}
+            {% if message %}
+            <span>{{ message[0] }}</span>
+            {% else %}
+            <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='32px' height='32px' id='spinner'>
+            {% endif %}
             {% endwith %}
           </fieldset>
         </form>
