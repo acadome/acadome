@@ -6,12 +6,14 @@
 {% endblock logo %}
 
 {% block content %}
-      <form action="{{ url_for('home') }}" method='GET' autocomplete='off' name='search-form' id='search-form'>
-        <input type='search' name='search' id='search' value='{{ query }}'>
-        <button type='submit' class='btn'>
-          <img src="{{ url_for('static', filename='images/search.png') }}" id='search-icon'>
-        </button>
-      </form>
+      <section id='search-bar'>
+        <form action="{{ url_for('home') }}" method='GET' autocomplete='off' name='search-form' id='search-form'>
+          <input type='search' name='search' id='search' value='{{ query }}'>
+          <button type='submit' class='btn'>
+            <img src="{{ url_for('static', filename='images/search.png') }}" id='search-icon'>
+          </button>
+        </form>
+      </section>
 
       <section id='resp'>
         {{ render_articles(articles.items) }}
@@ -28,25 +30,25 @@
       </section>
 
       {% if not articles.total %}
-        <section id='no-results'>
-          <span>There are no results for your search query.</span>
-        </section>
+      <section id='no-results'>
+        <span>There are no results for your search query.</span>
+      </section>
       {% endif %}
 
       {% if articles.total > articles.per_page %}
-        <section>
-          <ul id='pagin'>
-            {% if articles.has_prev %}
-              <li><a href="{{ url_for('home', search=query, page=articles.page-1) }}" class='anchor-3'>Previous</a></li>
-            {% else %}
-              <li></li>
-            {% endif %}
-            {% if articles.has_next %}
-              <li><a href="{{ url_for('home', search=query, page=articles.page+1) }}" class='anchor-3'>Next</a></li>
-            {% else %}
-              <li></li>
-            {% endif %}
-          </ul>
-        </section>
+      <section>
+        <ul id='pagin'>
+          {% if articles.has_prev %}
+          <li><a href="{{ url_for('home', search=query, page=articles.page-1) }}" class='anchor-3'>Previous</a></li>
+          {% else %}
+          <li></li>
+          {% endif %}
+          {% if articles.has_next %}
+          <li><a href="{{ url_for('home', search=query, page=articles.page+1) }}" class='anchor-3'>Next</a></li>
+          {% else %}
+          <li></li>
+          {% endif %}
+        </ul>
+      </section>
       {% endif %}
 {% endblock content %}
