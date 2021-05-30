@@ -22,16 +22,19 @@ legend {
   text-align: center;
 }
 
-input, textarea, .btn {
-  padding: 0.5rem 1rem;
+input,
+textarea,
+.btn {
+  padding: 9px 18px;
   font-family: inherit;
   font-size: inherit;
-  font-weight: lighter;
+  font-weight: inherit;
   border: #ccc solid 1px;
   background-color: #fff;
 }
 
-input[type='text'], textarea {
+input[type='text'],
+textarea {
   width: 100%;
 }
 
@@ -41,14 +44,23 @@ textarea {
   line-height: 1.5;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border: #187890 solid 1px;
 }
 
-.btn:hover {
+.btn:hover,
+.btn:focus {
   cursor: pointer;
-  color: #187890;
+  padding: 8px 17px;
+  border: #187890 solid 2px;
+}
+
+button[type='submit']:hover,
+button[type='submit']:focus {
+  outline: none;
+  padding: 9px 18px;
   border: #187890 solid 1px;
 }
 
@@ -119,13 +131,17 @@ input:focus, textarea:focus {
 
 #file-name {
   font-weight: lighter;
-  background-color: #fff;
+  border-left: none;
 }
 
 #file {
   display: none;
 }
 
-#loader {
+#checkbox {
+  border: #fff solid 1px;
+}
+
+#spinner {
   visibility: hidden;
 }
