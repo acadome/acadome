@@ -1,5 +1,4 @@
 {% extends '_base.html' %}
-{% from '_articles.html' import render_articles %}
 
 {% block logo %}
         <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
@@ -15,18 +14,30 @@
         </form>
       </section>
 
-      <section id='resp'>
-        {{ render_articles(articles.items) }}
-      </section>
-
       <section id='grid-2'>
-        <div>
-          {{ render_articles(column1) }}
+        {% for article in articles.items %}
+        <div class='article'>
+          <div class='meta'>
+            <span>{{ article.year }} | </span>
+            {% for author in article.authors %}
+            {% if author == author_ %}
+            {% if author == article.authors[-1] %}
+            <span>{{ author }}</span>
+            {% else %}
+            <span>{{ author }}, </span>
+            {% endif %}
+            {% else %}
+            {% if author == article.authors[-1] %}
+            <span><a href="{{ url_for('author_search', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
+            {% else %}
+            <span><a href="{{ url_for('author_search', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+          </div>
+          <h3><a href="{{ url_for('article', ref=article.ref) }}" class='anchor-3'>{{ article.title }}</a></h3>
         </div>
-
-        <div>
-          {{ render_articles(column2) }}
-        </div>
+        {% endfor %}
       </section>
 
       {% if not articles.total %}
@@ -39,12 +50,13 @@
       <section>
         <ul id='pagin'>
           {% if articles.has_prev %}
-          <li><a href="{{ url_for('home', search=query, page=articles.page-1) }}" class='anchor-3'>Previous</a></li>
+          <li><a href="{{ url_for('home', search=query, page=articles.page-1) }}" class='btn'>{{ articles.page-1 }}</a></li>
           {% else %}
           <li></li>
           {% endif %}
+          <li>{{ articles.page }}</li>
           {% if articles.has_next %}
-          <li><a href="{{ url_for('home', search=query, page=articles.page+1) }}" class='anchor-3'>Next</a></li>
+          <li><a href="{{ url_for('home', search=query, page=articles.page+1) }}" class='btn'>{{ articles.page+1 }}</a></li>
           {% else %}
           <li></li>
           {% endif %}
