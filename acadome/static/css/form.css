@@ -97,7 +97,12 @@ button[type='submit']:focus {
 
 /* SEARCH */
 #search-form {
-  margin: 10px 0 20px 0;
+  width: 80vw;
+  margin: 10px auto 20px auto;
+}
+
+#search {
+  width: 100%;
 }
 
 #search-icon {
@@ -107,17 +112,17 @@ button[type='submit']:focus {
 
 @media screen and (min-width: 768px) {
   #search-form {
-    margin: 0;
+    width: 60vw;
+    margin: 0 auto;
   }
 
   #search {
-    width: 60vw;
     margin-bottom: 0;
   }
 }
 
 @media screen and (min-width: 1366px) {
-  #search {
+  #search-form {
     width: 40vw;
   }
 }
