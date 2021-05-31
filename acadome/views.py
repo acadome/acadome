@@ -13,15 +13,6 @@ def count_citations(set):
             if src.ref in article.citations:
                 src.count += 1
 
-def split_columns(set):
-    col1, col2 = [], []
-    for i in range(len(set)):
-        if i%2:
-            col2.append(set[i])
-        else:
-            col1.append(set[i])
-    return col1, col2
-
 @app.route('/')
 def home():
     page = request.args.get('page', 1, type=int)
@@ -30,14 +21,11 @@ def home():
         query = query.strip()
         articles = Article.objects.search_text(query).order_by('$text_score', '-year', 'title').paginate(page=page, per_page=20)
         count_citations(articles.items)
-        col1, col2 = split_columns(articles.items)
         return render_template(
             'search.html',
             title=query,
             query=query,
-            articles=articles,
-            column1=col1,
-            column2=col2
+            articles=articles
         )
     return render_template('home.html')
 
@@ -75,7 +63,7 @@ Affiliation: {form.affiliation.data}'''
 Thank you for choosing to publish with AcaDome.
 
 Yours sincerely,
-Team AcaDome.'''
+Team AcaDome'''
         mail.send(msg2)
         flash('Submitted successfully.')
         return redirect(url_for('publish'))
@@ -98,7 +86,7 @@ Query: {form.query.data}'''
         msg2.body = '''This is to confirm that we have received your query and will get back to you within three working days.
 
 Yours sincerely,
-Team AcaDome.'''
+Team AcaDome'''
         mail.send(msg2)
         flash('Submitted successfully.')
         return redirect(url_for('contact'))
@@ -106,24 +94,6 @@ Team AcaDome.'''
         'contact.html',
         title='Contact',
         form=form
-    )
-
-@app.route('/author/<string:author>')
-def author_search(author):
-    arr = [a[0].upper() + a[1:].lower() for a in author.split('_')]
-    author_ = ' '.join(arr)
-    Author.objects.get_or_404(name=author_)
-    page = request.args.get('page', 1, type=int)
-    articles = Article.objects(authors__contains=author_).paginate(page=page, per_page=20)
-    count_citations(articles.items)
-    col1, col2 = split_columns(articles.items)
-    return render_template(
-        'search.html',
-        title=author_,
-        query=author_,
-        articles=articles,
-        column1=col1,
-        column2=col2
     )
 
 @app.route('/fields_of_research')
@@ -152,14 +122,36 @@ def subfield_search(subfield):
     page = request.args.get('page', 1, type=int)
     articles = Article.objects(subfields__contains=subfield_).order_by('-year', 'title').paginate(page=page, per_page=20)
     count_citations(articles.items)
-    col1, col2 = split_columns(articles.items)
     return render_template(
         'search.html',
         title=subfield_,
         query=subfield_,
-        articles=articles,
-        column1=col1,
-        column2=col2
+        articles=articles
+    )
+
+@app.route('/author/<string:author>')
+def author_search(author):
+    arr = [a[0].upper() + a[1:].lower() for a in author.split('_')]
+    author_ = ' '.join(arr)
+    Author.objects.get_or_404(name=author_)
+    page = request.args.get('page', 1, type=int)
+    articles = Article.objects(authors__contains=author_).paginate(page=page, per_page=20)
+    count_citations(articles.items)
+    return render_template(
+        'search.html',
+        title=author_,
+        query=author_,
+        articles=articles
+    )
+
+@app.route('/article/<string:ref>')
+def article(ref):
+    article = Article.objects.get_or_404(ref=ref)
+    count_citations([article])
+    return render_template(
+        'article.html',
+        title=article.title,
+        article=article
     )
 
 @app.route('/publishing_agreement')
