@@ -1,6 +1,7 @@
+// NAV
 const nav = document.querySelectorAll('nav a');
 nav.forEach(li => {
-  if (location.href == li.href) {
+  if (window.location.href == li.href) {
     li.style.borderBottom = '#000 solid 2px';
     li.style.pointerEvents = 'none';
     li.style.cursor = 'default';
@@ -15,32 +16,6 @@ if (search) {
     if (_search.value.length > 128 || !_search.value.trim().length) {
       event.preventDefault();
     }
-  });
-}
-
-// ARTICLES
-const articles = document.querySelectorAll('article');
-var t = [];
-if (articles) {
-  articles.forEach((article, i) => {
-    t.push(false);
-    article.addEventListener('click', event => {
-      if (event.target.nodeName != 'A') {
-        if (t[i]) {
-          event.currentTarget.querySelector('.expand').style.display = 'none';
-          event.currentTarget.className = '';
-          event.currentTarget.style.color = '#000';
-          event.currentTarget.style.backgroundColor = '#fff';
-          t[i] = false;
-        } else {
-          event.currentTarget.querySelector('.expand').style.display = 'block';
-          event.currentTarget.className = 'active';
-          event.currentTarget.style.color = '#fff';
-          event.currentTarget.style.backgroundColor = '#187890';
-          t[i] = true;
-        }
-      }
-    });
   });
 }
 
@@ -198,6 +173,6 @@ if (contact) {
 const fields = document.querySelectorAll('.box');
 if (fields) {
   fields.forEach(field => {
-    field.addEventListener('click', event => location.href = event.currentTarget.querySelector('a').href);
+    field.addEventListener('click', event => window.location.href = event.currentTarget.querySelector('a').href);
   });
 }
