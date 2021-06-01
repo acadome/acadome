@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block meta %}
+    <link rel='stylesheet' href="{{ url_for('errors.static', filename='css/style.css') }}" type='text/css'>
+{% endblock meta %}
+
+{% block logo %}
+        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
+{% endblock logo %}
+
+{% block content %}
+      <section id='error'>
+        <h2>{{ error.code }}: {{ error.name }}</h2>
+        <p>{{ error.description }}</p>
+      </section>
+{% endblock content %}

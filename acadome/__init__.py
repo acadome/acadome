@@ -10,5 +10,7 @@ mail = Mail(app)
 
 from acadome.gen import gen
 from acadome.articles import articles
+from acadome.errors import errors
 app.register_blueprint(gen)
 app.register_blueprint(articles)
+app.register_blueprint(errors)
