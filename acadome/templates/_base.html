@@ -15,23 +15,24 @@
 
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
     <link rel='preload' href='https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap' as='style'>
+    <link rel='preload' href="{{ url_for('static', filename='images/logo_400x231.png') }}" as='image'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap'>
     <link rel='stylesheet' href="{{ url_for('static', filename='css/reset.css') }}" type='text/css'>
     <link rel='stylesheet' href="{{ url_for('static', filename='css/style.css') }}" type='text/css'>
     <link rel='stylesheet' href="{{ url_for('static', filename='css/form.css') }}" type='text/css'>
     <script defer src="{{ url_for('static', filename='js/main.js') }}" type='text/javascript'></script>
 
+    {% block meta %}
+    {% endblock meta %}
+
     <meta name='twitter:card' content='summary'>
     <meta name='og:title' content='AcaDome'>
     <meta name='og:description' content='A digital publisher of open access research articles.'>
     <meta name='og:url' content=''>
-
-    {% block meta %}
-    {% endblock meta %}
   </head>
   <body>
     <header>
-      <a href="{{ url_for('home') }}" id='acadome'>
+      <a href="{{ url_for('articles.home') }}" id='acadome'>
         {% block logo %}
         {% endblock logo %}
         <h1>AcaDome</h1>
@@ -39,10 +40,10 @@
 
       <nav>
         <ul>
-          <li><a href="{{ url_for('home') }}">Home</a></li>
-          <li><a href="{{ url_for('about') }}">About</a></li>
-          <li><a href="{{ url_for('publish') }}">Publish</a></li>
-          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+          <li><a href="{{ url_for('articles.home') }}">Search</a></li>
+          <li><a href="{{ url_for('gen.about') }}">About</a></li>
+          <li><a href="{{ url_for('gen.publish') }}">Publish</a></li>
+          <li><a href="{{ url_for('gen.contact') }}">Contact</a></li>
         </ul>
       </nav>
     </header>

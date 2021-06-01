@@ -1,5 +1,10 @@
 {% extends '_base.html' %}
 
+{% block meta %}
+    <link rel='stylesheet' href="{{ url_for('articles.static', filename='css/style.css') }}" type='text/css'>
+    <script defer src="{{ url_for('articles.static', filename='js/main.js') }}" type='text/javascript'></script>
+{% endblock meta %}
+
 {% block logo %}
         <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
 {% endblock logo %}
@@ -14,14 +19,14 @@
           {% endif %}
         </section>
 
-        <ul id='grid-3'>
+        <ul id='grid-2'>
           {% if field %}
           {% for subfield in field.subs %}
-          <li><a href="{{ url_for('subfield_search', subfield=subfield.lower().replace(' ', '_')) }}">{{ subfield }}</a></li>
+          <li><a href="{{ url_for('articles.subfield_search', subfield=subfield.lower().replace(' ', '_')) }}">{{ subfield }}</a></li>
           {% endfor %}
           {% else %}
           {% for field in fields %}
-          <li><a href="{{ url_for('subfields', field=field.name.lower().replace(' ', '_')) }}">{{ field.name }}</a></li>
+          <li><a href="{{ url_for('articles.subfields', field=field.name.lower().replace(' ', '_')) }}">{{ field.name }}</a></li>
           {% endfor %}
           {% endif %}
         </ul>

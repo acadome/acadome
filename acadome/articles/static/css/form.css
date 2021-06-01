@@ -1,0 +1,31 @@
+/* SEARCH */
+#search-form {
+  width: 80vw;
+  margin: 10px auto 20px auto;
+}
+
+#search {
+  width: 100%;
+}
+
+#search-icon {
+  width: 16px;
+  height: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  #search-form {
+    width: 60vw;
+    margin: 0 auto;
+  }
+
+  #search {
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  #search-form {
+    width: 40vw;
+  }
+}

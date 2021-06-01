@@ -1,0 +1,23 @@
+/* PUBLISH, CONTACT */
+.field-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#file-name {
+  font-weight: lighter;
+  border-left: none;
+}
+
+#file {
+  display: none;
+}
+
+#checkbox {
+  border: #fff solid 1px;
+}
+
+#spinner {
+  visibility: hidden;
+}

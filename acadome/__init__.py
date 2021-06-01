@@ -8,4 +8,7 @@ app.config.from_object(Config)
 db = MongoEngine(app)
 mail = Mail(app)
 
-from acadome import views
+from acadome.gen import gen
+from acadome.articles import articles
+app.register_blueprint(gen)
+app.register_blueprint(articles)

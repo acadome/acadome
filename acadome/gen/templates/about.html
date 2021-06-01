@@ -1,5 +1,9 @@
 {% extends '_base.html' %}
 
+{% block meta %}
+    <link rel='stylesheet' href="{{ url_for('gen.static', filename='css/style.css') }}" type='text/css'>
+{% endblock meta %}
+
 {% block logo %}
         <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
 {% endblock logo %}
@@ -18,9 +22,9 @@
             <h2>Our principles</h2>
             <ul class='list'>
               <li>No paywalls. No registration. Absolute <a href='https://www.openaccess.nl/en/what-is-open-access' class='anchor-1' target='_blank'>open access</a>.</li>
-              <li>Streamline the <a href="{{ url_for('publish') }}" class='anchor-1'>editorial workflow</a>.</li>
-              <li>Maintain a transparent <a href="{{ url_for('finances') }}" class='anchor-1'>financial model</a>; the article processing charge (APC) is &#128; 200.</li>
-              <li>Collaborate with academia through <a href="{{ url_for('arc') }}" class='anchor-1'>ARC</a>.</li>
+              <li>Streamline the <a href="{{ url_for('gen.publish') }}" class='anchor-1'>editorial workflow</a>.</li>
+              <li>Maintain a transparent <a href="{{ url_for('gen.finances') }}" class='anchor-1'>financial model</a>; the article processing charge (APC) is &#128; 200.</li>
+              <li>Collaborate with academia through <a href="{{ url_for('gen.arc') }}" class='anchor-1'>ARC</a>.</li>
             </ul>
           </div>
         </section>
