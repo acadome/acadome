@@ -1,6 +1,7 @@
 {% extends '_base.html' %}
 
 {% block meta %}
+    <link rel='preload' href="{{ url_for('static', filename='images/logo_200x116.png') }}" as='image'>
     <link rel='stylesheet' href="{{ url_for('gen.static', filename='css/style.css') }}" type='text/css'>
 {% endblock meta %}
 
@@ -13,7 +14,7 @@
         <section class='color-box'>
           <div class='centre'>
             <h2>About AcaDome</h2>
-            <p>We are an open access platform that publishes research articles.</p>
+            <p>We are a digital publisher of open access research.</p>
           </div>
         </section>
 

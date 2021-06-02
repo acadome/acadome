@@ -9,14 +9,12 @@
     {% else %}
       <title>AcaDome</title>
     {% endif %}
-    <meta name='description' content='An open access platform that publishes research articles.'>
+    <meta name='description' content='A digital publisher of open access research.'>
     <meta name='keywords' content='publish, open access, research articles'>
     <link rel='icon' href="{{ url_for('static', filename='images/logo_32x32.png')}}" type='images/png'>
 
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
     <link rel='preload' href='https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap' as='style'>
-    <link rel='preload' href="{{ url_for('static', filename='images/logo_400x231.png') }}" as='image'>
-    <link rel='preload' href="{{ url_for('static', filename='images/logo_200x116.png') }}" as='image'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap'>
     <link rel='stylesheet' href="{{ url_for('static', filename='css/reset.css') }}" type='text/css'>
     <link rel='stylesheet' href="{{ url_for('static', filename='css/style.css') }}" type='text/css'>
