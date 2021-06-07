@@ -1,6 +1,13 @@
 // FORMS
-var red = '#f00 solid 1px';
-var green = '#0f0 solid 1px';
+function fail(e) {
+  e.style.border = '#f00 solid 1px';
+  e.style.boxShadow = '0 0 2px #f00';
+}
+
+function pass(e) {
+  e.style.border = '#0f0 solid 1px';
+  e.style.boxShadow = '0 0 2px #0f0';
+}
 
 function length(field, max) {
   if (field.value.length > max) {
@@ -23,11 +30,11 @@ if (publish) {
       var subflag1 = length(_field, fv[1]);
       var subflag2 = fv[2].test(_field.value);
       if (subflag1 && subflag2) {
-        _field.style.border = green;
+        pass(_field);
         document.getElementById(`${_field.name}-error`).innerText = '';
         flags[i] = true;
       } else if (_field.value) {
-        _field.style.border = red;
+        fail(_field);
         document.getElementById(`${_field.name}-error`).innerText = `Invalid characters in ${_field.name}.`;
         if (_field.name == 'email') {
           document.getElementById(`${_field.name}-error`).innerText = `Invalid ${_field.name}.`;
@@ -37,7 +44,7 @@ if (publish) {
         }
         flags[i] = false;
       } else {
-        _field.style.border = red;
+        fail(_field);
         flags[i] = false;
       }
     });
@@ -49,15 +56,15 @@ if (publish) {
       var upload = event.target.files[0];
       file.value = upload.name;
       if (upload.name.slice(-4).toLowerCase() != '.pdf') {
-        file.style.border = red;
+        fail(file);
         document.getElementById('file-error').innerText = 'Invalid file type. Please upload a PDF.';
         flags[3] = false;
       } else if (upload.size > 20971520) {
-        file.style.border = red;
+        fail(file);
         document.getElementById('file-error').innerText = 'File size exceeds 20MB.';
         flags[3] = false;
       } else {
-        file.style.border = green;
+        pass(file);
         document.getElementById('file-error').innerText = '';
         flags[3] = true;
       }
@@ -67,9 +74,10 @@ if (publish) {
   publish['agreement'].addEventListener('change', event => {
     if (event.target.checked) {
       document.getElementById('checkbox').style.border = '#fff solid 1px';
+      document.getElementById('checkbox').style.boxShadow = 'none';
       flags[4] = true;
     } else {
-      document.getElementById('checkbox').style.border = red;
+      fail(document.getElementById('checkbox'));
       flags[4] = false;
     }
   });
@@ -78,15 +86,15 @@ if (publish) {
     ['name', 'email'].forEach((field, i) => {
       var _field = publish[field];
       if (!_field.value.trim().length) {
-        _field.style.border = red;
+        fail(_field);
         flags[i] = false;
       }
     });
     if (!flags[3]) {
-      file.style.border = red;
+      fail(file);
     }
-    if (!(publish['agreement'].checked)) {
-      document.getElementById('checkbox').style.border = red;
+    if (!publish['agreement'].checked) {
+      fail(document.getElementById('checkbox'));
       flags[4] = false;
     }
     if (flags.includes(false)) {
@@ -110,11 +118,11 @@ if (contact) {
       var subflag1 = length(_field, fv[1]);
       var subflag2 = fv[2].test(_field.value)
       if (subflag1 && subflag2) {
-        _field.style.border = green;
+        pass(_field);
         document.getElementById(`${_field.name}-error`).innerText = '';
         flags[i] = true;
       } else if (_field.value) {
-        _field.style.border = red;
+        fail(_field);
         document.getElementById(`${_field.name}-error`).innerText = `Invalid characters in ${_field.name}.`;
         if (_field.name == 'email') {
           document.getElementById(`${_field.name}-error`).innerText = `Invalid ${_field.name}.`;
@@ -124,7 +132,7 @@ if (contact) {
         }
         flags[i] = false;
       } else {
-        _field.style.border = red;
+        fail(_field);
         flags[i] = false;
       }
     });
@@ -134,7 +142,7 @@ if (contact) {
     field_val.forEach((fv, i) => {
       var _field = contact[fv[0]];
       if (!_field.value.trim().length) {
-        _field.style.border = red;
+        fail(_field);
         flags[i] = false;
       }
     });

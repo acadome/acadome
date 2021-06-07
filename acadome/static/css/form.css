@@ -48,6 +48,7 @@ input:focus,
 textarea:focus {
   outline: none;
   border: #187890 solid 1px;
+  box-shadow: 0 0 2px #187890;
 }
 
 .btn:hover,
@@ -62,6 +63,7 @@ button[type='submit']:focus {
   outline: none;
   padding: 9px 18px;
   border: #187890 solid 1px;
+  box-shadow: 0 0 2px #187890;
 }
 
 .form-element {
