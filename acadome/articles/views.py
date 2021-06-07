@@ -47,10 +47,10 @@ def subfields(field):
 
 @articles.route('/subfield/<string:subfield>')
 def subfield_search(subfield):
-    subfield_ = subfield[0].upper() + subfield[1:].lower().replace('_', ' ')
-    Field.objects.get_or_404(subs__contains=subfield_)
+    subfield_ = subfield.replace('_', ' ')
+    Field.objects.get_or_404(subs__iexact=subfield_)
     page = request.args.get('page', 1, type=int)
-    articles = Article.objects(subfields__contains=subfield_).order_by('-year', 'title').paginate(page=page, per_page=20)
+    articles = Article.objects(subfields__iexact=subfield_).order_by('-year', 'title').paginate(page=page, per_page=20)
     count_citations(articles.items)
     return render_template(
         'search.html',
@@ -62,11 +62,10 @@ def subfield_search(subfield):
 
 @articles.route('/author/<string:author>')
 def author_search(author):
-    arr = [a[0].upper() + a[1:].lower() for a in author.split('_')]
-    author_ = ' '.join(arr)
-    Author.objects.get_or_404(name=author_)
+    author_ = author.replace('_', ' ')
+    Author.objects.get_or_404(name__iexact=author_)
     page = request.args.get('page', 1, type=int)
-    articles = Article.objects(authors__contains=author_).paginate(page=page, per_page=20)
+    articles = Article.objects(authors__iexact=author_).paginate(page=page, per_page=20)
     count_citations(articles.items)
     return render_template(
         'search.html',
