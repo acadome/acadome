@@ -35,9 +35,11 @@ def publish():
         _, ext = os.path.splitext(file.filename)
         if ext.lower() != '.pdf':
             return redirect(url_for('gen.publish'))
-        msg1 = Message(form.name.data.strip(), sender='team.acadome@gmail.com', recipients=['team.acadome@gmail.com'])
+        msg1 = Message('Manuscript', sender='team.acadome@gmail.com', recipients=['team.acadome@gmail.com'])
         if form.affiliation.data:
-            msg1.body = f'''Email: {form.email.data}
+            msg1.body = f'''Name: {form.name.data}
+
+Email: {form.email.data}
 
 Affiliation: {form.affiliation.data}'''
         else:
@@ -76,8 +78,10 @@ def agreement():
 def contact():
     form = ContactForm(request.form)
     if request.method == 'POST' and form.validate():
-        msg1 = Message(form.name.data.strip(), sender='team.acadome@gmail.com', recipients=['team.acadome@gmail.com'])
-        msg1.body = f'''Email: {form.email.data}
+        msg1 = Message('Query', sender='team.acadome@gmail.com', recipients=['team.acadome@gmail.com'])
+        msg1.body = f'''Name: {form.name.data}
+
+Email: {form.email.data}
 
 Query: {form.query.data}'''
         mail.send(msg1)
