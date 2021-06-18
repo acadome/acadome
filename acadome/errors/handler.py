@@ -3,7 +3,7 @@ from werkzeug.exceptions import HTTPException
 from acadome.errors import errors
 
 @errors.app_errorhandler(HTTPException)
-def error_404(error):
+def error_handler(error):
     return render_template(
         'error.html',
         title=error.name,
