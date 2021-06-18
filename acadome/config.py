@@ -10,6 +10,7 @@ class Config:
     TEMPLATES_FOLDER = 'templates'
     MONGODB_SETTINGS = {
         'host': os.environ.get("MONGODB_HOST"),
+        'connect': False,
     }
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
