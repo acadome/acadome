@@ -1,20 +1,24 @@
 // FORMS
-function fail(e) {
-  e.style.border = '#f00 solid 1px';
-  e.style.boxShadow = '0 0 2px #f00';
-}
-
-function pass(e) {
-  e.style.border = '#0f0 solid 1px';
-  e.style.boxShadow = '0 0 2px #0f0';
-}
-
-function length(field, max) {
+function _length(field, max) {
   if (field.value.length > max) {
     return false;
   } else {
     return true;
   }
+}
+
+function _fail(field) {
+  var red = '#d11a2a';
+  field.style.border = `${red} solid 1px`;
+  field.style.boxShadow = `0 0 2px ${red}`;
+  return false;
+}
+
+function _pass(field) {
+  var green = '#00ab66';
+  field.style.border = `${green} solid 1px`;
+  field.style.boxShadow = `0 0 2px ${green}`;
+  return true;
 }
 
 // PUBLISH
@@ -27,14 +31,13 @@ if (publish) {
   field_val.forEach((fv, i) => {
     var _field = publish[fv[0]];
     _field.addEventListener('change', () => {
-      var subflag1 = length(_field, fv[1]);
+      var subflag1 = _length(_field, fv[1]);
       var subflag2 = fv[2].test(_field.value);
       if (subflag1 && subflag2) {
-        pass(_field);
+        flags[i] = _pass(_field);
         document.getElementById(`${_field.name}-error`).innerText = '';
-        flags[i] = true;
       } else if (_field.value) {
-        fail(_field);
+        flags[i] = _fail(_field);
         document.getElementById(`${_field.name}-error`).innerText = `Invalid characters in ${_field.name}.`;
         if (_field.name == 'email') {
           document.getElementById(`${_field.name}-error`).innerText = `Invalid ${_field.name}.`;
@@ -42,10 +45,8 @@ if (publish) {
         if (subflag2) {
           document.getElementById(`${_field.name}-error`).innerText = `Cannot exceed ${fv[1]} characters.`;
         }
-        flags[i] = false;
       } else {
-        fail(_field);
-        flags[i] = false;
+        flags[i] = _fail(_field);
       }
     });
   });
@@ -56,17 +57,14 @@ if (publish) {
       var upload = event.target.files[0];
       file.value = upload.name;
       if (upload.name.slice(-4).toLowerCase() != '.pdf') {
-        fail(file);
+        flags[3] = _fail(file);
         document.getElementById('file-error').innerText = 'Invalid file type. Please upload a PDF.';
-        flags[3] = false;
       } else if (upload.size > 20971520) {
-        fail(file);
+        flags[3] = _fail(file);
         document.getElementById('file-error').innerText = 'File size exceeds 20MB.';
-        flags[3] = false;
       } else {
-        pass(file);
+        flags[3] = _pass(file);
         document.getElementById('file-error').innerText = '';
-        flags[3] = true;
       }
     }
   });
@@ -77,8 +75,7 @@ if (publish) {
       document.getElementById('checkbox').style.boxShadow = 'none';
       flags[4] = true;
     } else {
-      fail(document.getElementById('checkbox'));
-      flags[4] = false;
+      flags[4] = _fail(document.getElementById('checkbox'));
     }
   });
 
@@ -86,16 +83,14 @@ if (publish) {
     ['name', 'email'].forEach((field, i) => {
       var _field = publish[field];
       if (!_field.value.trim().length) {
-        fail(_field);
-        flags[i] = false;
+        flags[i] = _fail(_field);
       }
     });
     if (!flags[3]) {
-      fail(file);
+      flags[3] = _fail(file);
     }
     if (!publish['agreement'].checked) {
-      fail(document.getElementById('checkbox'));
-      flags[4] = false;
+      flags[4] = _fail(document.getElementById('checkbox'));
     }
     if (flags.includes(false)) {
       event.preventDefault();
@@ -115,14 +110,13 @@ if (contact) {
   field_val.forEach((fv, i) => {
     var _field = contact[fv[0]];
     _field.addEventListener('change', () => {
-      var subflag1 = length(_field, fv[1]);
+      var subflag1 = _length(_field, fv[1]);
       var subflag2 = fv[2].test(_field.value)
       if (subflag1 && subflag2) {
-        pass(_field);
+        flags[i] = _pass(_field);
         document.getElementById(`${_field.name}-error`).innerText = '';
-        flags[i] = true;
       } else if (_field.value) {
-        fail(_field);
+        flags[i] = _fail(_field);
         document.getElementById(`${_field.name}-error`).innerText = `Invalid characters in ${_field.name}.`;
         if (_field.name == 'email') {
           document.getElementById(`${_field.name}-error`).innerText = `Invalid ${_field.name}.`;
@@ -130,10 +124,8 @@ if (contact) {
         if (subflag2) {
           document.getElementById(`${_field.name}-error`).innerText = `Cannot exceed ${fv[1]} characters.`;
         }
-        flags[i] = false;
       } else {
-        fail(_field);
-        flags[i] = false;
+        flags[i] = _fail(_field);
       }
     });
   });
@@ -142,8 +134,7 @@ if (contact) {
     field_val.forEach((fv, i) => {
       var _field = contact[fv[0]];
       if (!_field.value.trim().length) {
-        fail(_field);
-        flags[i] = false;
+        flags[i] = _fail(_field);
       }
     });
     if (flags.includes(false)) {

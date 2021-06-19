@@ -22,6 +22,10 @@ legend {
   text-align: center;
 }
 
+label {
+  /* margin: 0 0.5rem; */
+}
+
 input,
 textarea,
 .btn {
@@ -71,12 +75,12 @@ button[type='submit']:focus {
 }
 
 .form-error {
-  border: #f00 solid 1px;
+  border: #d11a2a solid 1px;
 }
 
 .field-error {
   font-size: 16px;
-  color: #f00;
+  color: #d11a2a;
   text-align: center;
 }
 
