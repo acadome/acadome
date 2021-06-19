@@ -8,10 +8,7 @@ class Config:
     FLASK_APP = 'wsgi.py'
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
-    MONGODB_SETTINGS = {
-        'host': os.environ.get("MONGODB_HOST"),
-        'connect': False,
-    }
+    MONGODB_HOST = os.environ.get("MONGODB_HOST")
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")

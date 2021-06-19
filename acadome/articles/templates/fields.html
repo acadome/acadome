@@ -14,7 +14,7 @@
       <div id='slide-left'>
         <section id='sub-header' class='nice'>
           {% if field %}
-          <h2>{{ field.name }}</h2>
+          <h2>{{ field['name'] }}</h2>
           {% else %}
           <h2>Fields of research</h2>
           {% endif %}
@@ -22,12 +22,12 @@
 
         <ul id='grid-2'>
           {% if field %}
-          {% for subfield in field.subs %}
-          <li><a href="{{ url_for('articles.subfield_search', subfield=subfield.lower().replace(' ', '_')) }}">{{ subfield }}</a></li>
+          {% for subfield in field['subs'] %}
+          <li><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}">{{ subfield }}</a></li>
           {% endfor %}
           {% else %}
           {% for field in fields %}
-          <li><a href="{{ url_for('articles.subfields', field=field.name.lower().replace(' ', '_')) }}">{{ field.name }}</a></li>
+          <li><a href="{{ url_for('articles.subfields', field=field['name'].replace(' ', '_')) }}">{{ field['name'] }}</a></li>
           {% endfor %}
           {% endif %}
         </ul>

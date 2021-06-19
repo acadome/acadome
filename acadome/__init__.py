@@ -1,11 +1,12 @@
 from flask import Flask
-from flask_mongoengine import MongoEngine
+from pymongo import MongoClient
 from flask_mail import Mail
 from acadome.config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
-db = MongoEngine(app)
+client = MongoClient(app.config['MONGODB_HOST'], connect=False)
+db = client.acadome_db
 mail = Mail(app)
 
 from acadome.gen import gen

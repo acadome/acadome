@@ -22,64 +22,38 @@
       </section>
 
       <section id='grid-3'>
-        {% for article in articles.items %}
+        {% for article in articles %}
         <div class='article'>
           <div class='meta'>
-            <span>{{ article.year }} | </span>
-            {% for author in article.authors %}
+            <span>{{ article['year'] }} | </span>
+            {% for author in article['authors'] %}
             {% if author == author_ %}
-            {% if author == article.authors[-1] %}
+            {% if author == article['authors'][-1] %}
             <span>{{ author }}</span>
             {% else %}
             <span>{{ author }}, </span>
             {% endif %}
             {% else %}
-            {% if author == article.authors[-1] %}
-            <span><a href="{{ url_for('articles.author_search', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
+            {% if author == article['authors'][-1] %}
+            <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
             {% else %}
-            <span><a href="{{ url_for('articles.author_search', author=author.lower().replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
+            <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
             {% endif %}
             {% endif %}
             {% endfor %}
           </div>
-          <h3><a href="{{ url_for('articles.article', ref=article.ref) }}" class='anchor-3'>{{ article.title }}</a></h3>
+          <h3><a href="{{ url_for('articles.article', ref=article['ref']) }}" class='anchor-3'>{{ article['title'] }}</a></h3>
         </div>
         {% endfor %}
       </section>
 
-      {% if not articles.total %}
       <section id='no-results'>
         <span>There are no results for your search query.</span>
       </section>
-      {% endif %}
 
-      {% if articles.total > articles.per_page %}
-      <section>
-        <ul id='pagin'>
-          {% if articles.has_prev %}
-          {% if subfield %}
-          <li><a href="{{ url_for('articles.subfield_search', subfield=subfield.lower().replace(' ', '_'), page=articles.page-1) }}" class='btn'>{{ articles.page-1 }}</a></li>
-          {% elif author %}
-          <li><a href="{{ url_for('articles.author_search', author=author.lower().replace(' ', '_'), page=articles.page-1) }}" class='btn'>{{ articles.page-1 }}</a></li>
-          {% else %}
-          <li><a href="{{ url_for('articles.home', search=query, page=articles.page-1) }}" class='btn'>{{ articles.page-1 }}</a></li>
-          {% endif %}
-          {% else %}
-          <li></li>
-          {% endif %}
-          <li>{{ articles.page }}</li>
-          {% if articles.has_next %}
-          {% if subfield %}
-          <li><a href="{{ url_for('articles.subfield_search', subfield=subfield.lower().replace(' ', '_'), page=articles.page+1) }}" class='btn'>{{ articles.page+1 }}</a></li>
-          {% elif author %}
-          <li><a href="{{ url_for('articles.author_search', author=author.lower().replace(' ', '_'), page=articles.page+1) }}" class='btn'>{{ articles.page+1 }}</a></li>
-          {% else %}
-          <li><a href="{{ url_for('articles.home', search=query, page=articles.page+1) }}" class='btn'>{{ articles.page+1 }}</a></li>
-          {% endif %}
-          {% else %}
-          <li></li>
-          {% endif %}
-        </ul>
-      </section>
-      {% endif %}
+      <ul id='pagin'>
+        <li><a></a></li>
+        <li></li>
+        <li><a></a></li>
+      </ul>
 {% endblock content %}
