@@ -115,6 +115,7 @@
 }
 
 .article {
+  display: none;
   padding: 10px 20px;
 }
 
@@ -123,14 +124,15 @@
 }
 
 #no-results {
+  display: none;
   width: 80vw;
   margin: 0 auto;
   text-align: center;
 }
 
 #pagin {
+  display: none;
   list-style-type: none;
-  display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   grid-gap: 30px;
@@ -139,6 +141,15 @@
   padding-bottom: 40px;
   text-align: center;
   font-family: Courier;
+}
+
+#pagin a {
+  border: #ccc solid 1px;
+  border-radius: 5px;
+}
+
+#pagin a:hover {
+  box-shadow: 0 0 2px #ccc;
 }
 
 @media screen and (min-width: 768px) {
