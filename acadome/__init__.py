@@ -5,7 +5,7 @@ from acadome.config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
-client = MongoClient(app.config['MONGODB_HOST'], connect=False)
+client = MongoClient(app.config['MONGODB_HOST'])
 db = client.acadome_db
 mail = Mail(app)
 
