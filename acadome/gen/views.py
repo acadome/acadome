@@ -57,7 +57,7 @@ Affiliation: {form.affiliation.data}'''
 Thank you for choosing to publish with AcaDome.
 
 Yours sincerely,
-AcaDome'''
+Team AcaDome'''
         mail.send(msg2)
         flash('Submitted successfully.')
         return redirect(url_for('gen.publish'))
@@ -89,7 +89,7 @@ Query: {form.query.data}'''
         msg2.body = '''This is to confirm that we have received your query and will get back to you within three working days.
 
 Yours sincerely,
-AcaDome'''
+Team AcaDome'''
         mail.send(msg2)
         flash('Submitted successfully.')
         return redirect(url_for('gen.contact'))
