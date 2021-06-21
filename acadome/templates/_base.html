@@ -9,7 +9,7 @@
     {% else %}
       <title>AcaDome</title>
     {% endif %}
-    <meta name='description' content='A digital publisher of open access research.'>
+    <meta name='description' content='A digital publisher of open access research articles.'>
     <meta name='keywords' content='publish, open access, research articles'>
     <link rel='icon' href="{{ url_for('static', filename='images/logo_32x32.png')}}" type='images/png'>
 
@@ -25,9 +25,10 @@
     {% endblock meta %}
 
     <meta name='twitter:card' content='summary'>
+    <meta name='og:image' content="{{ url_for('static', filename='images/logo_1200x630.png') }}">
     <meta name='og:title' content='AcaDome'>
     <meta name='og:description' content='A digital publisher of open access research articles.'>
-    <meta name='og:url' content=''>
+    <meta name='og:url' content="{{ url_for('home') }}">
   </head>
   <body>
     <header>
