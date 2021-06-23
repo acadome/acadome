@@ -36,14 +36,12 @@ def publish():
         if ext.lower() != '.pdf':
             return redirect(url_for('gen.publish'))
         msg1 = Message('Manuscript', sender='team.acadome@gmail.com', recipients=['team.acadome@gmail.com'])
-        if form.affiliation.data:
-            msg1.body = f'''Name: {form.name.data}
+        msg1.body = f'''
+Name: {form.name.data}
 
 Email: {form.email.data}
 
 Affiliation: {form.affiliation.data}'''
-        else:
-            msg1.body = f'Email: {form.email.data}'
         filename = secure_filename(file.filename)
         path = app.root_path + url_for('gen.static', filename='pdfs/temp/' + filename)
         file.save(path)
@@ -52,7 +50,8 @@ Affiliation: {form.affiliation.data}'''
         mail.send(msg1)
         os.remove(path)
         msg2 = Message('Research manuscript received', sender='team.acadome@gmail.com', recipients=[form.email.data])
-        msg2.body = '''This is to confirm that we have received your research manuscript and will get back to you within three working days.
+        msg2.body = '''
+This is to confirm that we have received your research manuscript and will get back to you within three working days.
 
 Thank you for choosing to publish with AcaDome.
 
@@ -79,14 +78,16 @@ def contact():
     form = ContactForm(request.form)
     if request.method == 'POST' and form.validate():
         msg1 = Message('Query', sender='team.acadome@gmail.com', recipients=['team.acadome@gmail.com'])
-        msg1.body = f'''Name: {form.name.data}
+        msg1.body = f'''
+Name: {form.name.data}
 
 Email: {form.email.data}
 
 Query: {form.query.data}'''
         mail.send(msg1)
         msg2 = Message('Query received', sender='team.acadome@gmail.com', recipients=[form.email.data])
-        msg2.body = '''This is to confirm that we have received your query and will get back to you within three working days.
+        msg2.body = '''
+This is to confirm that we have received your query and will get back to you within three working days.
 
 Yours sincerely,
 Team AcaDome'''
