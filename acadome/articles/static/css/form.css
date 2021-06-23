@@ -1,7 +1,8 @@
 /* SEARCH */
 #search-form {
   width: 80vw;
-  margin: 10px auto 20px auto;
+  max-width: 350px;
+  margin: 20px auto;
 }
 
 #search {
@@ -15,17 +16,12 @@
 
 @media screen and (min-width: 768px) {
   #search-form {
-    width: 60vw;
-    margin: 0 auto;
-  }
-
-  #search {
-    margin-bottom: 0;
+    max-width: 500px;
   }
 }
 
 @media screen and (min-width: 1366px) {
   #search-form {
-    width: 40vw;
+    max-width: 600px;
   }
 }

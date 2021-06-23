@@ -22,10 +22,6 @@ legend {
   text-align: center;
 }
 
-label {
-  /* margin: 0 0.5rem; */
-}
-
 input,
 textarea,
 .btn {
@@ -62,14 +58,6 @@ textarea:focus {
   border: #187890 solid 2px;
 }
 
-button[type='submit']:hover,
-button[type='submit']:focus {
-  outline: none;
-  padding: 9px 18px;
-  border: #187890 solid 1px;
-  box-shadow: 0 0 2px #187890;
-}
-
 .form-element {
   width: 90%;
 }
@@ -78,7 +66,7 @@ button[type='submit']:focus {
   border: #d11a2a solid 1px;
 }
 
-.field-error {
+.form-error-desc {
   font-size: 16px;
   color: #d11a2a;
   text-align: center;
