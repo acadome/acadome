@@ -5,7 +5,7 @@
     <link rel='preload' href="{{ url_for('static', filename='images/logo_200x116.png') }}" as='image'>
     <link rel='stylesheet' href="{{ url_for('gen.static', filename='css/style.css') }}" type='text/css'>
     <link rel='stylesheet' href="{{ url_for('gen.static', filename='css/form.css') }}" type='text/css'>
-    <script defer src="{{ url_for('gen.static', filename='js/main.js') }}" type='text/javascript'></script>
+    <script defer src="{{ url_for('gen.static', filename='js/form.js') }}" type='text/javascript'></script>
 {% endblock meta %}
 
 {% block logo %}
@@ -14,7 +14,7 @@
 
 {% block content %}
       <div id='grid-1'>
-        <section class='color-box'>
+        <section class='blue-bg'>
           <h2>Workflow to publishing with AcaDome</h2>
           <ol class='list'>
             <li>
@@ -40,12 +40,12 @@
 
             <div class='form-element field-flex'>
               <div>
-                {{ form.file.label(for='file', class='btn') }}
+                {{ form.file.label(class='btn') }}
                 {{ form.file(id='file') }}
               </div>
               <input type='text' name='file-name' id='file-name' disabled>
             </div>
-            <div class='field-error'>
+            <div class='form-error-desc'>
               <span id='file-error'></span><br>
             </div>
 
@@ -54,16 +54,10 @@
                 <span id='checkbox'>{{ form.agreement }}</span>
                 <label for='agreement' id='agreement'>I accept the <a href="{{ url_for('gen.agreement') }}" class='anchor-1' target='_blank'>publishing agreement</a>.</label>
               </div>
-              <input type='submit' value='Submit' class='btn'>
-            </div><br>
+              <button type='submit' class='btn'>Submit</button>
+            </div>
 
-            {% with message = get_flashed_messages() %}
-            {% if message %}
-            <span>{{ message[0] }}</span>
-            {% else %}
             <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='32px' height='32px' id='spinner'>
-            {% endif %}
-            {% endwith %}
           </fieldset>
         </form>
       </div>

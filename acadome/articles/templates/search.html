@@ -24,25 +24,19 @@
       <section id='grid-3'>
         {% for article in articles %}
         <div class='article'>
-          <div class='meta'>
+          <p class='small-font'>
             <span>{{ article['year'] }} | </span>
             {% for author in article['authors'] %}
-            {% if author == author_ %}
-            {% if author == article['authors'][-1] %}
-            <span>{{ author }}</span>
-            {% else %}
-            <span>{{ author }}, </span>
-            {% endif %}
-            {% else %}
             {% if author == article['authors'][-1] %}
             <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
             {% else %}
             <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
             {% endif %}
-            {% endif %}
             {% endfor %}
-          </div>
-          <h3><a href="{{ url_for('articles.article', ref=article['ref']) }}" class='anchor-3'>{{ article['title'] }}</a></h3>
+          </p>
+          <p>
+            <a href="{{ url_for('articles.article', ref=article['ref']) }}" class='anchor-3'>{{ article['title'] }}</a>
+          </p>
         </div>
         {% endfor %}
       </section>

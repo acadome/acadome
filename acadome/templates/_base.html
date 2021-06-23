@@ -13,9 +13,15 @@
     <meta name='keywords' content='publish, open access, research articles'>
     <link rel='icon' href="{{ url_for('static', filename='images/logo_32x32.png')}}" type='images/png'>
 
+    <link rel='preconnect' href='https://fonts.googleapis.com'>
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
     <link rel='preload' href='https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap' as='style'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap'>
+    <link rel='preload' href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap' as='style'>
+    <link href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap' rel='stylesheet'>
+    <link rel='preload' href='https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap' as='style'>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
     <link rel='stylesheet' href="{{ url_for('static', filename='css/reset.css') }}" type='text/css'>
     <link rel='stylesheet' href="{{ url_for('static', filename='css/style.css') }}" type='text/css'>
     <link rel='stylesheet' href="{{ url_for('static', filename='css/form.css') }}" type='text/css'>
@@ -25,7 +31,7 @@
     {% endblock meta %}
 
     <meta name='twitter:card' content='summary'>
-    <meta name='og:image' content="{{ url_for('static', filename='images/logo_1200x630.png') }}">
+    <meta name='og:image' content="{{ url_for('static', filename='images/logo_800x800.png') }}">
     <meta name='og:title' content='AcaDome'>
     <meta name='og:description' content='A digital publisher of open access research articles.'>
     <meta name='og:url' content="{{ url_for('articles.home') }}">
@@ -47,6 +53,15 @@
         </ul>
       </nav>
     </header>
+
+    {% with message = get_flashed_messages() %}
+    {% if message %}
+    <p id='flash'>
+      <span>{{ message[0] }}</span>
+      <span id='hide-flash'>&Cross;</span>
+    </p>
+    {% endif %}
+    {% endwith %}
 
     <main>
       {% block content %}

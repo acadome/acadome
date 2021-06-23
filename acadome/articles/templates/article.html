@@ -10,48 +10,70 @@
 {% endblock logo %}
 
 {% block content %}
-      <article id='article'>
-        <div id='sub-header'>
-          <h2>{{ article['title'] }}</h2>
-          {% for author in article['authors'] %}
-          {% if author == author_ %}
-          {% if author == article['authors'][-1] %}
-          <span>{{ author }}</span>
-          {% else %}
-          <span>{{ author }}, </span>
+      <article>
+        <section>
+          <div>
+            <h2>{{ article['title'] }}</h2>
+            <p>
+              <span>{{ article['year'] }} | </span>
+              {% for author in article['authors'] %}
+              {% if author == author_ %}
+              {% if author == article['authors'][-1] %}
+              <span>{{ author }}</span>
+              {% else %}
+              <span>{{ author }}, </span>
+              {% endif %}
+              {% else %}
+              {% if author == article['authors'][-1] %}
+              <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
+              {% else %}
+              <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+            </p>
+          </div><br>
+          <div>
+            <span><a href="{{ url_for('articles.static', filename='pdfs/' + article['title'] + '.pdf') }}" target='_blank' class='btn'>PDF</a></span>
+          </div><br>
+          <div>
+            <h3>Abstract</h3>
+            <p>{{ article['abstract'] }}</p>
+          </div>
+        </section>
+        <aside>
+          <div>
+            <h3>Keywords</h3>
+            <p>
+              {% for kw in article['keywords'] %}
+              {% if kw == article['keywords'][-1] %}
+              <span><a href="{{ url_for('articles.home', search=kw.lower()) }}" class='anchor-3'>{{ kw }}</a></span>
+              {% else %}
+              <span><a href="{{ url_for('articles.home', search=kw.lower()) }}" class='anchor-3'>{{ kw }}</a>, </span>
+              {% endif %}
+              {% endfor %}
+            </p>
+          </div><br>
+          <div>
+            <h3>Subfields</h3>
+            <p>
+              {% for subfield in article['subfields'] %}
+              {% if subfield == article['subfields'][-1] %}
+              <span><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}" class='anchor-3'>{{ subfield }}</a></span>
+              {% else %}
+              <span><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}" class='anchor-3'>{{ subfield }}</a>, </span>
+              {% endif %}
+              {% endfor %}
+            </p>
+          </div><br>
+          {% if article['count'] %}
+          <div>
+            <p>Cited by: {{ article['count'] }}</p>
+          </div><br>
           {% endif %}
-          {% else %}
-          {% if author == article['authors'][-1] %}
-          <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
-          {% else %}
-          <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
-          {% endif %}
-          {% endif %}
-          {% endfor %}<br>
-          <span>{{ article['year'] }}</span><br>
-        </div>
-        <a href="{{ url_for('articles.static', filename='pdfs/' + article['title'] + '.pdf') }}" target='_blank' class='btn'>View PDF</a>
-        <h3 class='header'>Abstract</h3>
-        <p>{{ article['abstract'] }}</p>
-        <h3 class='header'>Keywords</h3>
-        {% for kw in article['keywords'] %}
-        {% if kw == article['keywords'][-1] %}
-        <span><a href="{{ url_for('articles.home', search=kw.lower()) }}" class='anchor-3'>{{ kw }}</a></span>
-        {% else %}
-        <span><a href="{{ url_for('articles.home', search=kw.lower()) }}" class='anchor-3'>{{ kw }}</a>, </span>
-        {% endif %}
-        {% endfor %}
-        <h3 class='header'>Subfields</h3>
-        {% for subfield in article['subfields'] %}
-        {% if subfield == article['subfields'][-1] %}
-        <span><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}" class='anchor-3'>{{ subfield }}</a></span>
-        {% else %}
-        <span><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}" class='anchor-3'>{{ subfield }}</a>, </span>
-        {% endif %}
-        {% endfor %}<br><br>
-        {% if article['count'] %}
-        <span>Cited by: {{ article['count'] }}</span><br><br>
-        {% endif %}
-        <span>DOI: <a href='#' class='anchor-3'>{{ article['doi'] }}</a></span>
+          <div>
+            <p>DOI: <a href='#' class='anchor-3'>{{ article['doi'] }}</a></p>
+          </div>
+        </aside>
       </article>
 {% endblock content %}
