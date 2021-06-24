@@ -54,10 +54,10 @@
       </nav>
     </header>
 
-    {% with message = get_flashed_messages() %}
-    {% if message %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
     <p id='flash'>
-      <span>{{ message[0] }}</span>
+      <span>{{ messages[0] }}</span>
       <span id='hide-flash'>&Cross;</span>
     </p>
     {% endif %}
