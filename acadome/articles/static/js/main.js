@@ -9,14 +9,6 @@ if (search) {
   });
 }
 
-// FIELDS AND SUBFIELDS OF RESEARCH
-const fields = document.querySelectorAll('.box');
-if (fields) {
-  fields.forEach(field => {
-    field.addEventListener('click', event => window.location.href = event.currentTarget.querySelector('a').href);
-  });
-}
-
 // ARTICLES
 function paginate(objects, per_page) {
   objects.forEach(object => object.style.display = 'none');
