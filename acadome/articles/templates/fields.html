@@ -2,25 +2,22 @@
 
 {% block meta %}
     <link rel='preload' href="{{ url_for('static', filename='images/logo_200x116.png') }}" as='image'>
-    <link rel='stylesheet' href="{{ url_for('articles.static', filename='css/style.css') }}" type='text/css'>
-    <script defer src="{{ url_for('articles.static', filename='js/main.js') }}" type='text/javascript'></script>
+    <link rel='stylesheet' href="{{ url_for('articles.static', filename='style.css') }}" type='text/css'>
 {% endblock meta %}
 
 {% block logo %}
-        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
+        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' class='logo'>
 {% endblock logo %}
 
 {% block content %}
-      <div id='slide-left'>
-        <section id='header'>
-          {% if field %}
-          <h2>{{ field['name'] }}</h2>
-          {% else %}
-          <h2>Fields of research</h2>
-          {% endif %}
-        </section>
+      <section id='categories'>
+        {% if field %}
+        <h2 class='header'>{{ field['name'] }}</h2>
+        {% else %}
+        <h2 class='header'>Fields of research</h2>
+        {% endif %}
 
-        <ul id='grid-2'>
+        <ul id='fields-grid'>
           {% if field %}
           {% for subfield in field['subs'] %}
           <li><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}">{{ subfield }}</a></li>
@@ -31,5 +28,5 @@
           {% endfor %}
           {% endif %}
         </ul>
-      </div>
+      </section>
 {% endblock content %}

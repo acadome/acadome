@@ -2,11 +2,11 @@
 
 {% block meta %}
     <link rel='preload' href="{{ url_for('static', filename='images/logo_200x116.png') }}" as='image'>
-    <link rel='stylesheet' href="{{ url_for('articles.static', filename='css/style.css') }}" type='text/css'>
+    <link rel='stylesheet' href="{{ url_for('articles.static', filename='style.css') }}" type='text/css'>
 {% endblock meta %}
 
 {% block logo %}
-        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
+        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' class='logo'>
 {% endblock logo %}
 
 {% block content %}
@@ -34,7 +34,7 @@
             </p>
           </div><br>
           <div>
-            <span><a href="{{ url_for('articles.static', filename='pdfs/' + article['title'] + '.pdf') }}" target='_blank' class='btn'>PDF</a></span>
+            <a href="{{ url_for('articles.static', filename='pdfs/' + article['title'] + '.pdf') }}" target='_blank' class='btn'>PDF</a>
           </div><br>
           <div>
             <h3>Abstract</h3>
@@ -49,7 +49,7 @@
               {% if kw == article['keywords'][-1] %}
               <span><a href="{{ url_for('articles.home', search=kw.lower()) }}" class='anchor-3'>{{ kw }}</a></span>
               {% else %}
-              <span><a href="{{ url_for('articles.home', search=kw.lower()) }}" class='anchor-3'>{{ kw }}</a>, </span>
+              <span><a href="{{ url_for('articles.home', search=kw.lower()) }}" class='anchor-3'>{{ kw }}</a> | </span>
               {% endif %}
               {% endfor %}
             </p>
@@ -58,11 +58,7 @@
             <h3>Subfields</h3>
             <p>
               {% for subfield in article['subfields'] %}
-              {% if subfield == article['subfields'][-1] %}
-              <span><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}" class='anchor-3'>{{ subfield }}</a></span>
-              {% else %}
-              <span><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}" class='anchor-3'>{{ subfield }}</a>, </span>
-              {% endif %}
+              <a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}" class='anchor-3'>{{ subfield }}</a><br>
               {% endfor %}
             </p>
           </div><br>
