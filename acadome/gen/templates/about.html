@@ -2,23 +2,23 @@
 
 {% block meta %}
     <link rel='preload' href="{{ url_for('static', filename='images/logo_200x116.png') }}" as='image'>
-    <link rel='stylesheet' href="{{ url_for('gen.static', filename='css/style.css') }}" type='text/css'>
+    <link rel='stylesheet' href="{{ url_for('gen.static', filename='style.css') }}" type='text/css'>
 {% endblock meta %}
 
 {% block logo %}
-        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
+        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' class='logo'>
 {% endblock logo %}
 
 {% block content %}
-      <article id='flex-main'>
-        <section class='blue-bg'>
+      <article>
+        <section class='blue-bg info'>
           <div class='centre'>
             <h2>About AcaDome</h2>
             <p>We are a digital publisher of open access research articles.</p>
           </div>
         </section>
 
-        <section>
+        <section class='info'>
           <div class='centre'>
             <h2>Our principles</h2>
             <ul class='list'>

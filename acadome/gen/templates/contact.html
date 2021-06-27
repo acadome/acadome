@@ -3,40 +3,36 @@
 
 {% block meta %}
     <link rel='preload' href="{{ url_for('static', filename='images/logo_200x116.png') }}" as='image'>
-    <link rel='stylesheet' href="{{ url_for('gen.static', filename='css/style.css') }}" type='text/css'>
-    <link rel='stylesheet' href="{{ url_for('gen.static', filename='css/form.css') }}" type='text/css'>
-    <script defer src="{{ url_for('gen.static', filename='js/form.js') }}" type='text/javascript'></script>
+    <link rel='stylesheet' href="{{ url_for('static', filename='css/forms.css') }}" type='text/css'>
+    <link rel='stylesheet' href="{{ url_for('gen.static', filename='style.css') }}" type='text/css'>
+    <script defer src="{{ url_for('gen.static', filename='forms.js') }}" type='text/javascript'></script>
 {% endblock meta %}
 
 {% block logo %}
-        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' id='logo'>
+        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' class='logo'>
 {% endblock logo %}
 
 {% block content %}
-      <div id='grid-1'>
-        <section class='blue-bg'>
+      <div class='form-grid'>
+        <section class='blue-bg info'>
           <h2>Get in touch with AcaDome</h2>
           <ul class='list'>
             <li>Submit your query via the adjacent form. You will receive an email of confirmation.</li>
-            <li>For comprehensive queries or collaboration, please contact us at<br>
-              <a href='mailto:team.acadome@gmail.com' class='anchor-2'>team.acadome@gmail.com</a>.
+            <li>For comprehensive queries or collaboration, please contact us at <a href='mailto:team.acadome@gmail.com' class='anchor-2'>team.acadome@gmail.com</a>.
             </li>
           </ul>
         </section>
 
-        <form action="{{ url_for('gen.contact') }}" method='POST' autocomplete='off' name='contact-form'>
-          <fieldset>
-            <legend><h2>Send us your query</h2></legend>
+        <section class='form'>
+          <form action="{{ url_for('gen.contact') }}" method='POST' autocomplete='off' name='contact-form'>
+            <h2>Send us your query</h2>
             {{ form.csrf_token }}
-
             {{ render_field(form.name) }}
             {{ render_field(form.email) }}
             {{ render_field(form.query) }}
-
             <button type='submit' class='btn'>Submit</button>
-
-            <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='32px' height='32px' id='spinner'>
-          </fieldset>
-        </form>
+            <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' id='spinner'>
+          </form>
+        </section>
       </div>
 {% endblock content %}
