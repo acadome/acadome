@@ -1,4 +1,6 @@
-// FORMS
+var red = '#d11a2a';
+var green = '#00ab66';
+
 function _length(field, max) {
   if (field.value.length > max) {
     return false;
@@ -8,16 +10,14 @@ function _length(field, max) {
 }
 
 function _fail(field) {
-  var red = '#d11a2a';
-  field.style.border = `${red} solid 1px`;
-  field.style.boxShadow = `0 0 2px ${red}`;
+  field.style.padding = '9px 19px';
+  field.style.border = `${red} solid 2px`;
   return false;
 }
 
 function _pass(field) {
-  var green = '#00ab66';
-  field.style.border = `${green} solid 1px`;
-  field.style.boxShadow = `0 0 2px ${green}`;
+  field.style.padding = '9px 19px';
+  field.style.border = `${green} solid 2px`;
   return true;
 }
 
@@ -26,7 +26,7 @@ const publish = document.forms['publish-form'];
 if (publish) {
   var flags = [false, false, true, false, false];
   const field_val = [['name', 64, /^[a-zA-Z \-\']+$/],
-  ['email', 254, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
+  ['email', 254, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+$/],
   ['affiliation', 256, /^[a-zA-Z0-9 \,\.\-\']*$/]];
   field_val.forEach((fv, i) => {
     var _field = publish[fv[0]];
@@ -42,7 +42,7 @@ if (publish) {
         if (_field.name == 'email') {
           document.getElementById(`${_field.name}-error`).innerText = `Invalid ${_field.name}.`;
         }
-        if (subflag2) {
+        if (!subflag1) {
           document.getElementById(`${_field.name}-error`).innerText = `Cannot exceed ${fv[1]} characters.`;
         }
       } else {
@@ -71,11 +71,11 @@ if (publish) {
 
   publish['agreement'].addEventListener('change', event => {
     if (event.target.checked) {
-      document.getElementById('checkbox').style.border = '#fff solid 1px';
-      document.getElementById('checkbox').style.boxShadow = 'none';
+      publish['agreement'].style.outline = `2px solid ${green}`;
       flags[4] = true;
     } else {
-      flags[4] = _fail(document.getElementById('checkbox'));
+      publish['agreement'].style.outline = `2px solid ${red}`;
+      flags[4] = false;
     }
   });
 
@@ -90,7 +90,8 @@ if (publish) {
       flags[3] = _fail(file);
     }
     if (!publish['agreement'].checked) {
-      flags[4] = _fail(document.getElementById('checkbox'));
+      publish['agreement'].style.outline = `2px solid ${red}`;
+      flags[4] = false;
     }
     if (flags.includes(false)) {
       event.preventDefault();
@@ -105,7 +106,7 @@ const contact = document.forms['contact-form'];
 if (contact) {
   var flags = [false, false, false];
   const field_val = [['name', 64, /^[a-zA-Z \-\']+$/],
-  ['email', 254, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+$/],
+  ['email', 254, /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+$/],
   ['query', 1024, /^[a-zA-Z0-9 \,\.\-\'\r\n]+$/]];
   field_val.forEach((fv, i) => {
     var _field = contact[fv[0]];
@@ -121,7 +122,7 @@ if (contact) {
         if (_field.name == 'email') {
           document.getElementById(`${_field.name}-error`).innerText = `Invalid ${_field.name}.`;
         }
-        if (subflag2) {
+        if (!subflag1) {
           document.getElementById(`${_field.name}-error`).innerText = `Cannot exceed ${fv[1]} characters.`;
         }
       } else {

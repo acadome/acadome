@@ -1,15 +1,14 @@
-// SEARCH
+// SEARCH BAR
 const search = document.forms['search-form'];
 if (search) {
   search.addEventListener('submit', event => {
-    _search = search['search'];
-    if (_search.value.length > 128 || !_search.value.trim().length) {
+    if (!search['search'].value.trim().length) {
       event.preventDefault();
     }
   });
 }
 
-// ARTICLES
+// ARTICLES PAGINATION
 function paginate(objects, per_page) {
   objects.forEach(object => object.style.display = 'none');
   const max = Math.ceil(objects.length/per_page);
