@@ -1,17 +1,17 @@
 /* ERRORS */
-#error {
+#http-error {
   margin: 0 auto;
   padding: 40px;
 }
 
 @media screen and (min-width: 768px) {
-  #error {
+  #http-error {
     width: 80vw;
   }
 }
 
 @media screen and (min-width: 1366px) {
-  #error {
+  #http-error {
     width: 50vw;
   }
 }
