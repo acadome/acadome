@@ -1,3 +1,9 @@
+:root {
+  --red: #d11a2a;
+  --blue: #187890;
+  --grey: #ccc;
+}
+
 html {
   font-size: 16px;
 }
@@ -7,34 +13,13 @@ body {
   color: #4a4e4d;
 }
 
-h1 {
-  font-size: 30px;
-  font-weight: lighter;
-}
-
-h2 {
-  font-size: 20px;
-  font-weight: normal;
-}
-
-h3 {
-  font-size: 16px;
-  font-weight: normal;
-}
-
-@media screen and (min-width: 768px) {
-  h2 {
-    font-size: 24px;
-  }
-}
-
 /* HEADER */
 header {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 20vh;
   align-items: center;
+  height: 20vh;
 }
 
 #acadome {
@@ -42,7 +27,12 @@ header {
   align-items: center;
 }
 
-#logo {
+h1 {
+  font-size: 30px;
+  font-weight: lighter;
+}
+
+.logo {
   height: 50px;
   margin-right: 1rem;
 }
@@ -59,14 +49,14 @@ nav li:first-child {
 
 nav a {
   padding: 0.5rem 1rem;
-  border-bottom: #ccc solid 1px;
+  border-bottom: var(--grey) solid 1px;
 }
 
 nav a:hover {
   border-bottom: #000 solid 2px;
 }
 
-@media screen and (min-width: 768px) {
+@media (min-width: 768px) {
   header {
     flex-direction: row;
     justify-content: space-between;
@@ -79,7 +69,7 @@ nav a:hover {
   }
 }
 
-@media screen and (min-width: 1366px) {
+@media (min-width: 1366px) {
   header {
     height: 12vh;
   }
@@ -90,17 +80,53 @@ main {
   line-height: 2;
 }
 
-#header {
-  padding: 20px;
+h2 {
+  font-size: 20px;
+  font-weight: normal;
   text-align: center;
+  margin-bottom: 10px;
 }
 
-.small-font {
+h2.header {
+  text-align: center;
+  margin: 20px;
+}
+
+@media (min-width: 768px) {
+  h2 {
+    font-size: 24px;
+    text-align: left;
+  }
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.small {
   font-size: 14px;
 }
 
+.btn {
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: #fff;
+  border: var(--grey) solid 1px;
+}
+
+.btn:hover,
+.btn:focus {
+  outline: none;
+  cursor: pointer;
+  padding: 9px 19px;
+  border: var(--blue) solid 2px;
+}
+
 a.anchor-1 {
-  border-bottom: #000 solid 1px;
+  border-bottom: #4a4e4d solid 1px;
 }
 
 a.anchor-2 {
@@ -108,13 +134,11 @@ a.anchor-2 {
 }
 
 a.anchor-3:hover {
-  border-bottom: #000 solid 1px;
+  border-bottom: #4a4e4d solid 1px;
 }
 
-@media screen and (min-width: 1366px) {
-  #header {
-    padding-top: 0;
-  }
+.hidden {
+  display: none;
 }
 
 #flash {
@@ -127,15 +151,15 @@ a.anchor-3:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: #ccc solid 1px;
+  border: var(--grey) solid 1px;
   border-radius: 10px;
-  box-shadow: 0 0 10px #ccc;
+  box-shadow: 0 0 10px var(--grey);
   background-color: #fff;
 }
 
 #hide-flash {
   margin-left: 20px;
   font-size: 20px;
-  color: #d11a2a;
+  color: var(--red);
   cursor: pointer;
 }
