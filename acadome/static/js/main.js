@@ -8,6 +8,7 @@ nav.forEach(li => {
   }
 });
 
+// FLASH
 const flash = document.getElementById('hide-flash');
 if (flash) {
   flash.addEventListener('click', () => {
