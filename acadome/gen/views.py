@@ -1,7 +1,7 @@
-from flask import render_template, redirect, request, url_for, abort, flash
+from flask import render_template, redirect, request, url_for, flash, abort
 from werkzeug.utils import secure_filename
 from flask_mail import Message
-from acadome import app, db, mail
+from acadome import app, db, mail, um
 from acadome.gen import gen
 from acadome.gen.forms import PublishForm, ContactForm
 import os
@@ -10,21 +10,24 @@ import os
 def about():
     return render_template(
         'about.html',
-        title='About'
+        title='About',
+        um=um
     )
 
 @gen.route('/arc')
 def arc():
     return render_template(
         'arc.html',
-        title='AcaDome Reseach Council'
+        title='AcaDome Reseach Council',
+        um=um
     )
 
 @gen.route('/financial_model')
 def finances():
     return render_template(
         'finances.html',
-        title='Financial model'
+        title='Financial model',
+        um=um
     )
 
 @gen.route('/publish', methods=['GET', 'POST'])
@@ -63,14 +66,16 @@ Team AcaDome'''
     return render_template(
         'publish.html',
         title='Publish',
-        form=form
+        form=form,
+        um=um
     )
 
 @gen.route('/publishing_agreement')
 def agreement():
     return render_template(
         'agreement.html',
-        title='Publishing agreement'
+        title='Publishing agreement',
+        um=um
     )
 
 @gen.route('/contact', methods=['GET', 'POST'])
@@ -97,9 +102,6 @@ Team AcaDome'''
     return render_template(
         'contact.html',
         title='Contact',
-        form=form
+        form=form,
+        um=um
     )
-
-@gen.route('/mongodb')
-def mongodb():
-    abort(404)

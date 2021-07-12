@@ -1,6 +1,6 @@
 from flask import render_template, request, abort
 from pymongo import ASCENDING, DESCENDING
-from acadome import db
+from acadome import db, um
 from acadome.articles import articles
 
 @articles.route('/')
@@ -13,9 +13,13 @@ def home():
             'search.html',
             title=query,
             query=query,
-            articles=articles
+            articles=articles,
+            um=um
         )
-    return render_template('home.html')
+    return render_template(
+        'home.html',
+        um=um
+    )
 
 @articles.route('/fields_of_research')
 def fields():
@@ -23,7 +27,8 @@ def fields():
     return render_template(
         'fields.html',
         title='Fields of research',
-        fields=fields_
+        fields=fields_,
+        um=um
     )
 
 @articles.route('/field/<string:field>')
@@ -35,7 +40,8 @@ def subfields(field):
     return render_template(
         'fields.html',
         title=field_,
-        field=field
+        field=field,
+        um=um
     )
 
 @articles.route('/subfield/<string:subfield>')
@@ -48,7 +54,8 @@ def subfield_search(subfield):
         'search.html',
         title=subfield_,
         query=subfield_,
-        articles=articles
+        articles=articles,
+        um=um
     )
 
 @articles.route('/author/<string:author>')
@@ -61,7 +68,8 @@ def author_search(author):
         'search.html',
         title=author_,
         query=author_,
-        articles=articles
+        articles=articles,
+        um=um
     )
 
 @articles.route('/article/<string:ref>')
@@ -70,5 +78,6 @@ def article(ref):
     return render_template(
         'article.html',
         title=article['title'],
-        article=article
+        article=article,
+        um=um
     )
