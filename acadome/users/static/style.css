@@ -1,0 +1,18 @@
+#danger {
+  color: var(--red);
+}
+
+#dashboard {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+#account {
+  border: green solid;
+  padding: 40px;
+}
+
+#articles {
+  border: red solid;
+  padding: 40px;
+}
