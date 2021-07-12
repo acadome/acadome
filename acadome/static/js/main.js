@@ -1,6 +1,12 @@
 document.querySelector('main').classList.remove('hidden');
 if (!window.location.pathname.slice(1)) {
-  document.getElementById('search').focus();
+  if (window.location.href.includes('?')) {
+    document.querySelector('.logo').classList.remove('hidden');
+  } else {
+    document.getElementById('search').focus();
+  }
+} else {
+  document.querySelector('.logo').classList.remove('hidden');
 }
 
 // NAV
