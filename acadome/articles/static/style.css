@@ -129,12 +129,11 @@
 
 #pagin a {
   border: var(--grey) solid 1px;
-  border-radius: 5px;
 }
 
 #pagin a:hover {
-  box-shadow: 0 0 5px var(--grey);
-  transition: 200ms;
+  border: var(--blue) solid 1px;
+  outline: 1px solid var(--blue);
 }
 
 @media (min-width: 768px) {
