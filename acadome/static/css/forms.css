@@ -73,6 +73,11 @@ a.link {
   color: var(--red);
 }
 
+img.spinner {
+  visibility: hidden;
+  margin-top: 20px;
+}
+
 @media (min-width: 480px) {
   form {
     max-width: 480px;

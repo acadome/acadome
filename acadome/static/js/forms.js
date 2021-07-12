@@ -98,6 +98,8 @@ class Form {
       });
       if (flags.includes(false)) {
         event.preventDefault();
+      } else {
+        document.querySelector('.spinner').style.visibility = 'visible';
       }
     });
   }
@@ -114,6 +116,8 @@ class Form {
       if (!this.form.elements['tc'].checked) {
         this.form.elements['tc'].style.outline = `2px solid ${this.red}`;
         event.preventDefault();
+      } else {
+        document.querySelector('.spinner').style.visibility = 'visible';
       }
     });
   }

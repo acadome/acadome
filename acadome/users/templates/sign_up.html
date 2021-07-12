@@ -24,11 +24,12 @@
         {{ form.tc }}
         {% endif %}
         <label for='agreement' id='agreement'>
-          I accept the <a href="{{ url_for('gen.agreement') }}" class='anchor-1' target='_blank'>publishing agreement</a>.
+          I accept the <a href="" class='anchor-1' target='_blank'>user agreement</a>.
         </label>
       </div>
       <button type='submit' class='btn'>Sign Up</button>
     </div>
+    <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' class='spinner'>
   </form>
 </section>
 {% endblock content %}
