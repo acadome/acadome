@@ -1,32 +1,28 @@
 {% extends '_base.html' %}
 
 {% block meta %}
-    <link rel='preload' href="{{ url_for('static', filename='images/logo_200x116.png') }}" as='image'>
-    <link rel='stylesheet' href="{{ url_for('articles.static', filename='style.css') }}" type='text/css'>
+<link rel='preload' href="{{ url_for('static', filename='images/logo_200x116.png') }}" as='image'>
+<link rel='stylesheet' href="{{ url_for('articles.static', filename='style.css') }}" type='text/css'>
 {% endblock meta %}
 
-{% block logo %}
-        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' class='logo'>
-{% endblock logo %}
-
 {% block content %}
-      <section id='categories'>
-        {% if field %}
-        <h2 class='header'>{{ field['name'] }}</h2>
-        {% else %}
-        <h2 class='header'>Fields of research</h2>
-        {% endif %}
+<section id='categories'>
+  {% if field %}
+  <h2 class='header'>{{ field['name'] }}</h2>
+  {% else %}
+  <h2 class='header'>Fields of research</h2>
+  {% endif %}
 
-        <ul id='fields-grid'>
-          {% if field %}
-          {% for subfield in field['subs'] %}
-          <li><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}">{{ subfield }}</a></li>
-          {% endfor %}
-          {% else %}
-          {% for field in fields %}
-          <li><a href="{{ url_for('articles.subfields', field=field['name'].replace(' ', '_')) }}">{{ field['name'] }}</a></li>
-          {% endfor %}
-          {% endif %}
-        </ul>
-      </section>
+  <ul id='fields-grid'>
+    {% if field %}
+    {% for subfield in field['subs'] %}
+    <li><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}">{{ subfield }}</a></li>
+    {% endfor %}
+    {% else %}
+    {% for field in fields %}
+    <li><a href="{{ url_for('articles.subfields', field=field['name'].replace(' ', '_')) }}">{{ field['name'] }}</a></li>
+    {% endfor %}
+    {% endif %}
+  </ul>
+</section>
 {% endblock content %}
