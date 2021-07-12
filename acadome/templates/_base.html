@@ -40,27 +40,35 @@
         {% endblock logo %}
         <h1>AcaDome</h1>
       </a>
-
       <nav>
         <ul>
           <li><a href="{{ url_for('articles.home') }}">Search</a></li>
           <li><a href="{{ url_for('gen.about') }}">About</a></li>
-          <li><a href="{{ url_for('gen.publish') }}">Publish</a></li>
-          <li><a href="{{ url_for('gen.contact') }}">Contact</a></li>
+          {% if um.user %}
+          <li><a href="{{ url_for('users.account') }}">Account</a></li>
+          <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
+          {% else %}
+          <li><a href="{{ url_for('users.sign_up') }}">Sign up</a></li>
+          <li><a href="{{ url_for('users.login') }}">Login</a></li>
+          {% endif %}
         </ul>
       </nav>
     </header>
-
+    <noscript>
+      <div class='message'>
+        <h2>JavaScript Disabled</h2>
+        <p>Please enable JavaScript in your browser to maintain functionality of the site.</p>
+      </div>
+    </noscript>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <p id='flash'>
-      <span>{{ messages[0] }}</span>
+    <div id='flash'>
       <span id='hide-flash'>&Cross;</span>
-    </p>
+      <p>{{ messages[0] }}</p>
+    </div>
     {% endif %}
     {% endwith %}
-
-    <main>
+    <main class='hidden'>
       {% block content %}
       {% endblock content %}
     </main>
