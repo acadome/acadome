@@ -36,8 +36,7 @@
   <body>
     <header>
       <a href="{{ url_for('articles.home') }}" id='acadome'>
-        {% block logo %}
-        {% endblock logo %}
+        <img src="{{ url_for('static', filename='images/logo_200x116.png') }}" alt='AcaDome logo' class='logo hidden'>
         <h1>AcaDome</h1>
       </a>
       <nav>
