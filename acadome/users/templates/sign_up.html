@@ -16,7 +16,19 @@
     {{ render_field(form.affiliation) }}
     {{ render_field(form.email) }}
     {{ render_field(form.password) }}
-    <button type='submit' class='btn'>Sign Up</button>
+    <div class='field fields-flex'>
+      <div>
+        {% if form.tc.errors %}
+        {{ form.tc(class='field-error') }}
+        {% else %}
+        {{ form.tc }}
+        {% endif %}
+        <label for='agreement' id='agreement'>
+          I accept the <a href="{{ url_for('gen.agreement') }}" class='anchor-1' target='_blank'>publishing agreement</a>.
+        </label>
+      </div>
+      <button type='submit' class='btn'>Sign Up</button>
+    </div>
   </form>
 </section>
 {% endblock content %}

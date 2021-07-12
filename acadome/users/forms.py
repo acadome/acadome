@@ -1,5 +1,5 @@
 import re
-from wtforms import Form, StringField, PasswordField
+from wtforms import Form, StringField, PasswordField, BooleanField
 from wtforms.validators import ValidationError
 from acadome import db, um, bcrypt
 
@@ -53,6 +53,10 @@ def check_password(form, field):
         if not bcrypt.check_password_hash(user['password'], field.data):
             raise ValidationError('Incorrect password.')
 
+def checkbox(form, field):
+    if not field.data:
+        raise ValidationError('')
+
 class BaseVal:
     def __init__(self):
         self.name = [
@@ -82,6 +86,7 @@ class SignUpForm(Form):
     val.email.append(unique)
     email = StringField('Email address *', val.email)
     password = PasswordField('Password *', val.password)
+    tc = BooleanField(validators=[checkbox])
 
 class LoginForm(Form):
     val = BaseVal()

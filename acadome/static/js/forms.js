@@ -101,4 +101,20 @@ class Form {
       }
     });
   }
+
+  checkbox(field) {
+    this.form.elements[field].addEventListener('change', event => {
+      if (event.target.checked) {
+        this.form.elements['tc'].style.outline = `2px solid ${this.green}`;
+      } else {
+        this.form.elements['tc'].style.outline = `2px solid ${this.red}`;
+      }
+    });
+    this.form.addEventListener('submit', () => {
+      if (!this.form.elements['tc'].checked) {
+        this.form.elements['tc'].style.outline = `2px solid ${this.red}`;
+        event.preventDefault();
+      }
+    });
+  }
 }

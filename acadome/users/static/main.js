@@ -32,9 +32,11 @@ var password = new Validators(
 const route = window.location.pathname.split('/');
 switch (route[2]) {
   case 'sign_up':
-    new Form('sign-up-form').validate(
+    var form = new Form('sign-up-form');
+    form.validate(
       [name_, affiliation, email, password]
     );
+    form.checkbox('tc');
     break;
 
   case 'login':
