@@ -1,13 +1,13 @@
 {% macro render_field(field) %}
-  <div class='field'>
-    {{ field.label }}<br>
-    {% if field.errors %}
-    {{ field(class='field-error') }}
-    {% else %}
-    {{ field }}
-    {% endif %}
-    <div class='field-error-desc small'>
-      <span id='{{ field.name }}-error'></span><br>
-    </div>
+<div class='field'>
+  {{ field.label }}<br>
+  {% if field.errors %}
+  {{ field(class='field-error') }}
+  {% else %}
+  {{ field }}
+  {% endif %}
+  <div class='field-error-desc small'>
+    <span id='{{ field.name }}-error'>{{ field.errors[0] }}</span><br>
   </div>
+</div>
 {% endmacro %}
