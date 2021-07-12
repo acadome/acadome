@@ -1,3 +1,8 @@
+document.querySelector('main').classList.remove('hidden');
+if (!window.location.pathname.slice(1)) {
+  document.getElementById('search').focus();
+}
+
 // NAV
 const nav = document.querySelectorAll('nav a');
 nav.forEach(li => {
@@ -12,6 +17,6 @@ nav.forEach(li => {
 const flash = document.getElementById('hide-flash');
 if (flash) {
   flash.addEventListener('click', () => {
-    document.getElementById('flash').style.display = 'none';
+    document.getElementById('flash').classList.add('hidden');
   });
 }
