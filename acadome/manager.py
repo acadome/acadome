@@ -3,7 +3,7 @@ import json
 
 class UserManager:
     def __init__(self, app):
-        self._path = app.root_path + app.config['PATH_TO_USER_JSON']
+        self._path = app.config['PATH_TO_USER_JSON']
         self.reset_user()
 
     def reset_user(self):
