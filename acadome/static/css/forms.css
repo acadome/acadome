@@ -28,7 +28,7 @@ textarea {
 }
 
 textarea {
-  height: 10rem;
+  height: 20rem;
   resize: none;
   line-height: 1.6;
 }
@@ -82,7 +82,7 @@ img.spinner {
   form {
     max-width: 480px;
     padding: 40px;
-    padding-top: 0;
+    padding-top: 20px;
   }
 }
 
@@ -110,8 +110,7 @@ img.spinner {
   }
 }
 
-/* PUBLISH, CONTACT */
-#spinner {
-  visibility: hidden;
-  margin-top: 20px;
+/* PUBLISH */
+#publish-form {
+  max-width: 800px;
 }
