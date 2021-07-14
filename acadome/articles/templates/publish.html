@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+{% from '_form_field.html' import render_field %}
+
+{% block meta %}
+<link href="{{ url_for('static', filename='css/forms.css') }}" rel='stylesheet' type='text/css'>
+<script defer src="{{ url_for('static', filename='js/forms.js') }}" type='text/javascript'></script>
+<script defer src="{{ url_for('articles.static', filename='main.js') }}" type='text/javascript'></script>
+{% endblock meta %}
+
+{% block content %}
+<section class='form'>
+  <form action="{{ url_for('articles.publish') }}" method='POST' enctype='multipart/form-data' autocomplete='off' id='publish-form'>
+    {{ form.csrf_token }}
+    <h2>Publish with AcaDome</h2>
+    <p>Before you send us your preprint, please read the <a href="" class='anchor-1'>editorial workflow</a>.</p><br>
+    {{ render_field(form.title) }}
+    {{ render_field(form.authors) }}
+    {{ render_field(form.abstract) }}
+    {{ render_field(form.keywords) }}
+    <div class='field fields-flex'>
+      <div>
+        {{ form.file.label(class='btn') }}
+        {{ form.file(id='file', class='hidden') }}
+      </div>
+      {% if form.file.errors %}
+      <input type='text' name='file-name' class='field-error' disabled>
+      {% else %}
+      <input type='text' name='file-name' disabled>
+      {% endif %}
+    </div>
+    <div class='field-error-desc'>
+      <span id='file-name-error' class='small'>{{ form.file.errors[0] }}</span><br>
+    </div>
+    <div class='field fields-flex'>
+      <div>
+        {% if form.pa.errors %}
+        {{ form.pa(class='field-error') }}
+        {% else %}
+        {{ form.pa }}
+        {% endif %}
+        <label for='agreement' id='agreement'>
+          I accept the <a href="" class='anchor-1' target='_blank'>publishing agreement</a>.
+        </label>
+      </div>
+      <button type='submit' class='btn'>Submit</button>
+    </div>
+    <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' class='spinner'>
+  </form>
+</section>
+{% endblock content %}

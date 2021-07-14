@@ -1,4 +1,4 @@
-// SEARCH BAR
+// SEARCH
 const search = document.forms['search-form'];
 if (search) {
   search.addEventListener('submit', event => {
@@ -60,4 +60,27 @@ if (!articles.length && document.getElementById('no-results')) {
   window.addEventListener('hashchange', () => paginate(articles, per_page));
 } else {
   articles.forEach(article => article.style.display = 'block');
+}
+
+// PUBLISH
+if (window.location.pathname.split('/')[2] == 'publish') {
+  var title = new Validators(
+    'title', [256], /[\s\S]+/
+  )
+
+  var authors = new Validators(
+    'authors', [256], /^[a-zA-Z \-\'\,]+$/, false
+  )
+
+  var abstract = new Validators(
+    'abstract', [1024], /[\s\S]+/
+  )
+
+  var keywords = new Validators(
+    'keywords', [5, 256], /[\s\S]+/
+  )
+
+  new Form('publish-form').validate(
+    text=[title, authors, abstract, keywords], boolean='pa', file='file'
+  );
 }
