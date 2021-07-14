@@ -110,6 +110,12 @@
   padding: 10px 20px;
 }
 
+.preprint {
+  margin-right: 5px;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
 #no-results {
   width: 80vw;
   margin: 0 auto;

@@ -8,7 +8,11 @@
 <article>
   <section>
     <div>
+      {% if article['preprint'] %}
+      <h2>[Preprint] {{ article['title'] }}</h2>
+      {% else %}
       <h2>{{ article['title'] }}</h2>
+      {% endif %}
       <p>
         <span>{{ article['year'] }} | </span>
         {% for author in article['authors'] %}

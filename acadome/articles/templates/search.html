@@ -32,6 +32,9 @@
       {% endfor %}
     </p>
     <p>
+      {% if article['preprint'] %}
+      <span class='preprint small'>Preprint</span>
+      {% endif %}
       <a href="{{ url_for('articles.article', ref=article['ref']) }}" class='anchor-3'>{{ article['title'] }}</a>
     </p>
   </div>
