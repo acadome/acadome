@@ -15,10 +15,9 @@
     {{ render_field(form.name) }}
     {{ render_field(form.affiliation) }}
     {{ render_field(form.email) }}
-    <span><a href="{{ url_for('users.reset_password1') }}" class='link'>Change password</a></span><br>
     {{ render_field(form.password) }}
     <div class='fields-flex'>
-      <span><a href="{{ url_for('users.account') }}" class='link'>Cancel</a></span>
+      <span><a href="{{ url_for('users.reset_password1') }}" class='link'>Change password</a></span>
       <button type='submit' class='btn'>Update</button>
     </div>
     <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' class='spinner'>
