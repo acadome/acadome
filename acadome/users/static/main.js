@@ -1,17 +1,6 @@
 const getUser = () =>
-  fetch('/account/users/static/user.json', {cache: 'no-cache'})
+  fetch('/account/user_json', {cache: 'no-cache'})
     .then(response => response.json());
-
-class Validators {
-  constructor(name, len, re, req=true, def=null, border=true) {
-    this.name = name;
-    this.length = len;
-    this.regex = re;
-    this.required = req;
-    this.default = def;
-    this.border = border;
-  }
-}
 
 var name_ = new Validators(
   'name', [3, 64], /^[a-zA-Z \-\']+$/
@@ -22,11 +11,11 @@ var affiliation = new Validators(
 );
 
 var email = new Validators(
-  'email', [4, 254], /\S+@\S+\.\S+/
+  'email', [5, 254], /\S+@\S+\.\S+/
 );
 
 var password = new Validators(
-  'password', [8, 64], /\w+/
+  'password', [8, 64], /^[a-zA-Z0-9!@#$%^&*_]+$/
 );
 
 const route = window.location.pathname.split('/');
@@ -34,15 +23,14 @@ switch (route[2]) {
   case 'sign_up':
     var form = new Form('sign-up-form');
     form.validate(
-      [name_, affiliation, email, password]
+      text=[name_, affiliation, email, password], boolean='ua'
     );
-    form.checkbox('tc');
     break;
 
   case 'login':
     email.border = false;
     password.border = false;
-    new Form('login-form').validate([email, password]);
+    new Form('login-form').validate(text=[email, password]);
     break;
 
   case 'edit':
@@ -54,23 +42,23 @@ switch (route[2]) {
       }
       password.border = false;
       new Form('edit-account-form').validate(
-        [name_, affiliation, email, password]
+        text=[name_, affiliation, email, password]
       );
     });
     break;
 
   case 'reset_password':
     if (route[3]) {
-      new Form('reset-password-form-2').validate([password]);
+      new Form('reset-password-form-2').validate(text=[password]);
       break;
     } else {
       email.border = false;
-      new Form('reset-password-form-1').validate([email]);
+      new Form('reset-password-form-1').validate(text=[email]);
       break;
     }
 
   case 'delete':
     password.border = false;
-    new Form('delete-form').validate([password]);
+    new Form('delete-form').validate(text=[password]);
     break;
 }
