@@ -19,7 +19,7 @@ def verify_token(token):
         abort(404)
 
 @users.route('/sign_up', methods=['GET', 'POST'])
-@um.access_restricted
+@um.user_denied
 def sign_up():
     form = SignUpForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -69,7 +69,7 @@ def verify(token):
     return redirect(url_for('users.login'))
 
 @users.route('/login', methods=['GET', 'POST'])
-@um.access_restricted
+@um.user_denied
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -77,13 +77,33 @@ def login():
         return redirect(url_for('users.account'))
     return render_template('login.html', title='Login', um=um, form=form)
 
+@users.route('/admin')
+@um.user_required
+@um.admin_access
+def admin():
+    return render_template('admin.html', title='Admin', um=um)
+
 @users.route('/')
-@um.access_required
+@um.user_required
+@um.admin_redirect
 def account():
-    return render_template('account.html', title='Account', um=um)
+    articles = []
+    for id in um.user['articles'][::-1]:
+        if id[0] == 'q':
+            articles.append(db.queue.find_one({'id': id}))
+        elif id[0] == 'a':
+            articles.append(db.articles.find_one({'id': id}))
+        elif id[0] == 'r':
+            articles.append(db.rejected.find_one({'id': id}))
+    return render_template('account.html', title='Account', articles=articles, um=um)
+
+@users.route('/user_json')
+@um.user_required
+def user_json():
+    return um.user
 
 @users.route('/edit', methods=['GET', 'POST'])
-@um.access_required
+@um.user_required
 def edit_account():
     form = EditAccountForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -167,13 +187,13 @@ def reset_password2(token):
     return render_template('reset_password2.html', title='Reset password', um=um, form=form, token=token)
 
 @users.route('/logout')
-@um.access_required
+@um.user_required
 def logout():
     um.reset_user()
     return redirect(url_for('users.login'))
 
 @users.route('/delete', methods=['GET', 'POST'])
-@um.access_required
+@um.user_required
 def delete():
     form = DeleteForm(request.form)
     if request.method == 'POST' and form.validate():
