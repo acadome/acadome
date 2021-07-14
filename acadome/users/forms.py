@@ -4,7 +4,7 @@ from wtforms.validators import ValidationError
 from acadome import db, um, bcrypt
 
 def required(form, field):
-    if len(field.data) == 0:
+    if not field.data:
         raise ValidationError()
 
 def length(min=0, max=256):
@@ -53,10 +53,6 @@ def check_password(form, field):
         if not bcrypt.check_password_hash(user['password'], field.data):
             raise ValidationError('Incorrect password.')
 
-def checkbox(form, field):
-    if not field.data:
-        raise ValidationError('')
-
 class BaseVal:
     def __init__(self):
         self.name = [
@@ -70,13 +66,13 @@ class BaseVal:
         ]
         self.email = [
             required,
-            length(min=4, max=254),
+            length(min=5, max=254),
             regex('^\S+@\S+\.\S+$'),
         ]
         self.password = [
             required,
             length(min=8, max=64),
-            regex('^\w+$'),
+            regex('^[a-zA-Z0-9!@#$%^&*_]+$'),
         ]
 
 class SignUpForm(Form):
@@ -86,7 +82,7 @@ class SignUpForm(Form):
     val.email.append(unique)
     email = StringField('Email address *', val.email)
     password = PasswordField('Password *', val.password)
-    tc = BooleanField(validators=[checkbox])
+    ua = BooleanField(validators=[required])
 
 class LoginForm(Form):
     val = BaseVal()
@@ -95,8 +91,12 @@ class LoginForm(Form):
     val.password.extend([required, check_password])
     password = PasswordField('Password', val.password)
 
-class EditAccountForm(SignUpForm):
+class EditAccountForm(Form):
     val = BaseVal()
+    name = StringField('Name *', val.name)
+    affiliation = StringField('Affiliation', val.affil)
+    val.email.append(unique)
+    email = StringField('Email address *', val.email)
     val.password.append(check_password)
     password = PasswordField('Enter password to confirm changes *', val.password)
 
