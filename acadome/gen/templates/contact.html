@@ -2,32 +2,24 @@
 {% from '_form_field.html' import render_field %}
 
 {% block meta %}
-<link rel='stylesheet' href="{{ url_for('static', filename='css/forms.css') }}" type='text/css'>
-<link rel='stylesheet' href="{{ url_for('gen.static', filename='style.css') }}" type='text/css'>
-<script defer src="{{ url_for('gen.static', filename='forms.js') }}" type='text/javascript'></script>
+<link href="{{ url_for('static', filename='css/forms.css') }}" rel='stylesheet' type='text/css'>
+<script defer src="{{ url_for('static', filename='js/forms.js') }}" type='text/javascript'></script>
+<script defer src="{{ url_for('gen.static', filename='main.js') }}" type='text/javascript'></script>
 {% endblock meta %}
 
 {% block content %}
-<div class='form-grid'>
-  <section class='blue-bg info'>
-    <h2>Get in touch with AcaDome</h2>
-    <ul class='list'>
-      <li>Submit your query via the adjacent form. You will receive an email of confirmation.</li>
-      <li>For comprehensive queries or collaboration, please contact us at <a href='mailto:team.acadome@gmail.com' class='anchor-2'>team.acadome@gmail.com</a>.
-      </li>
-    </ul>
-  </section>
-
-  <section class='form'>
-    <form action="{{ url_for('gen.contact') }}" method='POST' autocomplete='off' name='contact-form'>
-      <h2>Send us your query</h2>
-      {{ form.csrf_token }}
-      {{ render_field(form.name) }}
-      {{ render_field(form.email) }}
-      {{ render_field(form.query) }}
+<main class='hidden'>
+  <form action="{{ url_for('gen.contact') }}" method='POST' autocomplete='off' id='contact-form'>
+    <h2>Contact</h2>
+    {{ form.csrf_token }}
+    {{ render_field(form.name) }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.query) }}
+    <div class='fields-flex'>
+      <span><a href="{{ url_for('gen.about') }}" class='red'>Back</a></span>
       <button type='submit' class='btn'>Submit</button>
-      <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' id='spinner'>
-    </form>
-  </section>
-</div>
+    </div>
+    <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' class='spinner'>
+  </form>
+</main>
 {% endblock content %}

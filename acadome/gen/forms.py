@@ -1,87 +1,41 @@
-from wtforms import Form, StringField, FileField, TextAreaField, BooleanField
-from wtforms.validators import Length, ValidationError, Regexp
+import re
+from wtforms import Form, StringField, TextAreaField
+from wtforms.validators import ValidationError
 
 def required(form, field):
-    if len(field.data) == 0:
-        raise ValidationError('')
-
-def checkbox(form, field):
     if not field.data:
-        raise ValidationError('')
+        raise ValidationError()
 
-class PublishForm(Form):
-    name = StringField(
-        label='Name *',
-        validators=[
-            required,
-            Length(max=64),
-            Regexp(
-                '^[a-zA-Z \-\']+$',
-                message='Invalid characters in name.'
-            )
-        ]
-    )
-    email = StringField(
-        label='Email *',
-        validators=[
-            required,
-            Length(max=254),
-            Regexp(
-                '^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+$',
-                message='Invalid email address.'
-            )
-        ]
-    )
-    affiliation = StringField(
-        label='Affiliation',
-        validators=[
-            Length(max=256),
-            Regexp(
-                '^[a-zA-Z0-9 \,\.\-\']*$',
-                message='Invalid characters in affiliation.'
-            )
-        ]
-    )
-    file = FileField(
-        label='Upload'
-    )
-    agreement = BooleanField(
-        validators=[
-            checkbox
-        ]
-    )
+def length(min=0, max=256):
+    if min:
+        msg = f'Must be between {min} and {max} characters.'
+    else:
+        msg = f'Cannot exceed {max} characters.'
+    def _length(form, field):
+        if len(field.data) < min or len(field.data) > max:
+            raise ValidationError(msg)
+    return _length
+
+def regex(r):
+    def _regex(form, field):
+        msg = f'Invalid characters in {field.name}.'
+        if not re.match(r, field.data):
+            raise ValidationError(msg)
+    return _regex
 
 class ContactForm(Form):
-    name = StringField(
-        label='Name *',
-        validators=[
-            required,
-            Length(max=64),
-            Regexp(
-                '^[a-zA-Z \-\']+$',
-                message='Invalid characters in name.'
-            )
-        ]
-    )
-    email = StringField(
-        label='Email *',
-        validators=[
-            required,
-            Length(max=254),
-            Regexp(
-                '^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-\.]+$',
-                message='Invalid email address.'
-            )
-        ]
-    )
-    query = TextAreaField(
-        label='Query *',
-        validators=[
-            required,
-            Length(max=1024),
-            Regexp(
-                '^[a-zA-Z0-9 \,\.\-\'\r\n]+$',
-                message='Invalid characters in query.'
-            )
-        ]
-    )
+    name = StringField('Name', validators=[
+        required,
+        length(min=3, max=64),
+        regex('^[a-zA-Z \-\']+$'),
+    ])
+    email = StringField('Email', validators=[
+        required,
+        length(min=5, max=254),
+        regex('^\S+@\S+\.\S+$'),
+    ])
+    query = TextAreaField('Query', validators=[
+        required,
+        length(max=1024),
+        regex('[\s\S]+'),
+    ])
