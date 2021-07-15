@@ -12,7 +12,7 @@
   <form action="{{ url_for('articles.publish') }}" method='POST' enctype='multipart/form-data' autocomplete='off' id='publish-form'>
     {{ form.csrf_token }}
     <h2>Publish with AcaDome</h2>
-    <p>Before you send us your preprint, please read the <a href="" class='anchor-1'>editorial workflow</a>.</p><br>
+    <p>Before you send us your preprint, please read the <a href="" class='link'>editorial workflow</a>.</p><br>
     {{ render_field(form.title) }}
     {{ render_field(form.authors) }}
     {{ render_field(form.abstract) }}
@@ -39,7 +39,7 @@
         {{ form.pa }}
         {% endif %}
         <label for='agreement' id='agreement'>
-          I accept the <a href="" class='anchor-1' target='_blank'>publishing agreement</a>.
+          I accept the <a href="{{ url_for('gen.publishing_agreement') }}" class='link' target='_blank'>publishing agreement</a>.
         </label>
       </div>
       <button type='submit' class='btn'>Submit</button>

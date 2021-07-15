@@ -5,11 +5,11 @@
 {% endblock meta %}
 
 {% block content %}
-<section id='categories'>
+<main class='hidden' id='categories'>
   {% if field %}
-  <h2 class='header'>{{ field['name'] }}</h2>
+  <h2>{{ field['name'] }}</h2>
   {% else %}
-  <h2 class='header'>Fields of research</h2>
+  <h2>Fields of research</h2>
   {% endif %}
 
   <ul id='fields-grid'>
@@ -23,5 +23,5 @@
     {% endfor %}
     {% endif %}
   </ul>
-</section>
+</main>
 {% endblock content %}

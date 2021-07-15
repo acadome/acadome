@@ -7,7 +7,7 @@
 {% endblock meta %}
 
 {% block content %}
-<section id='search-bar'>
+<main class='hidden' id='search-results'>
   <form action="{{ url_for('articles.home') }}" method='GET' autocomplete='off' name='search-form' id='search-form'>
     <div class='fields-flex'>
       <input type='search' name='search' id='search' placeholder='Search database' value='{{ query }}'>
@@ -16,38 +16,38 @@
       </button>
     </div>
   </form>
-</section>
 
-<section id='search-grid'>
-  {% for article in articles %}
-  <div class='article hidden'>
-    <p class='small'>
-      <span>{{ article['year'] }} | </span>
-      {% for author in article['authors'] %}
-      {% if author == article['authors'][-1] %}
-      <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a></span>
-      {% else %}
-      <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='anchor-3'>{{ author }}</a>, </span>
-      {% endif %}
-      {% endfor %}
-    </p>
-    <p>
-      {% if article['preprint'] %}
-      <span class='preprint small'>Preprint</span>
-      {% endif %}
-      <a href="{{ url_for('articles.article', ref=article['ref']) }}" class='anchor-3'>{{ article['title'] }}</a>
-    </p>
-  </div>
-  {% endfor %}
-</section>
+  <section id='search-grid'>
+    {% for article in articles %}
+    <div class='article hidden'>
+      <p class='small'>
+        <span>{{ article['year'] }} | </span>
+        {% for author in article['authors'] %}
+        {% if author == article['authors'][-1] %}
+        <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='blue'>{{ author }}</a></span>
+        {% else %}
+        <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='blue'>{{ author }}</a>, </span>
+        {% endif %}
+        {% endfor %}
+      </p>
+      <p>
+        {% if article['preprint'] %}
+        <span class='preprint small'>Preprint</span>
+        {% endif %}
+        <a href="{{ url_for('articles.article', ref=article['ref']) }}" class='blue'>{{ article['title'] }}</a>
+      </p>
+    </div>
+    {% endfor %}
+  </section>
 
-<section id='no-results' class='hidden'>
-  <span>There are no results for your search query.</span>
-</section>
+  <section id='no-results' class='hidden'>
+    <span>There are no results for your search query.</span>
+  </section>
 
-<ul id='pagin' class='hidden'>
-  <li><a></a></li>
-  <li></li>
-  <li><a></a></li>
-</ul>
+  <ul id='pagin' class='hidden'>
+    <li><a></a></li>
+    <li></li>
+    <li><a></a></li>
+  </ul>
+</main>
 {% endblock content %}

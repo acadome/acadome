@@ -5,24 +5,41 @@
 {% endblock meta %}
 
 {% block content %}
-<article>
-  <section class='blue-bg info'>
-    <div class='centre'>
+<main class='hidden'>
+  <article>
+    <section>
       <h2>About AcaDome</h2>
-      <p>We are a digital publisher of open access research articles.</p>
-    </div>
-  </section>
+      <p>We are a self-publishing open access mega-journal.</p>
+    </section>
 
-  <section class='info'>
-    <div class='centre'>
+    <section>
       <h2>Our principles</h2>
       <ul class='list'>
-        <li>No paywalls. No registration. Absolute <a href='https://www.openaccess.nl/en/what-is-open-access' class='anchor-1' target='_blank'>open access</a>.</li>
-        <li>Streamline the <a href="{{ url_for('gen.publish') }}" class='anchor-1'>editorial workflow</a>.</li>
-        <li>Maintain transparent <a href="{{ url_for('gen.finances') }}" class='anchor-1'>pricing</a>.</li>
-        <li>Collaborate with academia through <a href="{{ url_for('gen.arc') }}" class='anchor-1'>ARC</a>.</li>
+        <li>No paywalls. No registration. Absolute <a href='https://www.openaccess.nl/en/what-is-open-access' class='orange' target='_blank'>open access</a>.</li>
+        <li>Streamline the <a href="{{ url_for('gen.workflow') }}" class='orange'>editorial workflow</a>.</li>
+        <li>Maintain transparent <a href="{{ url_for('gen.finances') }}" class='orange'>pricing</a>.</li>
+        <li>Collaborate with academia.</li>
+        <li>publisher: self</li>
+        <li>scope: digital</li>
+        <li>issues: rolling</li>
+        <li>issn</li>
       </ul>
-    </div>
-  </section>
-</article>
+    </section>
+
+    <section>
+      <h2>Editorial board</h2>
+      <p></p>
+    </section>
+
+    <section>
+      <h2>Advisory board</h2>
+      <p></p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>If you have a user account, please login and send us your query. If you do not have a user account, use this <a href="{{ url_for('gen.contact') }}" class='orange'>contact form</a>, or email us directly at <a href='mailto:team.acadome@gmail.com' class='orange'>team.acadome@gmail.com</a>.</p>
+    </section>
+  </article>
+</main>
 {% endblock content %}

@@ -8,7 +8,7 @@
 {% endblock meta %}
 
 {% block content %}
-<section id='home'>
+<main class='hidden' id='home'>
   <figure>
     <img src="{{ url_for('static', filename='images/logo_400x231.png') }}" alt='AcaDome logo' id='logo'>
   </figure>
@@ -22,6 +22,6 @@
     </div>
   </form>
 
-  <p>Or browse through the <a href="{{ url_for('articles.fields') }}" class='anchor-1'>fields of research</a>.</p>
-</section>
+  <p>Or browse through the <a href="{{ url_for('articles.fields') }}" class='orange'>fields of research</a>.</p>
+</main>
 {% endblock content %}

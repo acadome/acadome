@@ -8,17 +8,17 @@
 {% endblock meta %}
 
 {% block content %}
-<section class='form'>
+<main class='hidden'>
   <form action="{{ url_for('users.login') }}" method='POST' autocomplete='off' id='login-form'>
     <h2>Login</h2>
     {{ form.csrf_token }}
     {{ render_field(form.email) }}
     {{ render_field(form.password) }}
     <div class='fields-flex'>
-      <span><a href="{{ url_for('users.reset_password1') }}" class='link'>Forgot password</a></span>
+      <span><a href="{{ url_for('users.reset_password1') }}" class='red'>Forgot password</a></span>
       <button type='submit' class='btn'>Login</button>
     </div>
     <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' class='spinner'>
   </form>
-</section>
+</main>
 {% endblock content %}

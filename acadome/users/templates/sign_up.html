@@ -8,7 +8,7 @@
 {% endblock meta %}
 
 {% block content %}
-<section class='form'>
+<main class='hidden'>
   <form action="{{ url_for('users.sign_up') }}" method='POST' autocomplete='off' id='sign-up-form'>
     <h2>Sign Up</h2>
     {{ form.csrf_token }}
@@ -16,7 +16,7 @@
     {{ render_field(form.affiliation) }}
     {{ render_field(form.email) }}
     {{ render_field(form.password) }}
-    <div class='field fields-flex'>
+    <div class='fields-flex'>
       <div>
         {% if form.ua.errors %}
         {{ form.ua(class='field-error') }}
@@ -24,12 +24,12 @@
         {{ form.ua }}
         {% endif %}
         <label for='agreement' id='agreement'>
-          I accept the <a href="" class='anchor-1' target='_blank'>user agreement</a>.
+          I accept the <a href="{{ url_for('gen.user_agreement') }}" class='link' target='_blank'>user agreement</a>.
         </label>
       </div>
       <button type='submit' class='btn'>Sign Up</button>
     </div>
     <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' class='spinner'>
   </form>
-</section>
+</main>
 {% endblock content %}

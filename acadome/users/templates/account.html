@@ -5,26 +5,37 @@
 {% endblock meta %}
 
 {% block content %}
-<div id='dashboard'>
-  <section id='account'>
-    <h2>Account details</h2>
+<main class='hidden' id='dashboard'>
+  <section id='dash-side'>
+    <h2>Account</h2>
     <dl>
       <dt class='small'>Name</dt>
-      <dl>{{ um.user['name'] }}</dl>
-      <dt class='small'>Email</dt>
-      <dl>{{ um.user['email'] }}</dl>
-      {% if um.user['affiliation'] %}
+      <dd>{{ um.user['name'] }}</dd><br>
+      <dt class='small'>Email address</dt>
+      <dd>{{ um.user['email'] }}</dd><br>
       <dt class='small'>Affiliation</dt>
-      <dl>{{ um.user['affiliation'] }}</dl>
-      {% endif %}
+      <dd>{{ um.user['affiliation'] }}</dd>
     </dl><br>
-    <div>
-      <a href="{{ url_for('users.edit_account') }}" class='btn'>Edit</a>
-      <a href="{{ url_for('users.delete') }}" class='btn' id='danger'>Delete</a>
-    </div>
+    <a href="{{ url_for('users.edit_account') }}" class='btn'>Edit</a>
+    <a href="{{ url_for('users.reset_password1') }}" class='btn'>Change password</a>
+    <a href="{{ url_for('users.delete') }}" class='btn' id='danger'>Delete</a>
   </section>
 
-  <section id='articles'>
+  <section id='dash-main'>
+    <span style='float: right;'><a href="{{ url_for('articles.publish') }}" class='btn'>+ Publish</a></span>
+    <h2>Articles</h2>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+      </tr>
+      {% for article in articles %}
+      <tr>
+        <td>{{ article['title'] }}</td>
+        <td>{{ article['status'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
   </section>
-</div>
+</main>
 {% endblock content %}
