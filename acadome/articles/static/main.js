@@ -48,7 +48,10 @@ function paginate(objects, per_page) {
 }
 
 var articles = document.querySelectorAll(`.article`);
-const per_page = 10;
+var per_page = 20;
+if (window.innerWidth > 1366) {
+  per_page = 40;
+}
 if (!articles.length && document.getElementById('no-results')) {
   document.getElementById('no-results').style.display = 'block';
 } else if (articles.length > per_page) {
