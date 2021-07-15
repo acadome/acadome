@@ -31,8 +31,8 @@ h1 {
   font-weight: lighter;
 }
 
-.logo {
-  height: 50px;
+img.logo {
+  height: 36px;
   margin-right: 20px;
 }
 
@@ -63,6 +63,10 @@ nav a:hover {
     padding: 0 20px;
   }
 
+  img.logo {
+    height: 50px;
+  }
+
   nav li:first-child {
     display: block;
   }
@@ -82,13 +86,6 @@ main {
 h2 {
   font-size: 2rem;
   font-weight: normal;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-h2.header {
-  margin: 20px;
-  text-align: center;
 }
 
 h3 {
@@ -117,16 +114,20 @@ h3 {
   border: var(--blue) solid 2px;
 }
 
-a.anchor-1 {
+.link {
   border-bottom: var(--dark) solid 1px;
 }
 
-a.anchor-2 {
-  border-bottom: #fff solid 1px;
+.orange {
+  color: var(--orange);
 }
 
-a.anchor-3:hover {
-  border-bottom: var(--dark) solid 1px;
+.red {
+  color: var(--red);
+}
+
+.blue:hover {
+  color: var(--blue);
 }
 
 .hidden {
@@ -134,8 +135,9 @@ a.anchor-3:hover {
 }
 
 .message {
-  margin: 0 auto;
-  padding: 40px 30px;
+  width: 85vw;
+  max-width: 480px;
+  margin: 20px auto;
   line-height: 2;
 }
 
@@ -163,24 +165,10 @@ a.anchor-3:hover {
 @media screen and (min-width: 768px) {
   h2 {
     font-size: 2.4rem;
-    text-align: left;
-  }
-
-  .message {
-    padding: 40px 60px;
-  }
-
-  #flash {
-    top: 60px;
   }
 }
 
 @media screen and (min-width: 1366px) {
-  .message {
-    width: 40vw;
-    padding: 40px 0;
-  }
-
   #flash {
     top: 70px;
     width: 30vw;

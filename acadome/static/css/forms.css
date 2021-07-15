@@ -10,7 +10,7 @@ form {
   padding-bottom: 40px;
 }
 
-div.field {
+section.field {
   width: 100%;
 }
 
@@ -69,10 +69,6 @@ div.fields-flex {
   align-items: center;
 }
 
-a.link {
-  color: var(--red);
-}
-
 img.spinner {
   visibility: hidden;
   margin-top: 20px;
@@ -90,7 +86,6 @@ img.spinner {
 #search-form {
   width: 85vw;
   max-width: 350px;
-  margin: 20px auto;
   padding: 0;
 }
 
