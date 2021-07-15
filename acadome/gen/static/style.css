@@ -1,43 +1,17 @@
+main {
+  padding: 20px 0;
+}
+
 article {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  width: 80vw;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
-section.info {
-  width: 100%;
-  padding: 40px 30px;
-}
-
-.blue-bg {
-  color: #fff;
-  background-color: var(--blue);
+section {
+  padding: 20px 0;
 }
 
 .list {
-  margin-bottom: 15px;
   padding-left: 20px;
-}
-
-.list li {
-  margin: 5px 0;
-}
-
-@media (min-width: 768px) {
-  section.info {
-    padding: 40px 60px;
-  }
-}
-
-@media (min-width: 1366px) {
-  .centre {
-    width: 40vw;
-    margin: 0 auto;
-  }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    min-height: 88vh;
-  }
 }
