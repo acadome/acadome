@@ -17,7 +17,7 @@ def home():
         return render_template('search.html', title=query, query=query, articles=articles, um=um)
     return render_template('home.html', um=um)
 
-@articles.route('/fields_of_research')
+@articles.route('/fields')
 def fields():
     fields_ = db.fields.find().sort('name')
     return render_template('fields.html', title='Fields of research', fields=fields_, um=um)
