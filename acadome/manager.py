@@ -43,7 +43,7 @@ class UserManager:
         def wrapper(*args, **kwargs):
             try:
                 if self.user['admin']:
-                    return redirect(url_for('users.admin'))
+                    return redirect(url_for('admin.home'))
             except KeyError:
                 return func(*args, **kwargs)
         wrapper.__name__ = func.__name__
