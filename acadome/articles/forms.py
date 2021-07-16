@@ -1,9 +1,8 @@
 import os
 import re
 from flask import request
-from wtforms import Form, StringField, TextAreaField, BooleanField, FileField
+from wtforms import Form, StringField, TextAreaField, SelectField, FileField, BooleanField
 from wtforms.validators import ValidationError
-from acadome import db, um, bcrypt
 
 def required(form, field):
     if not field.data:
@@ -35,11 +34,11 @@ def format(form, field):
 class PublishForm(Form):
     title = StringField('Title *', validators=[
         required,
-        length(max=256),
+        length,
         regex('[\s\S]+'),
     ])
     authors = StringField('Co-author(s)', validators=[
-        length(max=256),
+        length,
         regex('^[a-zA-Z \-\'\,]*$'),
     ])
     abstract = TextAreaField('Abstract *', validators=[
@@ -52,5 +51,13 @@ class PublishForm(Form):
         length(min=5, max=256),
         regex('[\s\S]+'),
     ])
+    field = SelectField('Field *', choices=[
+        'Physics',
+        'Mathematics',
+    ])
     file = FileField('Upload', validators=[format])
+    reviewers = StringField('Peer reviewer suggestions', validators=[
+        length,
+        regex('[\s\S]*'),
+    ])
     pa = BooleanField(validators=[required])
