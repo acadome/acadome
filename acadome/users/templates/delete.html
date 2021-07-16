@@ -14,7 +14,7 @@
     {{ form.csrf_token }}
     {{ render_field(form.password) }}
     <div class='fields-flex'>
-      <span><a href="{{ url_for('users.account') }}" class='red'>Cancel</a></span>
+      <span><a href="{{ url_for('users.account') }}" class='red'>Back</a></span>
       <button type='submit' class='btn'>Delete</button>
     </div>
     <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' class='spinner'>
