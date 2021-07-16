@@ -1,5 +1,5 @@
 {% macro render_field(field) %}
-<section class='field'>
+<div class='field'>
   {{ field.label }}<br>
   {% if field.errors %}
   {{ field(class='field-error') }}
@@ -9,5 +9,5 @@
   <div class='field-error-desc small'>
     <span id='{{ field.name }}-error'>{{ field.errors[0] }}</span><br>
   </div>
-</section>
+</div>
 {% endmacro %}
