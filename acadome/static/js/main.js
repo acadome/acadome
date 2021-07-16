@@ -3,7 +3,7 @@ if (!window.location.pathname.slice(1)) {
   if (window.location.href.includes('?')) {
     document.querySelector('.logo').classList.remove('hidden');
   } else {
-    document.getElementById('search').focus();
+    document.querySelector('#search-form input').focus();
   }
 } else {
   document.querySelector('.logo').classList.remove('hidden');
