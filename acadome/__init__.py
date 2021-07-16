@@ -15,10 +15,12 @@ mail = Mail(app)
 um = UserManager(app)
 
 from acadome.gen import gen
+from acadome.admin import admin
 from acadome.articles import articles
 from acadome.users import users
 from acadome.errors import errors
-app.register_blueprint(gen)
+app.register_blueprint(admin)
 app.register_blueprint(articles)
+app.register_blueprint(gen)
 app.register_blueprint(users)
 app.register_blueprint(errors)
