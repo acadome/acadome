@@ -77,24 +77,13 @@ def login():
         return redirect(url_for('users.account'))
     return render_template('login.html', title='Login', um=um, form=form)
 
-@users.route('/admin')
-@um.user_required
-@um.admin_access
-def admin():
-    return render_template('admin.html', title='Admin', um=um)
-
 @users.route('/')
 @um.user_required
 @um.admin_redirect
 def account():
     articles = []
     for id in um.user['articles'][::-1]:
-        if id[0] == 'q':
-            articles.append(db.queue.find_one({'id': id}))
-        elif id[0] == 'a':
-            articles.append(db.articles.find_one({'id': id}))
-        elif id[0] == 'r':
-            articles.append(db.rejected.find_one({'id': id}))
+        articles.append(db.queue.find_one({'id': id}) or db.articles.find_one({'id': id}))
     return render_template('account.html', title='Account', articles=articles, um=um)
 
 @users.route('/user_json')
