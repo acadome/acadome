@@ -8,14 +8,14 @@
 {% endblock meta %}
 
 {% block content %}
-<main class='hidden' id='home'>
+<main class='home hidden'>
   <figure>
     <img src="{{ url_for('static', filename='images/logo_400x231.png') }}" alt='AcaDome logo' id='logo'>
   </figure>
 
-  <form action="{{ url_for('articles.home') }}" method='GET' autocomplete='off' name='search-form' id='search-form'>
+  <form action="{{ url_for('articles.home') }}" method='GET' autocomplete='off' id='search-form'>
     <div class='fields-flex'>
-      <input type='search' name='search' id='search' placeholder='Search database'>
+      <input type='search' name='search' placeholder='Search database'>
       <button type='submit' class='btn'>
         <img src="{{ url_for('static', filename='images/search.png') }}" width='16px' height='16px'>
       </button>

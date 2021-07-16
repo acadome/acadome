@@ -5,23 +5,12 @@
 {% endblock meta %}
 
 {% block content %}
-<main class='hidden' id='categories'>
-  {% if field %}
-  <h2>{{ field['name'] }}</h2>
-  {% else %}
+<main class='categories hidden'>
   <h2>Fields of research</h2>
-  {% endif %}
-
-  <ul id='fields-grid'>
-    {% if field %}
-    {% for subfield in field['subs'] %}
-    <li><a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}">{{ subfield }}</a></li>
-    {% endfor %}
-    {% else %}
+  <ul class='fields-grid'>
     {% for field in fields %}
-    <li><a href="{{ url_for('articles.subfields', field=field['name'].replace(' ', '_')) }}">{{ field['name'] }}</a></li>
+    <li><a href="{{ url_for('articles.field_search', field=field['name'].replace(' ', '_')) }}">{{ field['name'] }}</a></li>
     {% endfor %}
-    {% endif %}
   </ul>
 </main>
 {% endblock content %}

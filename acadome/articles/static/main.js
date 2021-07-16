@@ -1,8 +1,8 @@
 // SEARCH
-const search = document.forms['search-form'];
-if (search) {
+if (window.location.pathname == '/') {
+  const search = document.getElementById('search-form');
   search.addEventListener('submit', event => {
-    if (!search['search'].value.trim().length) {
+    if (!search.elements['search'].value.trim().length) {
       event.preventDefault();
     }
   });
@@ -25,7 +25,7 @@ function paginate(objects, per_page) {
   objects_.forEach(object => object.style.display = 'block');
   scrollTo(0, 0);
 
-  const ul = document.getElementById('pagin');
+  const ul = document.querySelector('.pagin');
   const li = ul.querySelectorAll('li');
   var a = li[0].querySelector('a');
   if (page-1 >= 1) {
@@ -52,8 +52,8 @@ var per_page = 20;
 if (window.innerWidth > 1366) {
   per_page = 40;
 }
-if (!articles.length && document.getElementById('no-results')) {
-  document.getElementById('no-results').style.display = 'block';
+if (!articles.length && document.querySelector('.no-results')) {
+  document.querySelector('.no-results').style.display = 'block';
 } else if (articles.length > per_page) {
   if (window.location.hash.slice(1)) {
     paginate(articles, per_page);
@@ -83,7 +83,11 @@ if (window.location.pathname.split('/')[2] == 'publish') {
     'keywords', [5, 256], /[\s\S]+/
   )
 
+  var reviewers = new Validators(
+    'reviewers', [256], /[\s\S]*/
+  )
+
   new Form('publish-form').validate(
-    text=[title, authors, abstract, keywords], boolean='pa', file='file'
+    text=[title, authors, abstract, keywords, reviewers], boolean='pa', file='file'
   );
 }

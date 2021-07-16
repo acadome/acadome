@@ -1,5 +1,5 @@
 /* HOME */
-#home {
+.home {
   position: relative;
   top: 12vh;
   display: flex;
@@ -15,14 +15,14 @@
   margin-bottom: 20px;
 }
 
-#home p {
+.home p {
   width: 200px;
   margin-top: 20px;
   text-align: center;
 }
 
 @media (min-width: 768px) {
-  #home {
+  .home {
     top: 22vh;
   }
 
@@ -30,13 +30,13 @@
     width: 200px;
   }
 
-  #home p {
+  .home p {
     width: auto;
   }
 }
 
 @media (min-width: 1366px) {
-  #home {
+  .home {
     top: 15vh;
   }
 
@@ -46,16 +46,16 @@
 }
 
 /* FIELDS AND SUBFIELDS */
-#categories {
+.categories {
   padding: 20px 0;
 }
 
-#categories h2 {
+.categories h2 {
   text-align: center;
   padding-bottom: 10px;
 }
 
-#fields-grid {
+.fields-grid {
   list-style-type: none;
   display: grid;
   grid-template-columns: 1fr;
@@ -65,36 +65,36 @@
   text-align: center;
 }
 
-#fields-grid a {
+.fields-grid a {
   display: block;
   padding: 10px;
   border: var(--grey) solid 1px;
 }
 
-#fields-grid a:hover {
+.fields-grid a:hover {
   cursor: pointer;
   padding: 9px;
   border: var(--blue) solid 2px;
 }
 
 @media (min-width: 768px) {
-  #fields-grid {
+  .fields-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1366px) {
-  #fields-grid {
+  .fields-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 /* SEARCH RESULTS */
-#search-results {
+.search-results {
   padding: 20px 0;
 }
 
-#search-grid {
+.search-grid {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 20px;
@@ -112,13 +112,13 @@
   color: var(--orange);
 }
 
-#no-results {
+.no-results {
   width: 60vw;
   margin: 0 auto;
   text-align: center;
 }
 
-#pagin {
+.pagin {
   list-style-type: none;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
@@ -128,17 +128,17 @@
   text-align: center;
 }
 
-#pagin a {
+.pagin a {
   border: var(--grey) solid 1px;
 }
 
-#pagin a:hover {
+.pagin a:hover {
   border: var(--blue) solid 1px;
   outline: 1px solid var(--blue);
 }
 
 @media (min-width: 1366px) {
-  #search-grid {
+  .search-grid {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 40px;
     padding: 20px 0;

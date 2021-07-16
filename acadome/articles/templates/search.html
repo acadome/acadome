@@ -7,17 +7,17 @@
 {% endblock meta %}
 
 {% block content %}
-<main class='hidden' id='search-results'>
-  <form action="{{ url_for('articles.home') }}" method='GET' autocomplete='off' name='search-form' id='search-form'>
+<main class='search-results hidden'>
+  <form action="{{ url_for('articles.home') }}" method='GET' autocomplete='off' id='search-form'>
     <div class='fields-flex'>
-      <input type='search' name='search' id='search' placeholder='Search database' value='{{ query }}'>
+      <input type='search' name='search' placeholder='Search database' value='{{ query }}'>
       <button type='submit' class='btn'>
         <img src="{{ url_for('static', filename='images/search.png') }}" width='16px' height='16px'>
       </button>
     </div>
   </form>
 
-  <section id='search-grid'>
+  <section class='search-grid'>
     {% for article in articles %}
     <div class='article hidden'>
       <p class='small'>
@@ -34,17 +34,17 @@
         {% if article['preprint'] %}
         <span class='preprint small'>Preprint</span>
         {% endif %}
-        <a href="{{ url_for('articles.article', ref=article['ref']) }}" class='blue'>{{ article['title'] }}</a>
+        <a href="{{ url_for('articles.article', id=article['id']) }}" class='blue'>{{ article['title'] }}</a>
       </p>
     </div>
     {% endfor %}
   </section>
 
-  <section id='no-results' class='hidden'>
+  <section class='no-results hidden'>
     <span>There are no results for your search query.</span>
   </section>
 
-  <ul id='pagin' class='hidden'>
+  <ul class='pagin hidden'>
     <li><a></a></li>
     <li></li>
     <li><a></a></li>

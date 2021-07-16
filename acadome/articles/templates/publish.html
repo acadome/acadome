@@ -8,7 +8,7 @@
 {% endblock meta %}
 
 {% block content %}
-<section class='form'>
+<main class='hidden'>
   <form action="{{ url_for('articles.publish') }}" method='POST' enctype='multipart/form-data' autocomplete='off' id='publish-form'>
     {{ form.csrf_token }}
     <h2>Publish with AcaDome</h2>
@@ -17,6 +17,7 @@
     {{ render_field(form.authors) }}
     {{ render_field(form.abstract) }}
     {{ render_field(form.keywords) }}
+    {{ render_field(form.field) }}
     <div class='field fields-flex'>
       <div>
         {{ form.file.label(class='btn') }}
@@ -31,6 +32,7 @@
     <div class='field-error-desc'>
       <span id='file-name-error' class='small'>{{ form.file.errors[0] }}</span><br>
     </div>
+    {{ render_field(form.reviewers) }}
     <div class='field fields-flex'>
       <div>
         {% if form.pa.errors %}
@@ -46,5 +48,5 @@
     </div>
     <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' class='spinner'>
   </form>
-</section>
+</main>
 {% endblock content %}

@@ -7,7 +7,7 @@
 {% block content %}
 <main class='hidden' id='article'>
   <article>
-    <section>
+    <div>
       {% if article['preprint'] %}
       <h2>[Preprint] {{ article['title'] }}</h2>
       {% else %}
@@ -31,16 +31,14 @@
         {% endif %}
         {% endfor %}
       </p>
-    </section><br>
+    </div><br>
     <div>
       <a href="{{ url_for('articles.static', filename='pdfs/' + article['title'] + '.pdf') }}" target='_blank' class='btn'>PDF</a>
     </div><br>
     <div>
       <h3>Abstract</h3>
       <p>{{ article['abstract'] }}</p>
-    </div>
-  </article>
-  <aside>
+    </div><br>
     <h3>Keywords</h3>
     <p>
       {% for kw in article['keywords'] %}
@@ -51,14 +49,8 @@
       {% endif %}
       {% endfor %}
     </p>
-    <br>
-    <h3>Subfields</h3>
-    <p>
-      {% for subfield in article['subfields'] %}
-      <a href="{{ url_for('articles.subfield_search', subfield=subfield.replace(' ', '_')) }}" class='blue'>{{ subfield }}</a><br>
-      {% endfor %}
-    </p>
-    <br>
+  </article>
+  <aside>
     {% if article['count'] %}
     <p>Cited by: {{ article['count'] }}</p>
     <br>
