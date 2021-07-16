@@ -10,14 +10,15 @@ form {
   padding-bottom: 40px;
 }
 
-section.field {
+.field {
   width: 100%;
 }
 
 input[type='text'],
 input[type='password'],
 input[type='search'],
-textarea {
+textarea,
+select {
   width: 100%;
   padding: 10px 20px;
   font-family: inherit;
@@ -36,7 +37,8 @@ textarea {
 input[type='text']:focus,
 input[type='password']:focus,
 input[type='search']:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: none;
   padding: 9px 19px;
   border: var(--blue) solid 2px;
@@ -89,10 +91,6 @@ img.spinner {
   padding: 0;
 }
 
-#search {
-  width: 100%;
-}
-
 @media (min-width: 768px) {
   #search-form {
     max-width: 500px;
@@ -105,7 +103,8 @@ img.spinner {
   }
 }
 
-/* PUBLISH */
-#publish-form {
+/* PUBLISH, EDIT ARTICLE */
+#publish-form,
+#edit-article-form {
   max-width: 800px;
 }
