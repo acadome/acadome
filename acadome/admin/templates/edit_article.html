@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+{% from '_form_field.html' import render_field %}
+
+{% block meta %}
+<link href="{{ url_for('static', filename='css/forms.css') }}" rel='stylesheet' type='text/css'>
+<script defer src="{{ url_for('static', filename='js/forms.js') }}" type='text/javascript'></script>
+<script defer src="{{ url_for('admin.static', filename='main.js') }}" type='text/javascript'></script>
+{% endblock meta %}
+
+{% block content %}
+<main class='hidden'>
+  <form action="{{ url_for('admin.edit', id=id) }}" method='POST' autocomplete='off' id='edit-article-form'>
+    {{ form.csrf_token }}
+    <h2>Edit article</h2>
+    {{ render_field(form.title) }}
+    {{ render_field(form.authors) }}
+    {{ render_field(form.abstract) }}
+    {{ render_field(form.keywords) }}
+    {{ render_field(form.field) }}
+    {{ render_field(form.reviewers) }}
+    <div class='fields-flex'>
+      <span><a href="{{ url_for('admin.article', id=id) }}" class='red'>Back</a></span>
+      <button type='submit' class='btn'>Update</button>
+    </div>
+    <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' class='spinner'>
+  </form>
+</main>
+{% endblock content %}

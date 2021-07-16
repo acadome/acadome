@@ -1,0 +1,35 @@
+{% extends '_base.html' %}
+
+{% block meta %}
+<link href="{{ url_for('articles.static', filename='style.css') }}" rel='stylesheet' type='text/css'>
+{% endblock meta %}
+
+{% block content %}
+<main class='hidden' id='article'>
+  <article>
+    <a href="{{ url_for('admin.home') }}" class='small red'>&lt; Back</a>
+    <h2>{{ article['title'] }}</h2>
+    <p>
+      {{ ', '.join(article['authors']) }}
+    </p><br>
+    <div>
+      <a href="{{ url_for('articles.static', filename='pdfs/queue/' + article['title'] + '.pdf') }}" target='_blank' class='btn'>PDF</a>
+    </div><br>
+    <h3>Abstract</h3>
+    <p>{{ article['abstract'] }}</p><br>
+    <h3>Keywords</h3>
+    <p>{{ ', '.join(article['keywords']) }}</p>
+  </article>
+  <aside>
+    <p>
+      Submitted on: {{ article['submitted'].strftime('%d %B %Y') }}
+    </p><br>
+    <p>
+      <a href="{{ url_for('admin.edit', id=article['id']) }}" class='btn'>Edit</a>
+      <a href="{{ url_for('admin.accept', id=article['id']) }}" class='btn green'>Accept</a>
+      <a href="{{ url_for('admin.reject', id=article['id']) }}" class='btn red'>Reject</a>
+    </p><br>
+    <h3>Editors' comments</h3>
+  </aside>
+</main>
+{% endblock content %}
