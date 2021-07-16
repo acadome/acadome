@@ -126,7 +126,12 @@ h3 {
   color: var(--red);
 }
 
-.blue:hover {
+.green {
+  color: var(--green);
+}
+
+.blue:hover,
+.blue:focus {
   color: var(--blue);
 }
 
