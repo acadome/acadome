@@ -14,7 +14,6 @@
       <h2>{{ article['title'] }}</h2>
       {% endif %}
       <p>
-        <span>{{ article['year'] }} | </span>
         {% for author in article['authors'] %}
         {% if author == author_ %}
         {% if author == article['authors'][-1] %}
@@ -51,13 +50,15 @@
     </p>
   </article>
   <aside>
-    {% if article['count'] %}
-    <p>Cited by: {{ article['count'] }}</p>
+    <p>
+      Submitted on: {{ article['submitted'].strftime('%d %B %Y') }}<br>
+      Accepted on: {{ article['accepted'].strftime('%d %B %Y') }}<br>
+      {% if not article['preprint'] %}
+      Published on: {{ article['published'].strftime('%d %B %Y') }}<br>
     <br>
-    {% endif %}
-    {% if not article['preprint'] %}
-    <p>DOI: <a href='#' class='blue'>{{ article['doi'] }}</a></p><br>
-    {% endif %}
+      DOI: <a href='#' class='blue'>{{ article['doi'] }}</a>
+      {% endif %}
+    </p><br>
   </aside>
 </main>
 {% endblock content %}

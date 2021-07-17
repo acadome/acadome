@@ -21,7 +21,11 @@
     {% for article in articles %}
     <div class='article hidden'>
       <p class='small'>
-        <span>{{ article['year'] }} | </span>
+        {% if article['preprint'] %}
+        <span>{{ article['accepted'].strftime('%d %b %Y') }} | </span>
+        {% else %}
+        <span>{{ article['published'].strftime('%d %b %Y') }} | </span>
+        {% endif %}
         {% for author in article['authors'] %}
         {% if author == article['authors'][-1] %}
         <span><a href="{{ url_for('articles.author_search', author=author.replace(' ', '_')) }}" class='blue'>{{ author }}</a></span>
