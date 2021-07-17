@@ -30,8 +30,10 @@ def sign_up():
             'email': form.email.data,
             'password': hashed,
             'created': datetime.utcnow(),
+            'role': 'researcher',
             'verified': False,
-            'expires': datetime.utcnow() + timedelta(1)
+            'expires': datetime.utcnow() + timedelta(1),
+            'articles': []
         })
         token = get_token(form.email.data, expires=24*60*60)
         msg = Message(
@@ -79,7 +81,8 @@ def login():
 
 @users.route('/')
 @um.user_required
-@um.admin_redirect
+@um.redirect('editor', 'editors.home')
+@um.redirect('admin', 'admin.home')
 def account():
     articles = []
     for id in um.user['articles'][::-1]:
