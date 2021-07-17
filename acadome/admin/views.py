@@ -63,6 +63,7 @@ def accept(id):
     article = find_article(id)
     article['status'] = 'Accepted'
     article['accepted'] = datetime.utcnow()
+    article['preprint'] = True
     msg = Message(
         'Preprint Accepted',
         sender=app.config['MAIL_USERNAME'],

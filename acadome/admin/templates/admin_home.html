@@ -13,13 +13,7 @@
     <div class='article hidden'>
       <p class='small'>
         <span>{{ article['submitted'].strftime('%d %b %Y') }} | </span>
-        {% for author in article['authors'] %}
-        {% if author == article['authors'][-1] %}
-        <span>{{ author }}</span>
-        {% else %}
-        <span>{{ author }}, </span>
-        {% endif %}
-        {% endfor %}
+        <span>{{ ', '.join(article['authors']) }}</span>
       </p>
       <p>
         <a href="{{ url_for('admin.article', id=article['id']) }}" class='blue'>{{ article['title'] }}</a>
