@@ -102,16 +102,17 @@ def edit_account():
         db.users.update_one({'email': um.user['email']}, {
             '$set': {
                 'name': form.name.data,
-                'affiliation': form.affiliation.data,
-                'email': form.email.data
+                'affiliation': form.affiliation.data
             }
         })
         if form.email.data != um.user['email']:
-            db.users.update_one({'email': form.email.data}, {
+            db.users.update_one({'email': um.user['email']}, {
                 '$set': {
+                    'email': form.email.data,
                     'verified': False,
                     'expires': datetime.utcnow() + timedelta(1)
-                }
+                },
+                '$push': {'old_emails': um.user['email']}
             })
             token = get_token(form.email.data, expires=24*60*60)
             msg = Message(
