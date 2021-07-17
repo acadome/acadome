@@ -28,11 +28,11 @@ if (window.location.pathname.split('/')[2] == 'edit_article') {
       authors.default = article['authors'].join(', ');
       abstract.default = article['abstract'];
       keywords.default = article['keywords'].join(', ');
+      form.form.elements['field'].value = article['field'];
       reviewers.default = article['reviewers'];
-      form._form.elements['field'].value = article['field'];
       form.validate(
         text=[title, authors, abstract, keywords, reviewers]
       );
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log(error));
 }

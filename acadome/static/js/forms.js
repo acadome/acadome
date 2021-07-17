@@ -1,6 +1,6 @@
 class Form {
   constructor(form_id) {
-    this._form = document.getElementById(form_id);
+    this.form = document.getElementById(form_id);
     this._green = '#00ab66';
     this._red = '#d11a2a';
     this._flags = [false, false, false];
@@ -48,7 +48,7 @@ class Form {
     }
 
     validators.forEach((val, i) => {
-      var field = this._form.elements[val['name']];
+      var field = this.form.elements[val['name']];
       if (val['default']) {
         field.value = val['default'];
         flags[i] = this._pass(field, val['border']);
@@ -84,9 +84,9 @@ class Form {
       });
     });
 
-    this._form.addEventListener('submit', event => {
+    this.form.addEventListener('submit', event => {
       validators.forEach((val, i) => {
-        var field = this._form.elements[val['name']];
+        var field = this.form.elements[val['name']];
         if (!field.value.trim().length) {
           if (val['required']) {
             flags[i] = this._fail(field);
@@ -106,25 +106,25 @@ class Form {
   }
 
   _validateBooleanField(field) {
-    this._form.elements[field].addEventListener('change', event => {
+    this.form.elements[field].addEventListener('change', event => {
       if (event.target.checked) {
-        this._form.elements[field].style.outline = `2px solid #fff`;
+        this.form.elements[field].style.outline = `2px solid #fff`;
         this._flags[1] = true;
       } else {
-        this._form.elements[field].style.outline = `2px solid ${this._red}`;
+        this.form.elements[field].style.outline = `2px solid ${this._red}`;
         this._flags[1] = false;
       }
     });
-    this._form.addEventListener('submit', () => {
+    this.form.addEventListener('submit', () => {
       if (!this._flags[1]) {
-        this._form.elements[field].style.outline = `2px solid ${this._red}`;
+        this.form.elements[field].style.outline = `2px solid ${this._red}`;
       }
     });
   }
 
   _validateFileField(field) {
-    var fileName = this._form.elements['file-name'];
-    this._form.elements[field].addEventListener('change', event => {
+    var fileName = this.form.elements['file-name'];
+    this.form.elements[field].addEventListener('change', event => {
       if (event.target.files[0]) {
         var upload = event.target.files[0];
         fileName.value = upload.name;
@@ -140,7 +140,7 @@ class Form {
         }
       }
     });
-    this._form.addEventListener('submit', () => {
+    this.form.addEventListener('submit', () => {
       if (!this._flags[2]) {
         this._fail(fileName);
       }
@@ -159,7 +159,7 @@ class Form {
     } else {
       this._flags[2] = true;
     }
-    this._form.addEventListener('submit', () => {
+    this.form.addEventListener('submit', () => {
       if (this._flags.includes(false)) {
         event.preventDefault();
       } else {
