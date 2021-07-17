@@ -12,21 +12,21 @@ def find_article(id):
 
 @admin.route('/')
 @um.user_required
-@um.admin_access
+@um.access('admin')
 def home():
     articles = db.queue.find().sort([('submitted', 1)])
-    return render_template('admin_home.html', title='Admin', um=um, articles=articles)
+    return render_template('admin_home.html', title='Admin', articles=articles, um=um)
 
 @admin.route('/article/<string:id>')
 @um.user_required
-@um.admin_access
+@um.access('admin')
 def article(id):
     article = find_article(id)
-    return render_template('admin_article.html', title=article['title'], um=um, article=article)
+    return render_template('admin_article.html', title=article['title'], article=article, um=um)
 
 @admin.route('/article_json/<string:id>')
 @um.user_required
-@um.admin_access
+@um.access('admin')
 def article_json(id):
     article = find_article(id)
     article.pop('_id', None)
@@ -34,7 +34,7 @@ def article_json(id):
 
 @admin.route('/edit_article/<string:id>', methods=['GET', 'POST'])
 @um.user_required
-@um.admin_access
+@um.access('admin')
 def edit(id):
     article = find_article(id)
     form = EditArticleForm(request.form)
@@ -56,9 +56,9 @@ def edit(id):
         return redirect(url_for('admin.article', id=id))
     return render_template('edit_article.html', title=f'Edit article | {id}', id=id, um=um, form=form)
 
-@admin.route('/accept_article/<string:id>')
+@admin.route('/article/<string:id>/accept')
 @um.user_required
-@um.admin_access
+@um.access('admin')
 def accept(id):
     article = find_article(id)
     article['status'] = 'Accepted'
@@ -69,7 +69,7 @@ def accept(id):
         recipients=[article['uploader']]
     )
     msg.body = '''
-Your preprint has been accepted and will be sent for peer review.
+Your preprint has been accepted.
 
 Yours sincerely,
 Team AcaDome'''
@@ -78,9 +78,9 @@ Team AcaDome'''
     db.queue.delete_one({'id': id})
     return redirect(url_for('admin.home'))
 
-@admin.route('/reject_article/<string:id>')
+@admin.route('/article/<string:id>/reject')
 @um.user_required
-@um.admin_access
+@um.access('admin')
 def reject(id):
     article = find_article(id)
     article['status'] = 'Rejected'
