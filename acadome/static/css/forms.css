@@ -44,10 +44,6 @@ select:focus {
   border: var(--blue) solid 2px;
 }
 
-input[type='checkbox']:focus {
-  outline: 2px solid var(--blue);
-}
-
 input[type='text'].field-error,
 input[type='password'].field-error,
 textarea.field-error {
