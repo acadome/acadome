@@ -14,13 +14,15 @@ bcrypt = Bcrypt(app)
 mail = Mail(app)
 um = UserManager(app)
 
-from acadome.gen import gen
 from acadome.admin import admin
-from acadome.articles import articles
+from acadome.editors import editors
 from acadome.users import users
+from acadome.articles import articles
+from acadome.gen import gen
 from acadome.errors import errors
 app.register_blueprint(admin)
+app.register_blueprint(editors)
+app.register_blueprint(users)
 app.register_blueprint(articles)
 app.register_blueprint(gen)
-app.register_blueprint(users)
 app.register_blueprint(errors)
