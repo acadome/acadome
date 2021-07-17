@@ -1,18 +1,26 @@
-#danger {
-  color: var(--red);
+.publish-btn {
+  float: right;
 }
 
-#dashboard {
+.table {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 1fr;
 }
 
-#account {
-  border: green solid;
-  padding: 40px;
+.table h3,
+.table p {
+  padding: 5px 0;
+  padding-right: 40px;
 }
 
-#articles {
-  border: red solid;
-  padding: 40px;
+.table h3 {
+  border-bottom: var(--grey) solid 1px;
+}
+
+.accepted {
+  color: var(--green);
+}
+
+.rejected {
+  color: var(--red);
 }
