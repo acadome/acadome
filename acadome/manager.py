@@ -12,7 +12,7 @@ class UserManager:
         user.pop('_id', None)
         user.pop('password', None)
         if user['email'] == self._admin:
-            user['admin'] = True
+            user['role'] = 'admin'
         self.user = user
 
     def user_required(self, func):
@@ -31,20 +31,22 @@ class UserManager:
         wrapper.__name__ = func.__name__
         return wrapper
 
-    def admin_access(self, func):
-        def wrapper(*args, **kwargs):
-            if self.user['email'] != self._admin:
-                abort(403)
-            return func(*args, **kwargs)
-        wrapper.__name__ = func.__name__
-        return wrapper
-
-    def admin_redirect(self, func):
-        def wrapper(*args, **kwargs):
-            try:
-                if self.user['admin']:
-                    return redirect(url_for('admin.home'))
-            except KeyError:
+    def access(self, role):
+        def _access(func):
+            def wrapper(*args, **kwargs):
+                if self.user['role'] != role:
+                    abort(403)
                 return func(*args, **kwargs)
-        wrapper.__name__ = func.__name__
-        return wrapper
+            wrapper.__name__ = func.__name__
+            return wrapper
+        return _access
+
+    def redirect(self, role, route):
+        def _redirect(func):
+            def wrapper(*args, **kwargs):
+                if self.user['role'] == role:
+                    return redirect(url_for(route))
+                return func(*args, **kwargs)
+            wrapper.__name__ = func.__name__
+            return wrapper
+        return _redirect
