@@ -24,11 +24,6 @@
     <p>
       Submitted on: {{ article['submitted'].strftime('%d %B %Y') }}
     </p><br>
-    <p>
-      <a href="{{ url_for('admin.edit', id=article['id']) }}" class='btn'>Edit</a>
-      <a href="{{ url_for('admin.accept', id=article['id']) }}" class='btn green'>Accept</a>
-      <a href="{{ url_for('admin.reject', id=article['id']) }}" class='btn red'>Reject</a>
-    </p><br>
     <h3>Editors' comments</h3>
   </aside>
 </main>
