@@ -8,7 +8,8 @@ from acadome.editors import editors
 @um.access('editor')
 def home():
     articles = db.queue.find().sort([('submitted', 1)])
-    return render_template('editors_home.html', title='Editor', articles=articles, um=um)
+    fields = db.fields.find().sort([('name', 1)])
+    return render_template('editors_home.html', title='Editor', articles=articles, fields=fields, um=um)
 
 @editors.route('/article/<string:id>')
 @um.user_required

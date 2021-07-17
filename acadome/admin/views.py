@@ -15,7 +15,8 @@ def find_article(id):
 @um.access('admin')
 def home():
     articles = db.queue.find().sort([('submitted', 1)])
-    return render_template('admin_home.html', title='Admin', articles=articles, um=um)
+    fields = db.fields.find().sort([('name', 1)])
+    return render_template('admin_home.html', title='Admin', articles=articles, fields=fields, um=um)
 
 @admin.route('/article/<string:id>')
 @um.user_required
@@ -61,9 +62,13 @@ def edit(id):
 @um.access('admin')
 def accept(id):
     article = find_article(id)
-    article['status'] = 'Accepted'
-    article['accepted'] = datetime.utcnow()
-    article['preprint'] = True
+    db.queue.update_one({'id': id}, {
+        '$set': {
+            'status': 'Accepted',
+            'accepted': datetime.utcnow(),
+            'preprint': True
+        }
+    })
     msg = Message(
         'Preprint Accepted',
         sender=app.config['MAIL_USERNAME'],
@@ -75,8 +80,7 @@ Your preprint has been accepted.
 Yours sincerely,
 Team AcaDome'''
     mail.send(msg)
-    db.articles.insert_one(article)
-    db.queue.delete_one({'id': id})
+    db.articles.insert_one(db.queue.find_one({'id': id}))
     return redirect(url_for('admin.home'))
 
 @admin.route('/article/<string:id>/reject')
