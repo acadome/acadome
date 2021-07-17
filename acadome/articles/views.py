@@ -18,19 +18,16 @@ def home():
 
 @articles.route('/fields')
 def fields():
-    fields_ = []
-    for article in db.articles.find():
-        if article['field'] not in fields_:
-            fields_.append(article['field'])
+    fields = db.fields.find().sort([('name', 1)])
     return render_template('fields.html', title='Fields of research', fields=sorted(fields_), um=um)
 
 @articles.route('/field/<string:field>')
 def field_search(field):
-    field_ = field.replace('_', ' ')
-    if not db.articles.count_documents({'field': field_}):
+    field = field.replace('_', ' ')
+    if not db.fields.find_one({'field': field}):
         abort(404)
-    articles = db.articles.find({'field': field_}).sort([('year', -1), ('title', 1)])
-    return render_template('search.html', title=field_, articles=articles, um=um)
+    articles = db.articles.find({'field': field}).sort([('year', -1), ('title', 1)])
+    return render_template('search.html', title=field, articles=articles, um=um)
 
 @articles.route('/author/<string:author>')
 def author_search(author):
