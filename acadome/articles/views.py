@@ -18,19 +18,24 @@ def home():
 
 @articles.route('/fields')
 def fields():
-    fields_ = db.fields.find().sort('name')
-    return render_template('fields.html', title='Fields of research', fields=fields_, um=um)
+    fields_ = []
+    for article in db.articles.find():
+        if article['field'] not in fields_:
+            fields_.append(article['field'])
+    return render_template('fields.html', title='Fields of research', fields=sorted(fields_), um=um)
 
 @articles.route('/field/<string:field>')
 def field_search(field):
     field_ = field.replace('_', ' ')
+    if not db.articles.count_documents({'field': field_}):
+        abort(404)
     articles = db.articles.find({'field': field_}).sort([('year', -1), ('title', 1)])
-    return render_template('search.html', title=field_, query=field_, articles=articles, um=um)
+    return render_template('search.html', title=field_, articles=articles, um=um)
 
 @articles.route('/author/<string:author>')
 def author_search(author):
     author_ = author.replace('_', ' ')
-    if not db.authors.find_one({'name': author_}):
+    if not db.articles.count_documents({'authors': author_}):
         abort(404)
     articles = db.articles.find({'authors': author_}).sort([('year', -1), ('title', 1)])
     return render_template('search.html', title=author_, query=author_, articles=articles, um=um)
@@ -68,7 +73,6 @@ def publish():
             'keywords': keywords,
             'field': form.field.data,
             'reviewers': reviewers,
-            'preprint': True,
             'status': 'Submitted',
             'uploader': um.user['email']
         })
