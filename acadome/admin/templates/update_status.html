@@ -1,0 +1,42 @@
+{% extends '_base.html' %}
+{% from '_form_field.html' import render_field %}
+
+{% block meta %}
+<link rel='stylesheet' href="{{ url_for('forms.static', filename='style.css') }}" type='text/css'>
+<script defer src="{{ url_for('forms.static', filename='router.js') }}" type='text/javascript'></script>
+{% endblock meta %}
+
+{% block content %}
+<main class='hidden'>
+  <form action="{{ url_for('admin.update_status', id=article['id']) }}" method='POST' autocomplete='off' id='update-status-form'>
+    <h2>Update status</h2>
+    <div class='field'>
+      <label for='status'>Status</label>
+      <select name='status'>
+        {% if article['status'] == 'Submitted' %}
+        <option value='Accepted'>Accepted</option>
+        <option value='Rejected'>Rejected</option>
+        {% elif article['status'] == 'Accepted' %}
+        <option value='Under review'>Under review</option>
+        <option value='Being typeset'>Being typeset</option>
+        <option value='Published'>Published</option>
+        <option value='Rejected'>Rejected</option>
+        {% endif %}
+      </select>
+    </div><br>
+    <div class='field hidden' id='editor'>
+      <label for='editor'>Assign editor</label>
+      <select name='editor'>
+        {% for editor in editors %}
+        <option value="{{ editor['name'] }}">{{ editor['name'] }}</option>
+        {% endfor %}
+      </select><br><br>
+    </div>
+    <div class='fields-flex'>
+      <span><a href="{{ url_for('admin.article', id=article['id']) }}" class='red'>Back</a></span>
+      <button type='submit' class='btn'>Update</button>
+    </div>
+    <img src="{{ url_for('static', filename='gifs/spinner.gif') }}" width='24px' height='24px' class='spinner'>
+  </form>
+</main>
+{% endblock content %}
