@@ -135,6 +135,10 @@ h3 {
   color: var(--blue);
 }
 
+.no-list {
+  list-style-type: none;
+}
+
 .hidden {
   display: none;
 }
@@ -144,6 +148,23 @@ h3 {
   max-width: 480px;
   margin: 20px auto;
   line-height: 2;
+}
+
+.grid31 {
+  width: 85vw;
+  margin: 20px auto;
+}
+
+.grid31 h2 {
+  line-height: 1.6;
+}
+
+.grid31 h3 {
+  text-transform: uppercase;
+}
+
+.subsection {
+  padding-bottom: 32px;
 }
 
 #flash {
@@ -174,6 +195,13 @@ h3 {
 }
 
 @media screen and (min-width: 1366px) {
+  .grid31 {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 120px;
+    padding: 40px 0;
+  }
+
   #flash {
     top: 70px;
     width: 30vw;
