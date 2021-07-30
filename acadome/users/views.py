@@ -5,7 +5,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous.exc import SignatureExpired
 from acadome import app, db, mail, bcrypt, um
 from acadome.users import users
-from acadome.users.forms import SignUpForm, LoginForm, EditAccountForm, ResetPasswordForm1, ResetPasswordForm2, DeleteForm
+from acadome.forms.models import SignUpForm, LoginForm, EditAccountForm, RequestResetForm, ResetPasswordForm, DeleteForm
 
 def get_token(email, expires=300):
     s = Serializer(app.config['SECRET_KEY'], expires)
@@ -30,10 +30,10 @@ def sign_up():
             'email': form.email.data,
             'password': hashed,
             'created': datetime.utcnow(),
-            'role': 'researcher',
+            'role': 'author',
+            'articles': [],
             'verified': False,
             'expires': datetime.utcnow() + timedelta(1),
-            'articles': []
         })
         token = get_token(form.email.data, expires=24*60*60)
         msg = Message(
@@ -54,7 +54,7 @@ Yours sincerely,
 Team AcaDome'''
         mail.send(msg)
         flash(f'An email has been sent to {form.email.data} with a link to verify your account. The link will be active for 24 hours, after which your account will be deleted if not verified. You cannot login until your account is verified.')
-        return redirect(url_for('users.login'))
+        return url_for('users.login') if form.js.data else redirect(url_for('users.login'))
     return render_template('sign_up.html', title='Sign Up', um=um, form=form)
 
 @users.route('/verify/<token>')
@@ -76,7 +76,7 @@ def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
         um.set_user(db.users.find_one({'email': form.email.data}))
-        return redirect(url_for('users.account'))
+        return url_for('users.account') if form.js.data else redirect(url_for('users.account'))
     return render_template('login.html', title='Login', um=um, form=form)
 
 @users.route('/')
@@ -133,13 +133,13 @@ Team AcaDome'''
             mail.send(msg)
             um.reset_user()
             flash(f'An email has been sent to {form.email.data} with a link to verify your account. The link will be active for 24 hours, after which your account will be deleted if not verified. You cannot login until your account is verified.')
-            return redirect(url_for('users.login'))
+            return url_for('users.login') if form.js.data else redirect(url_for('users.login'))
         um.reset_user()
         um.set_user(db.users.find_one({'email': form.email.data}))
-        return redirect(url_for('users.account'))
+        return url_for('users.account') if form.js.data else redirect(url_for('users.account'))
     return render_template('edit_account.html', title='Edit Account', um=um, form=form)
 
-def reset_password(email):
+def reset_link(email):
     token = get_token(email)
     msg = Message(
         'Password Reset',
@@ -149,35 +149,35 @@ def reset_password(email):
     msg.body = f'''
 To reset your password, click on the following link:
 
-{url_for('users.reset_password2', token=token, _external=True)}
+{url_for('users.reset_password', token=token, _external=True)}
 
 Yours sincerely,
 Team AcaDome'''
     mail.send(msg)
     flash(f'An email has been sent to {email} with a link to reset your password. The link will expire in 5 minutes.')
-    return redirect(url_for('users.logout'))
+    return url_for('users.logout') if form.js.data else redirect(url_for('users.logout'))
 
 @users.route('/reset_password', methods=['GET', 'POST'])
-def reset_password1():
+def request_reset():
     if um.user:
-        return reset_password(um.user['email'])
-    form = ResetPasswordForm1(request.form)
+        return redirect(reset_link(um.user['email']))
+    form = RequestResetForm(request.form)
     if request.method == 'POST' and form.validate():
-        return reset_password(form.email.data)
-    return render_template('reset_password1.html', title='Reset password', um=um, form=form)
+        return reset_link(form.email.data)
+    return render_template('request_reset.html', title='Request password reset', um=um, form=form)
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
-def reset_password2(token):
+def reset_password(token):
     email = verify_token(token)
-    form = ResetPasswordForm2(request.form)
+    form = ResetPasswordForm(request.form)
     if request.method == 'POST' and form.validate():
         hashed = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         db.users.update_one({'email': email}, {
             '$set': {'password': hashed}
         })
         flash('Your password has been updated. Please login again.')
-        return redirect(url_for('users.logout'))
-    return render_template('reset_password2.html', title='Reset password', um=um, form=form, token=token)
+        return url_for('users.logout') if form.js.data else redirect(url_for('users.logout'))
+    return render_template('reset_password.html', title='Reset password', um=um, form=form, token=token)
 
 @users.route('/logout')
 @um.user_required
@@ -209,5 +209,5 @@ Team AcaDome'''
         mail.send(msg)
         um.reset_user()
         flash('Your account has been deleted. You can restore your account anytime by emailing us at team.acadome@gmail.com.')
-        return redirect(url_for('articles.home'))
+        return url_for('articles.home') if form.js.data else redirect(url_for('articles.home'))
     return render_template('delete.html', title='Delete account', um=um, form=form)

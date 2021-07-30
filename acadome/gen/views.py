@@ -2,7 +2,7 @@ from flask import render_template, request, flash
 from flask_mail import Message
 from acadome import app, um, mail
 from acadome.gen import gen
-from acadome.gen.forms import ContactForm
+from acadome.forms.models import ContactForm
 
 @gen.route('/about')
 def about():
@@ -53,5 +53,5 @@ Yours sincerely,
 Team AcaDome'''
         mail.send(msg2)
         flash('Your query has been submitted successfully.')
-        return redirect(url_for('articles.home'))
+        return url_for('articles.home') if form.js.data else redirect(url_for('articles.home'))
     return render_template('contact.html', title='Contact', um=um, form=form)
