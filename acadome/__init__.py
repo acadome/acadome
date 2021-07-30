@@ -19,10 +19,12 @@ from acadome.editors import editors
 from acadome.users import users
 from acadome.articles import articles
 from acadome.gen import gen
+from acadome.forms import forms
 from acadome.errors import errors
 app.register_blueprint(admin)
 app.register_blueprint(editors)
 app.register_blueprint(users)
 app.register_blueprint(articles)
 app.register_blueprint(gen)
+app.register_blueprint(forms)
 app.register_blueprint(errors)

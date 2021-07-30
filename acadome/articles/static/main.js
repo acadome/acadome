@@ -1,13 +1,3 @@
-// SEARCH
-if (window.location.pathname == '/') {
-  const search = document.getElementById('search-form');
-  search.addEventListener('submit', event => {
-    if (!search.elements['search'].value.trim().length) {
-      event.preventDefault();
-    }
-  });
-}
-
 // ARTICLES PAGINATION
 function paginate(objects, per_page) {
   objects.forEach(object => object.style.display = 'none');
@@ -63,31 +53,4 @@ if (!articles.length && document.querySelector('.no-results')) {
   window.addEventListener('hashchange', () => paginate(articles, per_page));
 } else {
   articles.forEach(article => article.style.display = 'block');
-}
-
-// PUBLISH
-if (window.location.pathname.split('/')[2] == 'publish') {
-  var title = new Validators(
-    'title', [256], /[\s\S]+/
-  )
-
-  var authors = new Validators(
-    'authors', [256], /^[a-zA-Z \-\'\,]+$/, false
-  )
-
-  var abstract = new Validators(
-    'abstract', [1024], /[\s\S]+/
-  )
-
-  var keywords = new Validators(
-    'keywords', [5, 256], /[\s\S]+/
-  )
-
-  var reviewers = new Validators(
-    'reviewers', [256], /[\s\S]*/
-  )
-
-  new Form('publish-form').validate(
-    text=[title, authors, abstract, keywords, reviewers], boolean='pa', file='file'
-  );
 }
