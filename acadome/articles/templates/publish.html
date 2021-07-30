@@ -2,9 +2,9 @@
 {% from '_form_field.html' import render_field %}
 
 {% block meta %}
-<link href="{{ url_for('static', filename='css/forms.css') }}" rel='stylesheet' type='text/css'>
-<script defer src="{{ url_for('static', filename='js/forms.js') }}" type='text/javascript'></script>
-<script defer src="{{ url_for('articles.static', filename='main.js') }}" type='text/javascript'></script>
+<link rel='stylesheet' href="{{ url_for('forms.static', filename='style.css') }}" type='text/css'>
+<script defer src="{{ url_for('forms.static', filename='main.js') }}" type='text/javascript'></script>
+<script defer src="{{ url_for('forms.static', filename='router.js') }}" type='text/javascript'></script>
 {% endblock meta %}
 
 {% block content %}
@@ -12,25 +12,44 @@
   <form action="{{ url_for('articles.publish') }}" method='POST' enctype='multipart/form-data' autocomplete='off' id='publish-form'>
     {{ form.csrf_token }}
     <h2>Publish with AcaDome</h2>
-    <p>Before you send us your preprint, please read the <a href="" class='link'>editorial workflow</a>.</p><br>
+    <p>Before you send us your preprint, please read the <a href="" class='orange'>guidelines</a>.</p><br>
     {{ render_field(form.title) }}
     {{ render_field(form.authors) }}
     {{ render_field(form.abstract) }}
     {{ render_field(form.keywords) }}
     {{ render_field(form.field) }}
-    <div class='field fields-flex'>
-      <div>
-        {{ form.file.label(class='btn') }}
-        {{ form.file(id='file', class='hidden') }}
+    <div class='field'>
+      <label>Upload files</label>
+      <div class='fields-flex'>
+        <div>
+          {{ form.preprint.label(class='btn') }}
+          {{ form.preprint(class='hidden') }}
+        </div>
+        {% if form.preprint.errors %}
+        <input type='text' name='preprint-name' class='field-error' disabled>
+        {% else %}
+        <input type='text' name='preprint-name' disabled>
+        {% endif %}
       </div>
-      {% if form.file.errors %}
-      <input type='text' name='file-name' class='field-error' disabled>
-      {% else %}
-      <input type='text' name='file-name' disabled>
-      {% endif %}
+      <div class='field-error-desc'>
+        <span id='preprint-error' class='small'>{{ form.preprint.errors[0] }}</span><br>
+      </div>
     </div>
-    <div class='field-error-desc'>
-      <span id='file-name-error' class='small'>{{ form.file.errors[0] }}</span><br>
+    <div class='field'>
+      <div class='fields-flex'>
+        <div>
+          {{ form.images.label(class='btn') }}
+          {{ form.images(id='images', class='hidden') }}
+        </div>
+        {% if form.images.errors %}
+        <input type='text' name='images-name' class='field-error' disabled>
+        {% else %}
+        <input type='text' name='images-name' disabled>
+        {% endif %}
+      </div>
+      <div class='field-error-desc'>
+        <span id='images-error' class='small'>{{ form.images.errors[0] }}</span><br>
+      </div>
     </div>
     {{ render_field(form.reviewers) }}
     <div class='field fields-flex'>

@@ -9,7 +9,7 @@
   <h2>Fields of research</h2>
   <ul class='fields-grid'>
     {% for field in fields %}
-    <li><a href="{{ url_for('articles.field_search', field=field.replace(' ', '_')) }}">{{ field }}</a></li>
+    <li><a href="{{ url_for('articles.field_search', field=field['name'].replace(' ', '_')) }}">{{ field['name'] }}</a></li>
     {% endfor %}
   </ul>
 </main>

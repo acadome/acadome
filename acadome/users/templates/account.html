@@ -1,19 +1,18 @@
 {% extends '_base.html' %}
 
 {% block meta %}
-<link href="{{ url_for('articles.static', filename='style.css') }}" rel='stylesheet' type='text/css'>
-<link href="{{ url_for('users.static', filename='style.css') }}" rel='stylesheet' type='text/css'>
+<link rel='stylesheet' href="{{ url_for('users.static', filename='style.css') }}" type='text/css'>
 {% endblock meta %}
 
 {% block content %}
-<main class='hidden' id='article'>
+<main class='grid31 hidden'>
   <article>
-    <section>
+    <section class='subsection'>
       <p class='publish-btn'>
         <a href="{{ url_for('articles.publish') }}" class='btn'>+ Publish</a>
       </p>
       <h2>Articles</h2><br>
-      <div class='table'>
+      <div class='status-table'>
         <h3>Title</h3>
         <h3>Status</h3>
         {% for article in articles %}
@@ -21,11 +20,18 @@
         <p class="{{ article['status'].lower() }}">{{ article['status'] }}</p>
         {% endfor %}
       </div>
-    </section><br>
-    <section>
+    </section>
+    <section class='subsection'>
       <h2>Inbox</h2><br>
       {% if um.user['inbox'] %}
-
+      <div class='inbox-table'>
+        <h3>Sender</h3>
+        <h3>Message</h3>
+        {% for mail in um.user['inbox'][::-1] %}
+        <p>{{ mail['sender'] }}</p>
+        <p>{{ mail['message'] }}</p>
+        {% endfor %}
+      </div>
       {% else %}
       <p>No messages.</p>
       {% endif %}
@@ -37,17 +43,17 @@
     <dl>
       <dt class='small'>Name</dt>
       <dd>{{ um.user['name'] }}</dd><br>
-      <dt class='small'>Email address</dt>
-      <dd>{{ um.user['email'] }}</dd><br>
       {% if um.user['affiliation'] %}
       <dt class='small'>Affiliation</dt>
       <dd>{{ um.user['affiliation'] }}</dd><br>
       {% endif %}
+      <dt class='small'>Email address</dt>
+      <dd>{{ um.user['email'] }}</dd><br>
     </dl>
     <p>
       <a href="{{ url_for('users.edit_account') }}" class='btn'>Edit</a>
-      <a href="{{ url_for('users.delete') }}" class='btn red'>Delete</a>
-      <a href="{{ url_for('users.reset_password1') }}" class='red'>Change password</a>
+      <a href="{{ url_for('users.delete') }}" class='btn red'>Delete</a><br>
+      <a href="{{ url_for('users.request_reset') }}" class='red'>Change password</a>
     </p>
   </aside>
 </main>

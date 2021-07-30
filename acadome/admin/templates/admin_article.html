@@ -1,19 +1,13 @@
 {% extends '_base.html' %}
 
-{% block meta %}
-<link href="{{ url_for('articles.static', filename='style.css') }}" rel='stylesheet' type='text/css'>
-{% endblock meta %}
-
 {% block content %}
-<main class='hidden' id='article'>
+<main class='grid31 hidden'>
   <article>
-    <a href="{{ url_for('admin.home') }}" class='small red'>&lt; Back</a>
+    <a href="{{ url_for('admin.home') }}" class='small orange'>&lt; Back</a>
     <h2>{{ article['title'] }}</h2>
-    <p>
-      {{ ', '.join(article['authors']) }}
-    </p><br>
+    <p>{{ ', '.join(article['authors']) }}</p><br>
     <div>
-      <a href="{{ url_for('articles.static', filename='pdfs/queue/' + article['title'] + '.pdf') }}" target='_blank' class='btn'>PDF</a>
+      <a href="{{ url_for('articles.static', filename='pdfs/queue/' + article['id'] + '/preprint.pdf') }}" target='_blank' class='btn'>PDF</a>
     </div><br>
     <h3>Abstract</h3>
     <p>{{ article['abstract'] }}</p><br>
@@ -22,14 +16,34 @@
   </article>
   <aside>
     <p>
-      Submitted on: {{ article['submitted'].strftime('%d %B %Y') }}
+      Submitted on: {{ article['submitted'].strftime('%d %B %Y') }}<br>
+      {% if article['preprint'] %}
+      Accepted on: {{ article['accepted'].strftime('%d %B %Y') }}<br>
+      {% endif %}
+    </p><br>
+    <div>
+      <a href="{{ url_for('admin.edit', id=article['id']) }}" class='btn'>Edit</a>
+      <a href="{{ url_for('admin.update_status', id=article['id']) }}" class='btn' id='state'>Update status</a>
+    </div><br>
+    {% if article['votes'] %}
+    <h3>Editors' votes</h3>
+    <p>
+      <span class='green'>Accept [{{ article['votes']['accept']|length }}]</span><br>
+      {{ ', '.join(article['votes']['accept']) }}
     </p><br>
     <p>
-      <a href="{{ url_for('admin.edit', id=article['id']) }}" class='btn'>Edit</a>
-      <a href="{{ url_for('admin.accept', id=article['id']) }}" class='btn green'>Accept</a>
-      <a href="{{ url_for('admin.reject', id=article['id']) }}" class='btn red'>Reject</a>
+      <span class='red'>Reject [{{ article['votes']['reject']|length }}]</span><br>
+      {{ ', '.join(article['votes']['reject']) }}
     </p><br>
-    <h3>Editors' comments</h3>
+    {% endif %}
+    {% if article['reviewers'] %}
+    <h3>Reviewers</h3>
+    {% endif %}
+    <p>{{ ', '.join(article['reviewers']) }}</p>
+    {% if article['editor'] %}
+    <h3>Editor</h3>
+    <p>{{ article['editor'] }}</p>
+    {% endif %}
   </aside>
 </main>
 {% endblock content %}

@@ -1,13 +1,9 @@
 {% extends '_base.html' %}
 
-{% block meta %}
-<link rel='stylesheet' href="{{ url_for('articles.static', filename='style.css') }}" type='text/css'>
-{% endblock meta %}
-
 {% block content %}
-<main class='hidden' id='article'>
+<main class='grid31 hidden'>
   <article>
-    <div>
+    <div class='subsection'>
       {% if article['preprint'] %}
       <h2>[Preprint] {{ article['title'] }}</h2>
       {% else %}
@@ -30,35 +26,48 @@
         {% endif %}
         {% endfor %}
       </p>
-    </div><br>
-    <div>
-      <a href="{{ url_for('articles.static', filename='pdfs/' + article['title'] + '.pdf') }}" target='_blank' class='btn'>PDF</a>
-    </div><br>
-    <div>
+    </div>
+    <div class='subsection'>
+      {% if article['preprint'] %}
+      <a href="{{ url_for('articles.static', filename='pdfs/queue/' + article['id'] + '/preprint.pdf') }}" target='_blank' class='btn'>PDF</a>
+      {% else %}
+      <a href="{{ url_for('articles.static', filename='pdfs/' + article['id'] + '.pdf') }}" target='_blank' class='btn'>PDF</a>
+      {% endif %}
+    </div>
+    <div class='subsection'>
       <h3>Abstract</h3>
       <p>{{ article['abstract'] }}</p>
-    </div><br>
-    <h3>Keywords</h3>
-    <p>
-      {% for kw in article['keywords'] %}
-      {% if kw == article['keywords'][-1] %}
-      <span><a href="{{ url_for('articles.home', search=kw.lower()) }}" class='blue'>{{ kw }}</a></span>
-      {% else %}
-      <span><a href="{{ url_for('articles.home', search=kw.lower()) }}" class='blue'>{{ kw }}</a> | </span>
-      {% endif %}
-      {% endfor %}
-    </p>
+    </div>
+    <div class='subsection'>
+      <h3>Keywords</h3>
+      <p>{{ ' | '.join(article['keywords']) }}</p>
+    </div>
   </article>
   <aside>
-    <p>
-      Submitted on: {{ article['submitted'].strftime('%d %B %Y') }}<br>
-      Accepted on: {{ article['accepted'].strftime('%d %B %Y') }}<br>
-      {% if not article['preprint'] %}
-      Published on: {{ article['published'].strftime('%d %B %Y') }}<br>
-    <br>
-      DOI: <a href='#' class='blue'>{{ article['doi'] }}</a>
-      {% endif %}
-    </p><br>
+    <div class='subsection'>
+      <p>
+        Submitted on: {{ article['submitted'].strftime('%d %B %Y') }}<br>
+        Accepted on: {{ article['accepted'].strftime('%d %B %Y') }}<br>
+        {% if not article['preprint'] %}
+        Published on: {{ article['published'].strftime('%d %B %Y') }}
+        {% endif %}
+      </p>
+    </div>
+    {% if not article['preprint'] %}
+    <div class='subsection'>
+      <h3>DOI</h3>
+      <p><a href='#' class='blue'>{{ article['doi'] }}</a></p>
+    </div>
+    {% endif %}
+    <div class='subsection'>
+      <h3>License</h3>
+      <a rel='license' href='http://creativecommons.org/licenses/by/4.0/' target='_blank'>
+        <img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'>
+      </a><br>
+      <p>
+        Published under a <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>.
+      </p>
+    </div>
   </aside>
 </main>
 {% endblock content %}

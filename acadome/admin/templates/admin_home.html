@@ -1,9 +1,9 @@
 {% extends '_base.html' %}
 
 {% block meta %}
-<link href="{{ url_for('static', filename='css/forms.css') }}" rel='stylesheet' type='text/css'>
-<link href="{{ url_for('articles.static', filename='style.css') }}" rel='stylesheet' type='text/css'>
-<script defer src="{{ url_for('admin.static', filename='main.js') }}" type='text/javascript'></script>
+<link rel='stylesheet' href="{{ url_for('forms.static', filename='style.css') }}" type='text/css'>
+<link rel='stylesheet' href="{{ url_for('articles.static', filename='style.css') }}" type='text/css'>
+<script defer src="{{ url_for('forms.static', filename='router.js') }}" type='text/javascript'></script>
 {% endblock meta %}
 
 {% block content %}
@@ -20,11 +20,13 @@
   <section class='search-grid'>
     {% for article in articles %}
     <div class="article {{ article['field'] }}">
-      <p class='small'>
-        <span>{{ article['submitted'].strftime('%d %b %Y') }} | </span>
-        <span>{{ ', '.join(article['authors']) }}</span>
-      </p>
       <p>
+        {% if article['preprint'] %}
+        <span class='small'>{{ article['accepted'].strftime('%d %b %Y') }} | </span>
+        {% else %}
+        <span class='small'>{{ article['submitted'].strftime('%d %b %Y') }} | </span>
+        {% endif %}
+        <span class='small'>{{ ', '.join(article['authors']) }}</span><br>
         <a href="{{ url_for('admin.article', id=article['id']) }}" class='blue'>{{ article['title'] }}</a>
       </p>
     </div>
